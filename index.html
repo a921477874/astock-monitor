@@ -382,23 +382,23 @@ const INDEX_CODES = [
 ];
 
 const STOCK_CODES = [
-  // 五维评分 v2.0 — 2026-07-15
-  { code: '600887', name: '伊利股份', sector: '消费', status: '推荐', buyZone: '31.50~33.00' },
-  { code: '000001', name: '平安银行', sector: '券商', status: '推荐', buyZone: '10.50~11.00' },
-  { code: '601166', name: '兴业银行', sector: '银行', status: '推荐', buyZone: '17.80~18.50' },
-  { code: '600585', name: '海螺水泥', sector: '建材', status: '推荐', buyZone: '88.00~92.00' },
+  // 五维评分 v2.1 — 中小盘扩大 + T+1权重降低
+  { code: '600569', name: '安阳钢铁', sector: '钢铁', status: '强烈推荐', buyZone: '1.82~1.90' },
+  { code: '000932', name: '华菱钢铁', sector: '钢铁', status: '强烈推荐', buyZone: '4.60~4.75' },
+  { code: '000923', name: '河钢资源', sector: '有色', status: '强烈推荐', buyZone: '22.50~23.50' },
+  { code: '000750', name: '国海证券', sector: '券商', status: '强烈推荐', buyZone: '3.80~3.95' },
 ];
 
 const PICK_CODES = [
-  // 五维评分 v2.0 — 2026-07-15
-  { code: '600887', name: '伊利股份', sector: '消费', reason: 'K线多头✅+T+1安全+PE<20倍，消费防御龙头日K趋势稳健', buyZone: '31.50~33.00' },
-  { code: '000001', name: '平安银行', sector: '券商', reason: 'K线多头✅+T+1安全+PB<1倍，低估值银行趋势向上', buyZone: '10.50~11.00' },
-  { code: '601166', name: '兴业银行', sector: '银行', reason: 'K线多头✅+T+1安全+放量上涨，高股息银行防御首选', buyZone: '17.80~18.50' },
-  { code: '600585', name: '海螺水泥', sector: '建材', reason: 'K线多头✅+放量上涨，建材龙头T+1安全回调低吸', buyZone: '88.00~92.00' },
-  { code: '000651', name: '格力电器', sector: '家电', reason: 'K线多头✅+T+1安全+PE<8倍，低估值家电防御', buyZone: '42.00~43.50' },
-  { code: '600036', name: '招商银行', sector: '银行', reason: 'K线多头✅+T+1安全+PE<7倍，银行龙头高股息', buyZone: '37.00~38.00' },
-  { code: '600030', name: '中信证券', sector: '券商', reason: '站上5日线+T+1安全，券商龙头受益天量成交', buyZone: '27.50~28.50' },
-  { code: '601088', name: '中国神华', sector: '煤炭', reason: 'K线多头✅+高股息+低PE，煤炭龙头防御属性强', buyZone: '39.00~40.50' },
+  // 五维评分 v2.1 — 中小盘扩大 + T+1权重降低
+  { code: '600569', name: '安阳钢铁', sector: '钢铁', reason: '强烈推荐🔥小盘50亿弹性+2.94%，钢铁涨价+低PE+站上MA5', buyZone: '1.82~1.90' },
+  { code: '000932', name: '华菱钢铁', sector: '钢铁', reason: '强烈推荐🔥中盘249亿+1.96%+K线多头✅，钢铁龙头估值低位', buyZone: '4.60~4.75' },
+  { code: '000923', name: '河钢资源', sector: '有色', reason: '强烈推荐🔥小盘87亿+2.66%+站上MA5，资源涨价逻辑', buyZone: '22.50~23.50' },
+  { code: '000750', name: '国海证券', sector: '券商', reason: '强烈推荐🔥中盘221亿+K线多头✅+1.60%，券商受益天量成交', buyZone: '3.80~3.95' },
+  { code: '600585', name: '海螺水泥', sector: '建材', reason: 'K线多头✅+放量+4.62%，中盘702亿+低PE，防御龙头', buyZone: '88.00~92.00' },
+  { code: '600859', name: '王府井', sector: '消费', reason: '小盘110亿+3.59%+站上MA5，消费复苏+免税概念弹性好', buyZone: '13.50~14.50' },
+  { code: '000830', name: '鲁西化工', sector: '化工', reason: '中盘230亿+2.20%+站上MA5，化工涨价+低PE', buyZone: '11.50~12.00' },
+  { code: '002007', name: '华兰生物', sector: '医药', reason: '中盘210亿+K线多头✅+1.68%，生物医药+低估值', buyZone: '21.00~22.00' },
 ];
 
 const SECTORS_FALLBACK = [
