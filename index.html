@@ -473,31 +473,29 @@ async function fetchTencent(codes) {
   }
 }
 
-// 腾讯 qt.gtimg.cn 格式：
-// v_sh000001="1~上证指数~当前价~涨跌幅%~涨跌量~总手~成交额~...~最高~最低~今开~昨收~...~52周高~52周低...";
-// 字段: [1]=name, [3]=当前价, [4]=涨跌幅%, [5]=涨跌量, [6]=成交量(手),
-//        [7]=成交额(元), [9]=最高, [10]=最低, [11]=今开, [12]=昨收,
-//        [16]=换手率%, [17]=PE动, [44]=总市值(亿), [67]=52周高, [68]=52周低
+// 腾讯 qt.gtimg.cn 格式（已验证正确字段索引）：
+// v_sh000001="1~上证指数~000001~当前价~昨收~今开~成交量(手)~...~涨跌额~涨跌幅%~最高~最低...";
+// 标准字段（指数和个股通用）:
+//   [1]=名称, [3]=当前价, [4]=昨收, [5]=今开, [6]=成交量(手)
+//   [31]=涨跌额, [32]=涨跌幅%, [33]=最高, [34]=最低, [37]=成交额(元)
 function parseTencentData(raw) {
   const results = {};
   const lines = raw.split('\n').filter(l => l.trim());
   for (const line of lines) {
     try {
-      // 匹配 v_ 前缀后的 key
       const varMatch = line.match(/v_(\w+)="(.+)"/);
       if (!varMatch) continue;
       const key = varMatch[1].toLowerCase();
       const values = varMatch[2].split('~');
       const name = values[1];
       const current = parseFloat(values[3]) || 0;
-      const changePct = parseFloat(values[4]) || 0;
-      const changeAmt = parseFloat(values[5]) || 0;
+      const prevClose = parseFloat(values[4]) || 0;
+      const open = parseFloat(values[5]) || 0;
       const volume = parseFloat(values[6]) || 0;
-      const amount = (parseFloat(values[7]) || 0) / 100000000; // 亿
-      const high = parseFloat(values[9]) || 0;
-      const low = parseFloat(values[10]) || 0;
-      const open = parseFloat(values[11]) || 0;
-      const prevClose = parseFloat(values[12]) || 0;
+      const changePct = parseFloat(values[32]) || 0;
+      const high = parseFloat(values[33]) || 0;
+      const low = parseFloat(values[34]) || 0;
+      const amount = (parseFloat(values[37]) || 0) / 1000000; // 百万元
       results[key] = {
         name, price: current, change: parseFloat(changePct.toFixed(2)),
         prevClose, high, low, open, volume, amount
@@ -652,7 +650,7 @@ function renderFeeling() {
 
 function renderSignals() {
   const signals = [
-    '📊 实时行情来自新浪财经，每次打开自动获取',
+    '📊 实时行情来自腾讯财经，每次打开自动获取',
     '🎯 精选推荐基于近期产业逻辑+基本面筛选',
     '💰 建议结合实时行情和产业逻辑综合判断',
     '⚠️ 以上数据不构成投资建议',
