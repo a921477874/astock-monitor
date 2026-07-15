@@ -639,11 +639,25 @@ function renderReview() {
 // 历史战绩 — localStorage 持久化
 // ═══════════════════════════════════════════
 
-// 从 localStorage 读取历史记录
+// 宝宝历史战绩初始种子数据（从过往报告提取）
+const SEED_HISTORY = [
+  { date: '2026-07-14', shPrice: 3967.13, shChange: 1.36, direction: '稳健上行', result: '✅ 对', kcChange: 0.77, cybChange: 3.43 },
+  { date: '2026-07-13', shPrice: 3913.80, shChange: 0.92, direction: '震荡反弹', result: '✅ 对', kcChange: 1.85, cybChange: 1.62 },
+  { date: '2026-07-10', shPrice: 3878.12, shChange: -0.34, direction: '震荡整理', result: '➖ 待验证', kcChange: -1.12, cybChange: -0.28 },
+];
+
+// 从 localStorage 读取历史记录（合并种子数据）
 function loadHistory() {
   try {
     const raw = localStorage.getItem('baobao_history');
-    return raw ? JSON.parse(raw) : [];
+    if (raw) {
+      const stored = JSON.parse(raw);
+      // 如果localStorage已有数据，用已有的（避免重复覆盖种子）
+      return stored;
+    }
+    // 首次使用：写入种子数据
+    try { localStorage.setItem('baobao_history', JSON.stringify(SEED_HISTORY)); } catch(e) {}
+    return SEED_HISTORY;
   } catch(e) { return []; }
 }
 
