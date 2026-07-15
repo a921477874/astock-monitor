@@ -410,19 +410,21 @@ body {
 // 腾讯 qt.gtimg.cn 支持 CORS (Access-Control-Allow-Origin: *)
 // ═══════════════════════════════════════════════════════
 
-// 代码映射：腾讯 API 前缀规则 — 6开头=sh，0/3开头=sz
-function toTencent(code) {
+// 代码映射：腾讯 API 前缀规则
+// 股票规则：6xx/9xx=sh(沪市)，0xx/3xx/2xx=sz(深市)
+function toTencent(code, prefix) {
+  if (prefix) return prefix + code;
   if (code.startsWith('6') || code.startsWith('9')) return 'sh' + code;
-  return 'sz' + code;
+  return 'sz' + code;  // 0/2/3/4开头深市
 }
 
 const INDEX_CODES = [
-  { code: '000001', name: '上证指数' },
-  { code: '399001', name: '深证成指' },
-  { code: '399006', name: '创业板指' },
-  { code: '000688', name: '科创50' },
-  { code: '000300', name: '沪深300' },
-  { code: '000016', name: '上证50' },
+  { code: '000001', name: '上证指数', prefix: 'sh' },
+  { code: '399001', name: '深证成指', prefix: 'sz' },
+  { code: '399006', name: '创业板指', prefix: 'sz' },
+  { code: '000688', name: '科创50', prefix: 'sh' },
+  { code: '000300', name: '沪深300', prefix: 'sh' },
+  { code: '000016', name: '上证50', prefix: 'sh' },
 ];
 
 const STOCK_CODES = [
@@ -444,7 +446,7 @@ const PICK_CODES = [
 // 通过腾讯 qt.gtimg.cn 拉取行情数据（支持 CORS ✅）
 async function fetchTencent(codes) {
   // 腾讯API格式：qt.gtimg.cn/q=sh000001,sz399001
-  const qs = codes.map(c => toTencent(c.code)).join(',');
+  const qs = codes.map(c => toTencent(c.code, c.prefix)).join(',');
   const url = `https://qt.gtimg.cn/q=${qs}`;
   try {
     const resp = await fetch(url, {
@@ -523,7 +525,7 @@ function renderMarket(data) {
   }
   let h = '<table class="mkt-table"><thead><tr><th>指数</th><th>最新</th><th>涨跌幅</th></tr></thead><tbody>';
   for (const idx of INDEX_CODES) {
-    const d = data[toTencent(idx.code)];
+    const d = data[toTencent(idx.code, idx.prefix)];
     if (!d) continue;
     const c = cls(d.change);
     h += `<tr>
