@@ -382,23 +382,23 @@ const INDEX_CODES = [
 ];
 
 const STOCK_CODES = [
-  // 三因子+市值弹性 v1.2 — 仅沪A+深A
+  // 四因子+T+1安全 v1.3
   { code: '600585', name: '海螺水泥', sector: '建材', status: '推荐', buyZone: '88.00~92.00' },
+  { code: '600438', name: '通威股份', sector: '新能源', status: '推荐', buyZone: '23.50~24.50' },
   { code: '600887', name: '伊利股份', sector: '消费', status: '推荐', buyZone: '31.50~33.00' },
-  { code: '600030', name: '中信证券', sector: '券商', status: '推荐', buyZone: '27.50~28.50' },
-  { code: '601166', name: '兴业银行', sector: '银行', status: '推荐', buyZone: '17.80~18.50' },
+  { code: '000001', name: '平安银行', sector: '券商', status: '推荐', buyZone: '10.50~11.00' },
 ];
 
 const PICK_CODES = [
-  // 三因子+市值弹性 v1.2 — 仅沪A+深A
-  { code: '600585', name: '海螺水泥', sector: '建材', reason: '逆势+4.62%领涨建材，702亿中盘+低PE，资金防御首选', buyZone: '88.00~92.00' },
-  { code: '600887', name: '伊利股份', sector: '消费', reason: '消费防御+2.57%，PE<20倍，高股息稳健标的', buyZone: '31.50~33.00' },
-  { code: '600030', name: '中信证券', sector: '券商', reason: '成交放量+2.14%，券商直接受益天量成交', buyZone: '27.50~28.50' },
-  { code: '601166', name: '兴业银行', sector: '银行', reason: '银行+2.06%放量，PB<1倍+高股息，避险首选', buyZone: '17.80~18.50' },
-  { code: '600809', name: '山西汾酒', sector: '消费', reason: '消费龙头+7.01%放量大涨，PE25倍，超跌反弹', buyZone: '200~215' },
-  { code: '600690', name: '海尔智家', sector: '家电', reason: '家电防御+3.39%，PE14倍，高股息低估值', buyZone: '28.50~30.00' },
-  { code: '600519', name: '贵州茅台', sector: '消费', reason: '防御+2.98%，PE19倍合理，消费龙头地位稳固', buyZone: '1230~1260' },
-  { code: '000858', name: '五粮液', sector: '消费', reason: '消费+4.09%放量突破，PE<20倍，估值修复空间', buyZone: '74.00~77.00' },
+  // 四因子+T+1安全 v1.3
+  { code: '600585', name: '海螺水泥', sector: '建材', reason: '逆势+4.62%领涨建材，702亿中盘+低PE，注意T+1偏高', buyZone: '88.00~92.00' },
+  { code: '600438', name: '通威股份', sector: '新能源', reason: '企稳+1.12%安全区间，中盘486亿，硅料龙头估值低位', buyZone: '23.50~24.50' },
+  { code: '600887', name: '伊利股份', sector: '消费', reason: '消费防御+2.57%，PE<20倍+高股息，T+1安全', buyZone: '31.50~33.00' },
+  { code: '000001', name: '平安银行', sector: '券商', reason: '银行+1.40%温和放量，PB<1倍+T+1安全，避险首选', buyZone: '10.50~11.00' },
+  { code: '600030', name: '中信证券', sector: '券商', reason: '成交放量+2.14%，券商龙头+T+1安全区间', buyZone: '27.50~28.50' },
+  { code: '601166', name: '兴业银行', sector: '银行', reason: '银行+2.06%，PB<1倍+高股息，安全边际充足', buyZone: '17.80~18.50' },
+  { code: '002241', name: '歌尔股份', sector: '电子', reason: '电子+2.39%安全区间，中盘700亿弹性好+估值合理', buyZone: '20.80~21.50' },
+  { code: '002920', name: '德赛西威', sector: '汽车', reason: '汽车智能化+2.62%，T+1安全，智能驾驶赛道', buyZone: '98.00~102.00' },
 ];
 
 const SECTORS_FALLBACK = [
