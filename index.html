@@ -288,7 +288,7 @@ body {
 
   <!-- 重点追踪（左）+ 宝宝板块观点（右）-->
   <div class="card span-6" id="portfolioCard">
-    <div class="card-title"><span class="icon">🔍</span> 重点追踪 <span class="tag tag-blue">恒瑞建仓关注</span></div>
+    <div class="card-title"><span class="icon">🔍</span> 重点追踪 <span class="tag tag-blue">评分Top 4</span></div>
     <div id="portfolioContent" class="loading"><span>⏳ 加载中...</span></div>
   </div>
 
@@ -382,10 +382,12 @@ const INDEX_CODES = [
 ];
 
 const STOCK_CODES = [
-  { code: '600276', name: '恒瑞医药', sector: '创新药', cost: 0, status: '关注建仓', buyZone: '55.50~56.50' },
-  { code: '300059', name: '东方财富', sector: '券商/金融科技', cost: 0, status: '候选' },
-  { code: '000333', name: '美的集团', sector: '家电', cost: 0, status: '候选' },
-  { code: '601127', name: '赛力斯', sector: '新能源汽车', cost: 0, status: '候选' },
+  // 三因子评分 v1.0 — 动态更新，收盘后由报告脚本更新
+  // 当前为 2026-07-15 评分 Top 4
+  { code: '600030', name: '中信证券', sector: '券商', status: '推荐', buyZone: '27.50~28.50' },
+  { code: '300750', name: '宁德时代', sector: '新能源', status: '推荐', buyZone: '365.00~378.00' },
+  { code: '601318', name: '中国平安', sector: '保险', status: '推荐', buyZone: '49.50~51.00' },
+  { code: '000858', name: '五粮液', sector: '消费', status: '推荐', buyZone: '74.00~77.00' },
 ];
 
 const PICK_CODES = [
@@ -645,12 +647,8 @@ function renderPortfolio(data) {
     const c = cls(d.change);
     const perf = sign(d.change) + d.change.toFixed(2) + '%';
     const dotColor = d.change>0?'var(--red)':d.change<0?'var(--green)':'var(--text-dim)';
-    let sub = '<div class="stock-code">'+st.code+' · '+(st.sector||st.status)+'</div>';
-    if (st.cost) {
-      const loss = ((d.price - st.cost) / st.cost * 100).toFixed(1);
-      sub += '<div style="font-size:10px;color:var(--text-dim);margin-top:1px">成本 '+fmt(st.cost)+' · <span style="color:'+(loss<0?'var(--green)':'var(--red)')+'">'+(loss<0?'':'+')+loss+'%</span></div>';
-    }
-    if (st.buyZone && !st.cost) {
+    let sub = '<div class="stock-code">'+st.code+' · '+st.sector+'</div>';
+    if (st.buyZone) {
       const p = d.price, [low, high] = st.buyZone.split('~').map(Number);
       let hint = '';
       if (p >= low && p <= high) hint = '<span style="color:var(--red);font-weight:600">🎯 在买入区间内</span>';
