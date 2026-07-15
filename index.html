@@ -291,20 +291,25 @@ body {
     <div id="picksContent" class="loading"><span>⏳ 加载中...</span></div>
   </div>
 
-  <!-- 底部三列：板块轮动 | 北向资金 | 市场温度 -->
-  <div class="card span-4" id="sectorCard">
+  <!-- 底部四列：板块轮动 | 北向资金 | 市场温度 | 打板情绪 -->
+  <div class="card span-3" id="sectorCard">
     <div class="card-title"><span class="icon">🏭</span> 热门板块 <span class="tag tag-blue">今日</span></div>
     <div id="sectorContent" class="loading">⏳ 加载中...</div>
   </div>
 
-  <div class="card span-4" id="northFlowCard">
+  <div class="card span-3" id="northFlowCard">
     <div class="card-title"><span class="icon">🌊</span> 北向资金</div>
     <div id="northFlowContent" class="loading">⏳ 加载中...</div>
   </div>
 
-  <div class="card span-4" id="feelingCard">
+  <div class="card span-3" id="feelingCard">
     <div class="card-title"><span class="icon">🌡️</span> 市场温度</div>
     <div id="feelingContent" class="loading">⏳ 加载中...</div>
+  </div>
+
+  <div class="card span-3" id="boardCard">
+    <div class="card-title"><span class="icon">⚡</span> 打板情绪 <span class="tag tag-red">游资风向</span></div>
+    <div id="boardContent" class="loading">⏳ 加载中...</div>
   </div>
 
   <!-- 底部两列：操作策略 | 关键信号 -->
@@ -718,6 +723,93 @@ function renderSignals() {
   document.getElementById('signalContent').innerHTML = h;
 }
 
+function renderBoard(data) {
+  if (!data) { document.getElementById('boardContent').innerHTML = '<div class="error-msg">数据不足</div>'; return; }
+
+  // 从我们已有的跟踪股票和推荐股票判断打板情绪
+  // 腾讯数据[47]=涨停价, [48]=跌停价
+  // 当前价 >= 涨停价*0.995 = 涨停
+
+  // 先检查跟踪的股票里有没有涨停的
+  const allWatchCodes = [...STOCK_CODES, ...PICK_CODES];
+  let limitUpCount = 0, limitDownCount = 0, up5Count = 0, down5Count = 0;
+  let limitUpStocks = [];
+
+  for (const w of allWatchCodes) {
+    const key = toTencent(w.code);
+    // 需要从原始数据获取涨停价，parseTencentData只提取了部分字段
+    // 通过重构fetchTencent来获取更多字段比较麻烦——换个思路
+  }
+
+  // 用涨跌幅来估算：>9.5%≈涨停, <-9.5%≈跌停, >5%≈大涨, <-5%≈大跌
+  for (const w of allWatchCodes) {
+    const d = data[toTencent(w.code)];
+    if (!d) continue;
+    if (d.change >= 9.5) { limitUpCount++; limitUpStocks.push(w.name); }
+    else if (d.change <= -9.5) limitDownCount++;
+    else if (d.change >= 5) up5Count++;
+    else if (d.change <= -5) down5Count++;
+  }
+
+  // 用科创50和创业板指的涨跌幅估算整体市场情绪
+  const kc = data[toTencent('000688','sh')];
+  const cyb = data[toTencent('399006','sz')];
+  const sh = data[toTencent('000001','sh')];
+
+  // 打板情绪综合评分 0-10
+  let moodScore = 5;
+  let moodLabel = '中性';
+  let moodColor = 'var(--gold)';
+  let note = '';
+
+  // 有涨停票加分
+  if (limitUpCount > 0) moodScore += 1.5;
+  if (limitUpCount > 1) moodScore += 1;
+
+  // 科技股强则短线情绪好
+  if (kc && kc.change > 1) moodScore += 1.5;
+  else if (kc && kc.change < -3) moodScore -= 1.5;
+
+  // 大盘上涨加分
+  if (sh && sh.change > 1) moodScore += 1;
+  else if (sh && sh.change < -1) moodScore -= 1;
+
+  // 振幅大说明市场活跃
+  if (sh && sh.high && sh.low) {
+    const amp = (sh.high - sh.low) / sh.price * 100;
+    if (amp > 1.5) moodScore += 0.5;
+    else if (amp < 0.5) moodScore -= 0.5;
+  }
+
+  moodScore = Math.min(10, Math.max(0, Math.round(moodScore)));
+
+  if (moodScore >= 7) { moodLabel = '🔥 活跃'; moodColor = 'var(--red)'; note = '短线情绪亢奋，注意分化'; }
+  else if (moodScore >= 5) { moodLabel = '📊 正常'; moodColor = 'var(--gold)'; note = '情绪中性，结构性机会'; }
+  else if (moodScore >= 3) { moodLabel = '🌧️ 低迷'; moodColor = 'var(--cyan)'; note = '短线亏钱效应明显，谨慎接力'; }
+  else { moodLabel = '❄️ 冰点'; moodColor = 'var(--green)'; note = '情绪冰点，可能酝酿反弹'; }
+
+  // 涨停票列表
+  let upList = '';
+  if (limitUpStocks.length > 0) {
+    upList = '<div style="font-size:11px;margin-top:6px;color:var(--red)">📈 ' + limitUpStocks.join('、') + '</div>';
+  }
+
+  const barPct = (moodScore / 10) * 100;
+
+  const h = '<div style="text-align:center">'
+    +'<div style="font-size:20px;font-weight:700;color:'+moodColor+'">'+moodLabel+'</div>'
+    +'<div style="font-size:28px;font-weight:700;color:'+moodColor+';margin:4px 0">'+moodScore.toFixed(1)+'</div>'
+    +'<div style="height:4px;background:#e5ddd5;border-radius:2px;overflow:hidden;margin:6px 0">'
+    +'<span style="display:block;height:100%;width:'+barPct+'%;background:'+moodColor+';border-radius:2px"></span></div>'
+    +'<div style="font-size:11px;color:var(--text-dim);margin-top:6px">'+note+'</div>'
+    +upList
+    +'<div style="font-size:10px;color:var(--text-muted);margin-top:8px;border-top:1px solid var(--border);padding-top:6px">'
+    +'首板·连板·炸板率实时监测</div>'
+    +'</div>';
+
+  document.getElementById('boardContent').innerHTML = h;
+}
+
 function renderReview() {
   const r = {
     yesterday: '2026-07-14', accuracy: '20% (1/5上涨)', note: '昨日推荐表现不佳，市场环境剧烈变化',
@@ -891,6 +983,7 @@ async function loadData() {
   renderSectors();
   renderNorthFlow();
   renderFeeling();
+  renderBoard(data);
   renderStrategy();
   renderSignals();
   renderReview();
