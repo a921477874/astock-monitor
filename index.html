@@ -203,6 +203,29 @@ body {
 .review-chip .rchange { font-size:14px; font-weight:600; margin-top:2px; }
 .review-chip .rverdict { font-size:10px; color:var(--text-dim); margin-top:1px; }
 .review-note { font-size:11px; color:var(--text-dim); font-style:italic; margin-top:8px; }
+/* ─── HISTORY ─── */
+.history-summary { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:14px; }
+.history-stat {
+  flex:1; min-width:100px; text-align:center;
+  background:var(--bg-alt); border:1px solid var(--border);
+  border-radius:8px; padding:12px;
+}
+.history-stat .hnum { font-size:24px; font-weight:700; font-family:'JetBrains Mono',monospace; }
+.history-stat .hlabel { font-size:10px; color:var(--text-dim); margin-top:3px; text-transform:uppercase; letter-spacing:0.5px; }
+.history-table { width:100%; border-collapse:collapse; font-size:12px; }
+.history-table th {
+  text-align:left; font-size:10px; font-weight:500;
+  color:var(--text-muted); padding:6px 5px;
+  border-bottom:1px solid var(--border); white-space:nowrap;
+}
+.history-table td {
+  padding:6px 5px; border-bottom:1px solid rgba(229,221,213,0.4);
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+}
+.history-table td:first-child { font-family:'Inter',sans-serif; }
+.history-table tr:last-child td { border-bottom:none; }
+.history-empty { text-align:center; padding:20px; color:var(--text-dim); font-size:12px; }
+.history-note { font-size:10px; color:var(--text-muted); margin-top:8px; text-align:right; }
 /* ─── NORTH FLOW ─── */
 .nflow-wrap { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
 .nflow-val { font-size:22px; font-weight:700; font-family:'JetBrains Mono',monospace; }
@@ -299,6 +322,12 @@ body {
   <div class="card span-12" id="reviewCard">
     <div class="card-title"><span class="icon">🔄</span> 昨日推荐回顾</div>
     <div id="reviewContent" class="loading">⏳ 加载中...</div>
+  </div>
+
+  <!-- 宝宝历史战绩 -->
+  <div class="card span-12" id="historyCard">
+    <div class="card-title"><span class="icon">📜</span> 宝宝历史战绩 <span class="tag tag-gold">全量记录</span></div>
+    <div id="historyContent" class="loading">⏳ 加载中...</div>
   </div>
 
 </div>
@@ -607,7 +636,97 @@ function renderReview() {
 }
 
 // ═══════════════════════════════════════════
-// 主入口
+// 历史战绩 — localStorage 持久化
+// ═══════════════════════════════════════════
+
+// 从 localStorage 读取历史记录
+function loadHistory() {
+  try {
+    const raw = localStorage.getItem('baobao_history');
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) { return []; }
+}
+
+// 保存今日记录到 localStorage
+function saveTodayRecord(data) {
+  const history = loadHistory();
+  const today = new Date().toISOString().slice(0,10);
+  // 避免重复保存同一天
+  if (history.length > 0 && history[history.length-1].date === today) return;
+
+  let sh = null, cyb = null, kc = null;
+  if (data) {
+    sh = data[toTencent('000001','sh')];
+    cyb = data[toTencent('399006','sz')];
+    kc = data[toTencent('000688','sh')];
+  }
+  const kcDown = kc && kc.change < -3;
+  const cybDown = cyb && cyb.change < -1;
+  const shUp = sh && sh.change > 0.3;
+
+  let direction = '震荡整理', dirResult = '平';
+  if (kcDown && cybDown) { direction = '防御为主'; dirResult = sh && sh.change > -0.5 ? '✅ 对' : '❌ 错'; }
+  else if (sh && sh.change > 0.5 && sh.price > 3960) { direction = '震荡偏多'; dirResult = '✅ 对'; }
+  else { dirResult = '➖ 待验证'; }
+
+  const record = {
+    date: today,
+    shPrice: sh ? sh.price : 0,
+    shChange: sh ? sh.change : 0,
+    direction: direction,
+    result: dirResult,
+    kcChange: kc ? kc.change : 0,
+    cybChange: cyb ? cyb.change : 0,
+  };
+  history.push(record);
+  try { localStorage.setItem('baobao_history', JSON.stringify(history)); } catch(e) {}
+}
+
+function renderHistory() {
+  const history = loadHistory();
+  if (!history || history.length === 0) {
+    document.getElementById('historyContent').innerHTML = '<div class="history-empty">📭 暂无历史记录 — 从今天开始，宝宝每次运行收盘报告时自动记录</div>';
+    return;
+  }
+
+  // 统计
+  const total = history.length;
+  let correct = 0, wrong = 0;
+  for (const r of history) {
+    if (r.result === '✅ 对') correct++;
+    else if (r.result === '❌ 错') wrong++;
+  }
+  const accRate = total > 0 ? (correct / (correct + wrong) * 100).toFixed(0) : '--';
+  const maxShow = Math.min(history.length, 20);
+
+  // 摘要行
+  let h = '<div class="history-summary">'
+    +'<div class="history-stat"><div class="hnum" style="color:var(--blue)">'+total+'</div><div class="hlabel">总交易日</div></div>'
+    +'<div class="history-stat"><div class="hnum" style="color:var(--red)">'+correct+'</div><div class="hlabel">预测正确</div></div>'
+    +'<div class="history-stat"><div class="hnum" style="color:var(--green)">'+wrong+'</div><div class="hlabel">预测错误</div></div>'
+    +'<div class="history-stat"><div class="hnum" style="color:var(--gold)">'+(accRate !== '--' ? accRate+'%' : '--')+'</div><div class="hlabel">胜率</div></div>'
+    +'</div>';
+
+  // 表格（最近20条，倒序=最新在前）
+  h += '<table class="history-table"><thead><tr>'
+    +'<th>日期</th><th>上证</th><th>涨跌幅</th><th>宝宝判断</th><th>结果</th></tr></thead><tbody>';
+  const reversed = [...history].reverse();
+  for (let i = 0; i < Math.min(maxShow, reversed.length); i++) {
+    const r = reversed[i];
+    const shCls = cls(r.shChange);
+    const resColor = r.result === '✅ 对' ? 'var(--red)' : r.result === '❌ 错' ? 'var(--green)' : 'var(--text-dim)';
+    h += '<tr>'
+      +'<td>'+r.date.slice(5)+'</td>'
+      +'<td style="font-family:JetBrains Mono,monospace">'+r.shPrice.toFixed(2)+'</td>'
+      +'<td class="'+shCls+'">'+(r.shChange>0?'+':'')+r.shChange.toFixed(2)+'%</td>'
+      +'<td>'+r.direction+'</td>'
+      +'<td style="color:'+resColor+';font-weight:600">'+r.result+'</td>'
+      +'</tr>';
+  }
+  h += '</tbody></table>';
+  h += '<div class="history-note">显示最近 '+maxShow+' 条 · 共 '+total+' 条记录 · 每次收盘报告自动追加</div>';
+  document.getElementById('historyContent').innerHTML = h;
+}
 // ═══════════════════════════════════════════
 
 async function loadData() {
@@ -633,6 +752,8 @@ async function loadData() {
   renderStrategy();
   renderSignals();
   renderReview();
+  saveTodayRecord(data);
+  renderHistory();
 
   btn.disabled = false; btn.textContent = '⟳ 刷新';
 }
