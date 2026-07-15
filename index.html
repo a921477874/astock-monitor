@@ -267,6 +267,12 @@ body {
     <div id="portfolioContent" class="loading"><span>⏳ 加载中...</span></div>
   </div>
 
+  <!-- 宝宝板块观点 -->
+  <div class="card span-6" id="outlookCard">
+    <div class="card-title"><span class="icon">🧠</span> 宝宝板块观点 <span class="tag tag-gold">方向预测</span></div>
+    <div id="outlookContent" class="loading"><span>⏳ 加载中...</span></div>
+  </div>
+
   <!-- 精选推荐 -->
   <div class="card span-12" id="picksCard">
     <div class="card-title"><span class="icon">🎯</span> 精选推荐 <span class="tag tag-gold">按涨跌幅排序</span></div>
@@ -511,6 +517,63 @@ function renderPicks(data) {
   document.getElementById('picksContent').innerHTML = h;
 }
 
+function renderOutlook() {
+  // 宝宝板块观点 — 基于最新产业逻辑+市场评分的方向预测
+  const outlook = [
+    {
+      sector: '🏭 创新药/医药',
+      view: '看好',
+      reason: '科技资金流出→医药防御切换，超跌反弹逻辑成立',
+      level: '主线'
+    },
+    {
+      sector: '🏭 券商/金融科技',
+      view: '看好',
+      reason: '天量成交直接受益，东方财富放量突破',
+      level: '主线'
+    },
+    {
+      sector: '🏭 家电',
+      view: '中性偏多',
+      reason: 'PE14倍历史低位，高股息防御属性',
+      level: '支线'
+    },
+    {
+      sector: '🏭 新能源汽车',
+      view: '中性',
+      reason: '赛力斯业绩支撑，但板块整体估值偏高',
+      level: '支线'
+    },
+    {
+      sector: '🏭 半导体',
+      view: '谨慎',
+      reason: '科创50暴跌-4.25%，短期风险未释放完',
+      level: '回避'
+    },
+  ];
+
+  let h = '';
+  for (const o of outlook) {
+    const viewColor = o.view === '看好' ? 'var(--red)' : o.view === '中性偏多' ? 'var(--gold)' : o.view === '中性' ? 'var(--cyan)' : 'var(--green)';
+    const levelTag = o.level === '主线' ? 'tag-red' : o.level === '支线' ? 'tag-blue' : 'tag-green';
+    h += `<div class="stock-row">
+      <div class="stock-info">
+        <div>
+          <div class="stock-name">${o.sector}</div>
+          <div style="font-size:10px;color:var(--text-dim);margin-top:1px">${o.reason}</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-weight:600;font-size:13px;color:${viewColor}">${o.view}</div>
+        <div><span class="tag ${levelTag}" style="font-size:9px">${o.level}</span></div>
+      </div>
+    </div>`;
+  }
+  h += `<div style="font-size:10px;color:var(--text-dim);margin-top:6px;text-align:right">
+    观点基于当日市场数据 · 随收盘报告更新</div>`;
+  document.getElementById('outlookContent').innerHTML = h;
+}
+
 function renderSectors() {
   // 使用本地板块数据（从搜狐财经获取板块数据不稳定时使用）
   const sectors = SECTORS_FALLBACK;
@@ -663,6 +726,7 @@ async function loadData() {
   // 渲染
   renderMarket(data);
   renderPortfolio(data);
+  renderOutlook();
   renderPicks(data);
   renderSectors();
   renderNorthFlow();
