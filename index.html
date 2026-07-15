@@ -382,23 +382,23 @@ const INDEX_CODES = [
 ];
 
 const STOCK_CODES = [
-  // 五维评分 v2.1 — 中小盘扩大 + T+1权重降低
+  // 六维评分 v3.0 — 新增反弹潜力维度
   { code: '600569', name: '安阳钢铁', sector: '钢铁', status: '强烈推荐', buyZone: '1.82~1.90' },
+  { code: '600859', name: '王府井', sector: '消费', status: '强烈推荐', buyZone: '13.50~14.50' },
   { code: '000932', name: '华菱钢铁', sector: '钢铁', status: '强烈推荐', buyZone: '4.60~4.75' },
   { code: '000923', name: '河钢资源', sector: '有色', status: '强烈推荐', buyZone: '22.50~23.50' },
-  { code: '000750', name: '国海证券', sector: '券商', status: '强烈推荐', buyZone: '3.80~3.95' },
 ];
 
 const PICK_CODES = [
-  // 五维评分 v2.1 — 中小盘扩大 + T+1权重降低
-  { code: '600569', name: '安阳钢铁', sector: '钢铁', reason: '强烈推荐🔥小盘50亿弹性+2.94%，钢铁涨价+低PE+站上MA5', buyZone: '1.82~1.90' },
-  { code: '000932', name: '华菱钢铁', sector: '钢铁', reason: '强烈推荐🔥中盘249亿+1.96%+K线多头✅，钢铁龙头估值低位', buyZone: '4.60~4.75' },
-  { code: '000923', name: '河钢资源', sector: '有色', reason: '强烈推荐🔥小盘87亿+2.66%+站上MA5，资源涨价逻辑', buyZone: '22.50~23.50' },
-  { code: '000750', name: '国海证券', sector: '券商', reason: '强烈推荐🔥中盘221亿+K线多头✅+1.60%，券商受益天量成交', buyZone: '3.80~3.95' },
-  { code: '600585', name: '海螺水泥', sector: '建材', reason: 'K线多头✅+放量+4.62%，中盘702亿+低PE，防御龙头', buyZone: '88.00~92.00' },
-  { code: '600859', name: '王府井', sector: '消费', reason: '小盘110亿+3.59%+站上MA5，消费复苏+免税概念弹性好', buyZone: '13.50~14.50' },
-  { code: '000830', name: '鲁西化工', sector: '化工', reason: '中盘230亿+2.20%+站上MA5，化工涨价+低PE', buyZone: '11.50~12.00' },
-  { code: '002007', name: '华兰生物', sector: '医药', reason: '中盘210亿+K线多头✅+1.68%，生物医药+低估值', buyZone: '21.00~22.00' },
+  // 六维评分 v3.0 — 新增反弹潜力维度
+  { code: '600569', name: '安阳钢铁', sector: '钢铁', reason: '🔥强烈推荐+2.94%小盘50亿，缩量洗盘特征+钢铁涨价逻辑', buyZone: '1.82~1.90' },
+  { code: '600859', name: '王府井', sector: '消费', reason: '🔥强烈推荐+3.59%小盘110亿，缩量洗盘✅站上MA5，免税概念', buyZone: '13.50~14.50' },
+  { code: '000932', name: '华菱钢铁', sector: '钢铁', reason: '🔥强烈推荐+1.96%中盘249亿+K线多头✅，钢铁龙头估值低', buyZone: '4.60~4.75' },
+  { code: '000923', name: '河钢资源', sector: '有色', reason: '🔥强烈推荐+2.66%小盘87亿，资源涨价+站上MA5+洗盘特征', buyZone: '22.50~23.50' },
+  { code: '600585', name: '海螺水泥', sector: '建材', reason: '强烈推荐+4.62%中盘702亿+K线多头✅，建材龙头防御', buyZone: '88.00~92.00' },
+  { code: '600702', name: '舍得酒业', sector: '消费', reason: '强烈推荐+5.00%小盘114亿，站上MA5+消费复苏+弹性好', buyZone: '68.00~72.00' },
+  { code: '000830', name: '鲁西化工', sector: '化工', reason: '强烈推荐+2.20%中盘230亿，化工涨价+低PE+站上MA5', buyZone: '11.50~12.00' },
+  { code: '002007', name: '华兰生物', sector: '医药', reason: '强烈推荐+1.68%中盘210亿+K线多头✅，生物医药低估', buyZone: '21.00~22.00' },
 ];
 
 const SECTORS_FALLBACK = [
