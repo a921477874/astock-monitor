@@ -399,93 +399,110 @@ body {
 
 <!-- ─── FOOTER ─── -->
 <div class="footer">
-  <span>数据来源: 新浪财经 · 腾讯财经 · 东方财富</span>
+  <span>数据来源: 腾讯财经 · 新浪财经 · 东方财富</span>
   <span>由宝宝自动更新 · 不构成投资建议</span>
 </div>
 
 <!-- ─── SCRIPT ─── -->
 <script>
 // ═══════════════════════════════════════════════════════
-// 实时数据采集 — 从新浪财经API直接拉取
+// 实时数据采集 — 从腾讯财经API直接拉取
+// 腾讯 qt.gtimg.cn 支持 CORS (Access-Control-Allow-Origin: *)
 // ═══════════════════════════════════════════════════════
 
+// 代码映射：腾讯 API 前缀规则 — 6开头=sh，0/3开头=sz
+function toTencent(code) {
+  if (code.startsWith('6') || code.startsWith('9')) return 'sh' + code;
+  return 'sz' + code;
+}
+
 const INDEX_CODES = [
-  { sina: 'sh000001', name: '上证指数', code: '000001' },
-  { sina: 'sz399001', name: '深证成指', code: '399001' },
-  { sina: 'sz399006', name: '创业板指', code: '399006' },
-  { sina: 'sh000688', name: '科创50', code: '000688' },
-  { sina: 'sh000300', name: '沪深300', code: '000300' },
-  { sina: 'sh000016', name: '上证50', code: '000016' },
+  { code: '000001', name: '上证指数' },
+  { code: '399001', name: '深证成指' },
+  { code: '399006', name: '创业板指' },
+  { code: '000688', name: '科创50' },
+  { code: '000300', name: '沪深300' },
+  { code: '000016', name: '上证50' },
 ];
 
 const STOCK_CODES = [
-  { sina: 'sh600584', name: '长电科技',   code: '600584', sector: '半导体封测',   cost: 100.00, status: '已清仓' },
-  { sina: 'sh600276', name: '恒瑞医药',   code: '600276', sector: '创新药',        cost: 0,      status: '关注建仓' },
-  { sina: 'sz300059', name: '东方财富',   code: '300059', sector: '券商/金融科技', cost: 0,     status: '候选' },
-  { sina: 'sz000333', name: '美的集团',   code: '000333', sector: '家电',          cost: 0,     status: '候选' },
-  { sina: 'sh601127', name: '赛力斯',     code: '601127', sector: '新能源汽车',    cost: 0,     status: '候选' },
+  { code: '600584', name: '长电科技',   sector: '半导体封测',   cost: 100.00, status: '已清仓' },
+  { code: '600276', name: '恒瑞医药',   sector: '创新药',        cost: 0,      status: '关注建仓' },
+  { code: '300059', name: '东方财富',   sector: '券商/金融科技', cost: 0,     status: '候选' },
+  { code: '000333', name: '美的集团',   sector: '家电',          cost: 0,     status: '候选' },
+  { code: '601127', name: '赛力斯',     sector: '新能源汽车',    cost: 0,     status: '候选' },
 ];
 
 const PICK_CODES = [
-  { sina: 'sh600276', name: '恒瑞医药', code: '600276', sector: '创新药',       reason: '超跌反弹+防御属性，资金从科技切医药趋势确认', buyZone: '55.50~56.50' },
-  { sina: 'sz000333', name: '美的集团', code: '000333', sector: '家电',         reason: 'PE14倍历史低位，50%分位安全边际充足',        buyZone: '80.50~82.00' },
-  { sina: 'sz300059', name: '东方财富', code: '300059', sector: '券商/金融科技', reason: '天量成交直接受益，PE24倍合理估值',           buyZone: '19.50~20.00' },
-  { sina: 'sh601127', name: '赛力斯',   code: '601127', sector: '新能源汽车',   reason: '华为问界热销+PE16倍低估',                    buyZone: '53.50~55.00' },
-  { sina: 'sh603501', name: '豪威集团', code: '603501', sector: '芯片设计',     reason: '半导体内部分化，设计强于封测',               buyZone: '107.00~110.00' },
+  { code: '600276', name: '恒瑞医药', sector: '创新药',       reason: '超跌反弹+防御属性，资金从科技切医药趋势确认', buyZone: '55.50~56.50' },
+  { code: '000333', name: '美的集团', sector: '家电',         reason: 'PE14倍历史低位，50%分位安全边际充足',        buyZone: '80.50~82.00' },
+  { code: '300059', name: '东方财富', sector: '券商/金融科技', reason: '天量成交直接受益，PE24倍合理估值',           buyZone: '19.50~20.00' },
+  { code: '601127', name: '赛力斯',   sector: '新能源汽车',   reason: '华为问界热销+PE16倍低估',                    buyZone: '53.50~55.00' },
+  { code: '603501', name: '豪威集团', sector: '芯片设计',     reason: '半导体内部分化，设计强于封测',               buyZone: '107.00~110.00' },
 ];
 
-// 通过新浪接口拉取行情数据
-async function fetchSina(codes) {
-  const sinaCodes = codes.map(c => c.sina).join(',');
-  const url = `https://hq.sinajs.cn/list=${sinaCodes}`;
+// 通过腾讯 qt.gtimg.cn 拉取行情数据（支持 CORS ✅）
+async function fetchTencent(codes) {
+  // 腾讯API格式：qt.gtimg.cn/q=sh000001,sz399001
+  const qs = codes.map(c => toTencent(c.code)).join(',');
+  const url = `https://qt.gtimg.cn/q=${qs}`;
   try {
     const resp = await fetch(url, {
-      headers: { 'Referer': 'https://finance.sina.com.cn' },
+      headers: { 'Referer': 'https://qt.gtimg.cn' },
       cache: 'no-cache'
     });
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const text = await resp.text();
-    // 解码 GBK (fetch 默认UTF8, 新浪返回GBK)
-    const decoder = new TextDecoder('gbk');
+    // 腾讯返回GBK，需要解码
     const buf = await resp.arrayBuffer();
-    const decoded = decoder.decode(buf);
-    return parseSinaData(decoded);
+    const decoder = new TextDecoder('gbk');
+    const text = decoder.decode(buf);
+    return parseTencentData(text);
   } catch (e) {
-    // 如果fetch + GBK解码失败，使用第二种方式
+    console.error('腾讯数据获取失败:', e);
+    // 尝试直接用 text() 读
     try {
-      const resp2 = await fetch(url, {
-        headers: { 'Referer': 'https://finance.sina.com.cn' },
-        cache: 'no-cache'
-      });
-      const rawText = await resp2.text();
-      return parseSinaData(rawText);
+      const resp2 = await fetch(url, { cache: 'no-cache' });
+      const raw = await resp2.text();
+      return parseTencentData(raw);
     } catch (e2) {
-      console.error('新浪数据获取失败:', e2);
+      console.error('腾讯数据获取失败(备选):', e2);
       return null;
     }
   }
 }
 
-function parseSinaData(raw) {
+// 腾讯 qt.gtimg.cn 格式：
+// v_sh000001="1~上证指数~当前价~涨跌幅%~涨跌量~总手~成交额~...~最高~最低~今开~昨收~...~52周高~52周低...";
+// 字段: [1]=name, [3]=当前价, [4]=涨跌幅%, [5]=涨跌量, [6]=成交量(手),
+//        [7]=成交额(元), [9]=最高, [10]=最低, [11]=今开, [12]=昨收,
+//        [16]=换手率%, [17]=PE动, [44]=总市值(亿), [67]=52周高, [68]=52周低
+function parseTencentData(raw) {
   const results = {};
   const lines = raw.split('\n').filter(l => l.trim());
   for (const line of lines) {
     try {
-      const varMatch = line.split('"')[0].match(/hq_str_(\w+)/);
+      // 匹配 v_ 前缀后的 key
+      const varMatch = line.match(/v_(\w+)="(.+)"/);
       if (!varMatch) continue;
-      const key = varMatch[1];
-      const values = line.split('"')[1].split(',');
-      const name = values[0];
-      const prevClose = parseFloat(values[2]);
-      const current = parseFloat(values[3]);
-      const high = parseFloat(values[4]);
-      const low = parseFloat(values[5]);
-      const open = parseFloat(values[1]);
-      const volume = parseFloat(values[8]) || 0; // 手
-      const amount = (parseFloat(values[9]) || 0) / 10000; // 万
-      const change = prevClose ? ((current - prevClose) / prevClose * 100) : 0;
-      results[key] = { name, price: current, change: parseFloat(change.toFixed(2)), prevClose, high, low, open, volume, amount };
-    } catch(e) {}
+      const key = varMatch[1].toLowerCase();
+      const values = varMatch[2].split('~');
+      const name = values[1];
+      const current = parseFloat(values[3]) || 0;
+      const changePct = parseFloat(values[4]) || 0;
+      const changeAmt = parseFloat(values[5]) || 0;
+      const volume = parseFloat(values[6]) || 0;
+      const amount = (parseFloat(values[7]) || 0) / 100000000; // 亿
+      const high = parseFloat(values[9]) || 0;
+      const low = parseFloat(values[10]) || 0;
+      const open = parseFloat(values[11]) || 0;
+      const prevClose = parseFloat(values[12]) || 0;
+      results[key] = {
+        name, price: current, change: parseFloat(changePct.toFixed(2)),
+        prevClose, high, low, open, volume, amount
+      };
+    } catch(e) {
+      console.warn('解析行失败:', e.message);
+    }
   }
   return results;
 }
@@ -506,7 +523,7 @@ function renderMarket(data) {
   }
   let h = '<table class="mkt-table"><thead><tr><th>指数</th><th>最新</th><th>涨跌幅</th></tr></thead><tbody>';
   for (const idx of INDEX_CODES) {
-    const d = data[idx.sina];
+    const d = data[toTencent(idx.code)];
     if (!d) continue;
     const c = cls(d.change);
     h += `<tr>
@@ -526,7 +543,7 @@ function renderPortfolio(data) {
   }
   let h = '';
   for (const st of STOCK_CODES) {
-    const d = data[st.sina];
+    const d = data[toTencent(st.code)];
     if (!d) continue;
     const c = cls(d.change);
     const perf = sign(d.change) + d.change.toFixed(2) + '%';
@@ -563,7 +580,7 @@ function renderPicks(data) {
   let h = '<div class="picks-grid">';
   for (let i = 0; i < PICK_CODES.length; i++) {
     const p = PICK_CODES[i];
-    const d = data[p.sina];
+    const d = data[toTencent(p.code)];
     if (!d) continue;
     const c = cls(d.change);
     h += `<div class="pick-item">
@@ -689,12 +706,12 @@ async function init() {
   // 去重
   const seen = new Set();
   const uniqueCodes = allCodes.filter(c => {
-    if (seen.has(c.sina)) return false;
-    seen.add(c.sina);
+    if (seen.has(c.code)) return false;
+    seen.add(c.code);
     return true;
   });
 
-  const data = await fetchSina(uniqueCodes);
+  const data = await fetchTencent(uniqueCodes);
 
   renderMarket(data);
   renderPortfolio(data);
