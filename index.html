@@ -443,52 +443,154 @@ function renderMarket(data) {
 }
 
 function renderBrief(data) {
-  // 根据实时数据生成盘前策略
-  let sh = null, cyb = null, kc = null, sz = null;
-  if (data) {
-    sh = data[toTencent('000001','sh')];
-    cyb = data[toTencent('399006','sz')];
-    kc = data[toTencent('000688','sh')];
-    sz = data[toTencent('399001','sz')];
+  if (!data) { document.getElementById('briefContent').innerHTML = '<div class="error-msg">⚠️ 数据不足</div>'; return; }
+
+  const sh = data[toTencent('000001','sh')];
+  const cyb = data[toTencent('399006','sz')];
+  const kc = data[toTencent('000688','sh')];
+  const sz = data[toTencent('399001','sz')];
+  const hs300 = data[toTencent('000300','sh')];
+  const sh50 = data[toTencent('000016','sh')];
+
+  // ═══════════════════════════════════════════════════
+  // 多维评分引擎 v1.0
+  // ═══════════════════════════════════════════════════
+  // 每个维度 0-10 分
+
+  // ① 大盘趋势 (权重25%)
+  let trendScore = 5;
+  const idxs = [sh, sz, cyb, hs300, sh50].filter(Boolean);
+  if (idxs.length > 0) {
+    const avgChg = idxs.reduce((s, x) => s + x.change, 0) / idxs.length;
+    trendScore = Math.round(Math.min(10, Math.max(0, 5 + avgChg * 2)));
   }
-  // 动态判断
-  const shOk = sh && sh.price > 0;
-  const kcDown = kc && kc.change < -3;
-  const cybDown = cyb && cyb.change < -1;
-  const shDown = sh && sh.change < -0.3;
 
-  let direction = '震荡整理';
-  let dirColor = 'var(--gold)';
-  let reason = '多空力量均衡，等待方向选择';
+  // ② 板块结构 — 科创50 vs 上证50 (权重20%)
+  let structScore = 5;
+  if (kc && sh50) {
+    const diff = kc.change - sh50.change;
+    // diff > 0 = 科技强于蓝筹 (好), diff < 0 = 蓝筹强于科技 (分化)
+    structScore = Math.round(Math.min(10, Math.max(0, 5 + diff * 0.5)));
+  }
 
-  if (kcDown && cybDown) {
-    direction = '防御为主';
-    dirColor = 'var(--green)';
-    reason = '科技双杀(科创-4.25%+创业-1.21%)，资金切防御板块，多看少动';
-  } else if (sh && sh.change > 0.5 && sh.price > 3960) {
-    direction = '震荡偏多';
+  // ③ 量能验证 (权重20%) — 用振幅 + 成交额判断
+  let volumeScore = 5;
+  const totalAmt = idxs.reduce((s, x) => s + (x.amount || 0), 0);
+  // 成交额超2万亿算活跃 (约25000亿=巨量)
+  const amtRating = Math.min(10, Math.max(0, (totalAmt / 2000) * 5)); // amount单位是百万元, 2万亿=2000000
+  // 振幅>1.5%算波动大 (活跃), <0.8%算低迷
+  const shAmp = sh ? Math.abs(sh.high - sh.low) / (sh.price || 1) * 100 : 0;
+  const ampRating = Math.min(10, Math.max(0, shAmp * 2));
+  volumeScore = Math.round((amtRating * 0.5 + ampRating * 0.5));
+
+  // ④ 北向资金 (权重15%) — 估算
+  let northScore = 5;
+  // 用人民币汇率+美股联动做粗略判断
+  // 当科技跌+蓝筹稳时 → 北向可能流出 (避险)
+  if (kc && sh50 && kc.change < -2 && sh50.change > -0.5) northScore = 4;
+  else if (sh && sh.change > 0.5) northScore = 6;
+
+  // ⑤ 市场宽度 (权重10%) — 用创业板vs主板分化度
+  let breadthScore = 5;
+  if (cyb && sh) {
+    const cybVsSh = cyb.change - sh.change;
+    breadthScore = Math.round(Math.min(10, Math.max(0, 5 + cybVsSh * 0.8)));
+  }
+
+  // ⑥ 外部环境 (权重10%) — 用科创50作为风险偏好代理
+  let externalScore = 5;
+  if (kc) externalScore = Math.round(Math.min(10, Math.max(0, 5 + kc.change * 0.4)));
+
+  // 综合加权
+  const weights = { trend: 0.25, struct: 0.20, volume: 0.20, north: 0.15, breadth: 0.10, external: 0.10 };
+  const totalScore = Math.round(
+    trendScore * weights.trend +
+    structScore * weights.struct +
+    volumeScore * weights.volume +
+    northScore * weights.north +
+    breadthScore * weights.breadth +
+    externalScore * weights.external
+  );
+
+  // ═══ 输出判定 ═══
+  let direction, dirColor, position, advice, riskFocus, watchItems;
+  if (totalScore >= 7) {
+    direction = '🟢 进攻';
     dirColor = 'var(--red)';
-    reason = '上证企稳3960上方，成交活跃，但科技拖累整体情绪';
+    position = '6~8成';
+    advice = '市场偏强，可积极布局主线板块';
+    riskFocus = '追高风险，注意4000点关口压力';
+    watchItems = '① 上证能否放量突破4000<br>② 主线板块持续性';
+  } else if (totalScore >= 5.5) {
+    direction = '🔵 震荡偏多';
+    dirColor = 'var(--gold)';
+    position = '4~6成';
+    advice = '结构性行情，精选个股，高抛低吸';
+    riskFocus = '板块分化加剧，不追高';
+    watchItems = '① 恒瑞买入区间(55.50~56.50)<br>② 科创50方向选择';
+  } else if (totalScore >= 4) {
+    direction = '🟡 震荡偏弱';
+    dirColor = 'var(--cyan)';
+    position = '3~4成';
+    advice = '市场承压，防御为主，等回调建仓';
+    riskFocus = '科技股可能继续下探，不抄底';
+    watchItems = '① 恒瑞建仓机会<br>② 上证3940支撑位';
+  } else {
+    direction = '🔴 防守';
+    dirColor = 'var(--green)';
+    position = '1~2成';
+    advice = '系统性风险，减仓观望';
+    riskFocus = '市场全面走弱，现金为王';
+    watchItems = '① 等待企稳信号<br>② 不参与反弹';
   }
 
-  const h = '<div class="brief-grid">'
-    +'<div class="brief-block"><div class="blabel">📌 今日方向</div>'
-    +'<div class="bval lg" style="color:'+dirColor+'">'+direction+'</div>'
-    +'<div style="font-size:11px;color:var(--text-dim);margin-top:4px">'+reason+'</div></div>'
+  // 评分条
+  const barPct = (totalScore / 10) * 100;
+  const barColor = totalScore >= 7 ? '#dc2626' : totalScore >= 5.5 ? '#b8860b' : totalScore >= 4 ? '#0891b2' : '#16a34a';
 
+  // 维度明细（用于展示置信度）
+  const dims = [
+    { label: '📊 大盘趋势', score: trendScore, w: weights.trend },
+    { label: '🏭 板块结构', score: structScore, w: weights.struct },
+    { label: '💰 量能验证', score: volumeScore, w: weights.volume },
+    { label: '🌊 北向资金', score: northScore, w: weights.north },
+    { label: '📉 市场宽度', score: breadthScore, w: weights.breadth },
+    { label: '🌐 外部环境', score: externalScore, w: weights.external },
+  ];
+  let dimHtml = '';
+  for (const d of dims) {
+    const dc = d.score >= 6 ? 'var(--red)' : d.score >= 4 ? 'var(--gold)' : 'var(--green)';
+    const dpct = (d.score / 10) * 100;
+    dimHtml += '<div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--text-dim);padding:2px 0">'
+      +'<span style="min-width:72px">'+d.label+'</span>'
+      +'<span style="flex:1;height:4px;background:#e5ddd5;border-radius:2px;overflow:hidden">'
+      +'<span style="display:block;height:100%;width:'+dpct+'%;background:'+dc+';border-radius:2px"></span></span>'
+      +'<span style="font-weight:600;color:'+dc+';width:20px;text-align:right">'+d.score+'</span>'
+      +'</div>';
+  }
+
+  const h = '<div style="margin-bottom:10px">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'
+    +'<span style="font-size:22px;font-weight:700;color:'+dirColor+'">'+direction+'</span>'
+    +'<span style="font-size:24px;font-weight:700;color:'+barColor+'">'+totalScore.toFixed(1)+'</span>'
+    +'</div>'
+    +'<div style="height:6px;background:#e5ddd5;border-radius:3px;overflow:hidden">'
+    +'<span style="display:block;height:100%;width:'+barPct+'%;background:'+barColor+';border-radius:3px;transition:width 0.3s"></span></div>'
+    +'</div>'
+
+    +'<div class="brief-grid">'
     +'<div class="brief-block"><div class="blabel">🎯 操作基调</div>'
-    +'<div class="bval" style="color:var(--gold);font-size:18px">'+'3~4成 · 观望'+'</div>'
-    +'<div style="font-size:11px;color:var(--text-dim);margin-top:4px">等恒瑞回调买入区间再动手</div></div>'
+    +'<div class="bval" style="color:var(--gold);font-size:18px">'+position+'</div>'
+    +'<div style="font-size:11px;color:var(--text-dim);margin-top:4px">'+advice+'</div></div>'
 
     +'<div class="brief-block"><div class="blabel">⚠️ 风险提示</div>'
-    +'<div class="bval" style="font-size:13px;font-weight:400;line-height:1.5;color:var(--green)">'
-    +'科创50暴跌-4.25%后可能还有惯性下探，不要抄底科技<br>放量滞涨后次日常有低开</div></div>'
+    +'<div class="bval" style="font-size:13px;font-weight:400;line-height:1.5;color:var(--green)">'+riskFocus+'</div></div>'
 
-    +'<div class="brief-block"><div class="blabel">👀 今日盯盘</div>'
-    +'<div class="bval" style="font-size:13px;font-weight:400;line-height:1.5;color:var(--cyan)">'
-    +'① 恒瑞开盘方向（55.50~56.50买入区间）<br>'
-    +'② 科创50能否在1900附近止跌<br>'
-    +'③ 上证3940支撑位是否守住</div></div>'
+    +'<div class="brief-block"><div class="blabel">👀 盯盘要点</div>'
+    +'<div class="bval" style="font-size:13px;font-weight:400;line-height:1.5;color:var(--cyan)">'+watchItems+'</div></div>'
+
+    +'<div class="brief-block"><div class="blabel">📐 评分明细</div>'
+    +'<div style="margin-top:4px">'+dimHtml+'</div></div>'
 
     +'</div>';
   document.getElementById('briefContent').innerHTML = h;
@@ -668,20 +770,46 @@ function saveTodayRecord(data) {
   // 避免重复保存同一天
   if (history.length > 0 && history[history.length-1].date === today) return;
 
-  let sh = null, cyb = null, kc = null;
+  // 复用评分引擎（与renderBrief同步）
+  let totalScore = 5, direction = '震荡整理';
   if (data) {
-    sh = data[toTencent('000001','sh')];
-    cyb = data[toTencent('399006','sz')];
-    kc = data[toTencent('000688','sh')];
-  }
-  const kcDown = kc && kc.change < -3;
-  const cybDown = cyb && cyb.change < -1;
-  const shUp = sh && sh.change > 0.3;
+    const sh = data[toTencent('000001','sh')];
+    const cyb = data[toTencent('399006','sz')];
+    const kc = data[toTencent('000688','sh')];
+    const sz = data[toTencent('399001','sz')];
+    const hs300 = data[toTencent('000300','sh')];
+    const sh50 = data[toTencent('000016','sh')];
 
-  let direction = '震荡整理', dirResult = '平';
-  if (kcDown && cybDown) { direction = '防御为主'; dirResult = sh && sh.change > -0.5 ? '✅ 对' : '❌ 错'; }
-  else if (sh && sh.change > 0.5 && sh.price > 3960) { direction = '震荡偏多'; dirResult = '✅ 对'; }
-  else { dirResult = '➖ 待验证'; }
+    const idxs = [sh, sz, cyb, hs300, sh50].filter(Boolean);
+    const avgChg = idxs.reduce((s, x) => s + x.change, 0) / (idxs.length || 1);
+    const trendScore = Math.min(10, Math.max(0, 5 + avgChg * 2));
+    const structScore = (kc && sh50) ? Math.min(10, Math.max(0, 5 + (kc.change - sh50.change) * 0.5)) : 5;
+    const totalAmt = idxs.reduce((s, x) => s + (x.amount || 0), 0);
+    const volumeScore = Math.min(10, Math.max(0, (totalAmt / 2000) * 5));
+    const northScore = (kc && sh50 && kc.change < -2 && sh50.change > -0.5) ? 4 : (sh && sh.change > 0.5) ? 6 : 5;
+    const breadthScore = (cyb && sh) ? Math.min(10, Math.max(0, 5 + (cyb.change - sh.change) * 0.8)) : 5;
+    const externalScore = kc ? Math.min(10, Math.max(0, 5 + kc.change * 0.4)) : 5;
+
+    const weights = { t: 0.25, s: 0.20, v: 0.20, n: 0.15, b: 0.10, e: 0.10 };
+    totalScore = Math.round(trendScore * weights.t + structScore * weights.s + volumeScore * weights.v + northScore * weights.n + breadthScore * weights.b + externalScore * weights.e);
+    if (totalScore >= 7) direction = '进攻';
+    else if (totalScore >= 5.5) direction = '震荡偏多';
+    else if (totalScore >= 4) direction = '震荡偏弱';
+    else direction = '防守';
+  }
+
+  let dirResult = '➖ 待验证';
+  if (data) {
+    const sh = data[toTencent('000001','sh')];
+    if (sh) {
+      if (totalScore >= 5.5 && sh.change > -0.3) dirResult = '✅ 对';
+      else if (totalScore < 4 && sh.change < -0.3) dirResult = '✅ 对';
+      else if (totalScore >= 4 && totalScore < 5.5 && Math.abs(sh.change) < 0.8) dirResult = '✅ 对';
+      else if (sh.change > 0.5 && totalScore >= 5.5) dirResult = '✅ 对';
+      else if (sh.change < -0.5 && totalScore < 4) dirResult = '✅ 对';
+      else dirResult = '❌ 错';
+    }
+  }
 
   const record = {
     date: today,
