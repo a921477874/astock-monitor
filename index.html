@@ -382,23 +382,23 @@ const INDEX_CODES = [
 ];
 
 const STOCK_CODES = [
-  // 六维评分 v3.0 — 新增反弹潜力维度
-  { code: '600569', name: '安阳钢铁', sector: '钢铁', status: '强烈推荐', buyZone: '1.82~1.90' },
-  { code: '600859', name: '王府井', sector: '消费', status: '强烈推荐', buyZone: '13.50~14.50' },
-  { code: '000932', name: '华菱钢铁', sector: '钢铁', status: '强烈推荐', buyZone: '4.60~4.75' },
-  { code: '000923', name: '河钢资源', sector: '有色', status: '强烈推荐', buyZone: '22.50~23.50' },
+  // 中长期持有评分 — 产业逻辑优先
+  { code: '000728', name: '国元证券', sector: '券商', status: '强烈推荐' },
+  { code: '600585', name: '海螺水泥', sector: '建材', status: '强烈推荐' },
+  { code: '000932', name: '华菱钢铁', sector: '钢铁', status: '强烈推荐' },
+  { code: '002078', name: '太阳纸业', sector: '化工', status: '推荐' },
 ];
 
 const PICK_CODES = [
-  // 六维评分 v3.0 — 新增反弹潜力维度
-  { code: '600569', name: '安阳钢铁', sector: '钢铁', reason: '🔥强烈推荐+2.94%小盘50亿，缩量洗盘特征+钢铁涨价逻辑', buyZone: '1.82~1.90' },
-  { code: '600859', name: '王府井', sector: '消费', reason: '🔥强烈推荐+3.59%小盘110亿，缩量洗盘✅站上MA5，免税概念', buyZone: '13.50~14.50' },
-  { code: '000932', name: '华菱钢铁', sector: '钢铁', reason: '🔥强烈推荐+1.96%中盘249亿+K线多头✅，钢铁龙头估值低', buyZone: '4.60~4.75' },
-  { code: '000923', name: '河钢资源', sector: '有色', reason: '🔥强烈推荐+2.66%小盘87亿，资源涨价+站上MA5+洗盘特征', buyZone: '22.50~23.50' },
-  { code: '600585', name: '海螺水泥', sector: '建材', reason: '强烈推荐+4.62%中盘702亿+K线多头✅，建材龙头防御', buyZone: '88.00~92.00' },
-  { code: '600702', name: '舍得酒业', sector: '消费', reason: '强烈推荐+5.00%小盘114亿，站上MA5+消费复苏+弹性好', buyZone: '68.00~72.00' },
-  { code: '000830', name: '鲁西化工', sector: '化工', reason: '强烈推荐+2.20%中盘230亿，化工涨价+低PE+站上MA5', buyZone: '11.50~12.00' },
-  { code: '002007', name: '华兰生物', sector: '医药', reason: '强烈推荐+1.68%中盘210亿+K线多头✅，生物医药低估', buyZone: '21.00~22.00' },
+  // 中长期持有评分 — 产业逻辑优先
+  { code: '000728', name: '国元证券', sector: '券商', reason: '🔥强烈推荐 券商+低PE14倍+52周低位27%，天量成交直接受益，中长期持有逻辑', buyZone: '7.50~8.00' },
+  { code: '600585', name: '海螺水泥', sector: '建材', reason: '🔥强烈推荐 PE12倍+52周低位13%+趋势多头，建材龙头低估值价值洼地', buyZone: '88.00~92.00' },
+  { code: '000932', name: '华菱钢铁', sector: '钢铁', reason: '🔥强烈推荐 PE11倍+52周低位12%+趋势多头，钢铁龙头中期反弹空间大', buyZone: '4.60~4.75' },
+  { code: '002078', name: '太阳纸业', sector: '化工', reason: '推荐 PE12倍+52周中位40%+趋势多头，造纸龙头估值合理，中期持有', buyZone: '13.50~14.50' },
+  { code: '000001', name: '平安银行', sector: '券商', reason: '推荐 PE5倍+PB<1倍+52周中位39%，极度低估银行，防御+价值回归', buyZone: '10.50~11.00' },
+  { code: '002241', name: '歌尔股份', sector: '电子', reason: '推荐 PE20倍+52周低位10%，消费电子龙头超跌，中期反弹空间充足', buyZone: '20.50~22.00' },
+  { code: '000830', name: '鲁西化工', sector: '化工', reason: '推荐 PE25倍+52周低位17%+化工涨价逻辑，中期持有', buyZone: '11.50~12.00' },
+  { code: '002007', name: '华兰生物', sector: '医药', reason: '推荐 PE28倍+52周低位28%+趋势多头，生物医药低估，中期看好', buyZone: '21.00~22.00' },
 ];
 
 const SECTORS_FALLBACK = [
