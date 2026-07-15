@@ -38,48 +38,31 @@ body {
 }
 /* ─── HEADER ─── */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
-  gap: 10px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 18px; padding-bottom: 14px;
+  border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 10px;
 }
 .header-left { display: flex; align-items: center; gap: 12px; }
-.logo {
-  font-size: 20px; font-weight: 800; letter-spacing: -0.3px;
-  color: var(--text); line-height: 1.2;
-}
+.logo { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; color: var(--text); line-height: 1.2; }
 .badge {
-  font-size: 10px; font-weight: 600;
-  color: var(--gold);
-  background: var(--gold-bg);
-  border: 1px solid rgba(184,134,11,0.2);
-  border-radius: 4px;
-  padding: 2px 8px;
+  font-size: 10px; font-weight: 600; color: var(--gold);
+  background: var(--gold-bg); border: 1px solid rgba(184,134,11,0.2);
+  border-radius: 4px; padding: 2px 8px;
 }
 .header-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 12px;
-  color: var(--text-dim);
+  display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--text-dim);
 }
 .header-right .date { font-size: 13px; font-weight: 600; color: var(--text); }
 .status-dot {
   display: inline-block; width: 7px; height: 7px;
-  border-radius: 50%; background: var(--green);
-  animation: pulse 2s infinite;
+  border-radius: 50%; background: var(--green); animation: pulse 2s infinite;
 }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 .btn-refresh {
   font-size: 11px; font-weight: 500; cursor: pointer;
   padding: 4px 10px; border-radius: 5px;
   border: 1px solid var(--border); background: var(--bg-card);
-  color: var(--text-dim); transition: all 0.15s;
-  font-family: inherit;
+  color: var(--text-dim); transition: all 0.15s; font-family: inherit;
 }
 .btn-refresh:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-bg); }
 .btn-refresh:disabled { opacity: 0.5; cursor: wait; }
@@ -92,7 +75,6 @@ body {
 @media (max-width: 1024px) {
   .span-6 { grid-column: span 12; }
   .span-4 { grid-column: span 6; }
-  .span-3 { grid-column: span 6; }
 }
 @media (max-width: 640px) {
   .span-4 { grid-column: span 12; }
@@ -102,12 +84,9 @@ body {
 }
 /* ─── CARD ─── */
 .card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 16px 18px;
-  box-shadow: var(--shadow);
-  transition: box-shadow 0.2s, border-color 0.2s;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px 18px;
+  box-shadow: var(--shadow); transition: box-shadow 0.2s, border-color 0.2s;
 }
 .card:hover { box-shadow: var(--shadow-hover); border-color: var(--border-light); }
 .card-title {
@@ -124,7 +103,7 @@ body {
 .tag-green { background: var(--green-bg); color: var(--green); }
 .tag-gold { background: var(--gold-bg); color: var(--gold); }
 .tag-blue { background: var(--blue-bg); color: var(--blue); }
-/* ─── MARKET TABLE ─── */
+/* ─── MKT TABLE ─── */
 .mkt-table { width:100%; border-collapse:collapse; }
 .mkt-table th {
   text-align:left; font-size:10px; font-weight:500;
@@ -146,7 +125,7 @@ body {
 /* ─── STOCK ROW ─── */
 .stock-row {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 8px 0; border-bottom:1px solid rgba(229,221,213,0.4);
+  padding: 7px 0; border-bottom:1px solid rgba(229,221,213,0.4);
 }
 .stock-row:last-child { border-bottom:none; }
 .stock-info { display:flex; align-items:center; gap:10px; }
@@ -162,8 +141,7 @@ body {
 @media (max-width: 500px) { .picks-grid { grid-template-columns: 1fr; } }
 .pick-item {
   background: var(--bg-alt); border:1px solid var(--border);
-  border-radius:8px; padding:12px; text-align:center;
-  transition: border-color 0.2s;
+  border-radius:8px; padding:12px; text-align:center; transition: border-color 0.2s;
 }
 .pick-item:hover { border-color: var(--border-light); }
 .pick-item .rank { font-size:10px; font-weight:700; color:var(--gold); margin-bottom:5px; letter-spacing:0.5px; }
@@ -175,7 +153,7 @@ body {
 /* ─── SECTORS ─── */
 .sector-list { display:flex; flex-wrap:wrap; gap:8px; }
 .sector-item {
-  flex:1; min-width:90px;
+  flex:1; min-width:80px;
   background: var(--bg-alt); border:1px solid var(--border);
   border-radius:6px; padding:10px; text-align:center;
 }
@@ -184,22 +162,32 @@ body {
 /* ─── STRATEGY ─── */
 .strategy-wrap { display:flex; gap:10px; flex-wrap:wrap; }
 .strategy-block {
-  flex:1; min-width:140px;
+  flex:1; min-width:130px;
   background: var(--bg-alt); border:1px solid var(--border);
-  border-radius:7px; padding:12px;
+  border-radius:7px; padding:11px;
 }
 .strategy-block .slabel { font-size:10px; color:var(--text-dim); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px; }
 .strategy-block .svalue { font-size:14px; font-weight:600; }
 .strategy-block .svalue.gold { color:var(--gold); }
 .strategy-block .svalue.cyan { color:var(--cyan); }
 .strategy-block .svalue.red { color:var(--red); }
+/* ─── MORNING BRIEF ─── */
+.brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .brief-grid { grid-template-columns: 1fr; } }
+.brief-block {
+  background: var(--bg-alt); border:1px solid var(--border);
+  border-radius:7px; padding:12px;
+}
+.brief-block .blabel { font-size:10px; color:var(--text-dim); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.5px; }
+.brief-block .bval { font-size:15px; font-weight:600; line-height:1.5; }
+.brief-block .bval.lg { font-size:22px; }
 /* ─── TEMP METER ─── */
 .temp-wrap { display:flex; align-items:center; gap:16px; }
-.temp-ring { position:relative; width:76px; height:76px; flex-shrink:0; }
-.temp-ring svg { width:76px; height:76px; transform:rotate(-90deg); }
-.temp-ring .val { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:18px; font-weight:700; }
-.temp-info .label { font-size:15px; font-weight:600; }
-.temp-info .detail { font-size:12px; color:var(--text-dim); margin-top:3px; }
+.temp-ring { position:relative; width:72px; height:72px; flex-shrink:0; }
+.temp-ring svg { width:72px; height:72px; transform:rotate(-90deg); }
+.temp-ring .val { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:17px; font-weight:700; }
+.temp-info .label { font-size:14px; font-weight:600; }
+.temp-info .detail { font-size:11px; color:var(--text-dim); margin-top:3px; }
 /* ─── SIGNAL LIST ─── */
 .sig-list { list-style:none; }
 .sig-list li { padding:4px 0; font-size:13px; display:flex; align-items:flex-start; gap:8px; line-height:1.5; }
@@ -209,7 +197,7 @@ body {
 .review-grid { display:flex; flex-wrap:wrap; gap:6px; }
 .review-chip {
   background:var(--bg-alt); border:1px solid var(--border);
-  border-radius:6px; padding:7px 12px; min-width:90px; text-align:center;
+  border-radius:6px; padding:7px 12px; min-width:85px; text-align:center;
 }
 .review-chip .rname { font-size:12px; font-weight:500; }
 .review-chip .rchange { font-size:14px; font-weight:600; margin-top:2px; }
@@ -226,19 +214,16 @@ body {
   display:flex; justify-content:space-between;
   font-size:10px; color:var(--text-muted); flex-wrap:wrap; gap:6px;
 }
-/* ─── LOADING ─── */
 .loading {
   display:flex; align-items:center; justify-content:center;
-  min-height:100px; color:var(--text-dim); font-size:12px;
+  min-height:80px; color:var(--text-dim); font-size:12px;
 }
 .error-msg { color: var(--red); font-size: 12px; text-align: center; padding: 20px; }
-/* ─── AMOUNT BAR ─── */
-.amount-bar { display:inline-block; height:4px; border-radius:2px; vertical-align:middle; margin-left:5px; background:linear-gradient(90deg,var(--gold),var(--blue)); opacity:0.4; }
 </style>
 </head>
 <body>
 
-<!-- ─── HEADER ─── -->
+<!-- ═══ HEADER ═══ -->
 <div class="header">
   <div class="header-left">
     <div class="logo">📊 A股智能监控</div>
@@ -252,24 +237,28 @@ body {
   </div>
 </div>
 
-<!-- ─── GRID ─── -->
+<!-- ═══ GRID ═══ -->
 <div class="grid" id="app">
 
-  <!-- 大盘概况 -->
+  <!-- 大盘概况（左）+ 盘前策略（右）-->
   <div class="card span-6" id="marketCard">
     <div class="card-title"><span class="icon">📈</span> 大盘概况</div>
     <div id="marketContent" class="loading"><span>⏳ 加载中...</span></div>
   </div>
 
-  <!-- 重点追踪 -->
+  <div class="card span-6" id="briefCard">
+    <div class="card-title"><span class="icon">🌅</span> 今日盘前策略 <span class="tag tag-blue">宝宝观点</span></div>
+    <div id="briefContent" class="loading"><span>⏳ 加载中...</span></div>
+  </div>
+
+  <!-- 重点追踪（左）+ 宝宝板块观点（右）-->
   <div class="card span-6" id="portfolioCard">
-    <div class="card-title"><span class="icon">🔍</span> 重点追踪 <span class="tag tag-blue" id="trackTag">恒瑞建仓关注</span></div>
+    <div class="card-title"><span class="icon">🔍</span> 重点追踪 <span class="tag tag-blue">恒瑞建仓关注</span></div>
     <div id="portfolioContent" class="loading"><span>⏳ 加载中...</span></div>
   </div>
 
-  <!-- 宝宝板块观点 -->
   <div class="card span-6" id="outlookCard">
-    <div class="card-title"><span class="icon">🧠</span> 宝宝板块观点 <span class="tag tag-gold">方向预测</span></div>
+    <div class="card-title"><span class="icon">🧠</span> 板块观点 <span class="tag tag-gold">方向预测</span></div>
     <div id="outlookContent" class="loading"><span>⏳ 加载中...</span></div>
   </div>
 
@@ -279,31 +268,28 @@ body {
     <div id="picksContent" class="loading"><span>⏳ 加载中...</span></div>
   </div>
 
-  <!-- 板块轮动 -->
+  <!-- 底部三列：板块轮动 | 北向资金 | 市场温度 -->
   <div class="card span-4" id="sectorCard">
     <div class="card-title"><span class="icon">🏭</span> 热门板块 <span class="tag tag-blue">今日</span></div>
     <div id="sectorContent" class="loading">⏳ 加载中...</div>
   </div>
 
-  <!-- 北向资金 -->
   <div class="card span-4" id="northFlowCard">
     <div class="card-title"><span class="icon">🌊</span> 北向资金</div>
     <div id="northFlowContent" class="loading">⏳ 加载中...</div>
   </div>
 
-  <!-- 市场温度 -->
   <div class="card span-4" id="feelingCard">
     <div class="card-title"><span class="icon">🌡️</span> 市场温度</div>
     <div id="feelingContent" class="loading">⏳ 加载中...</div>
   </div>
 
-  <!-- 操作策略 -->
+  <!-- 底部两列：操作策略 | 关键信号 -->
   <div class="card span-6" id="strategyCard">
     <div class="card-title"><span class="icon">💡</span> 操作策略</div>
     <div id="strategyContent" class="loading">⏳ 加载中...</div>
   </div>
 
-  <!-- 关键信号 -->
   <div class="card span-6" id="signalCard">
     <div class="card-title"><span class="icon">⚡</span> 关键信号</div>
     <div id="signalContent" class="loading">⏳ 加载中...</div>
@@ -317,7 +303,7 @@ body {
 
 </div>
 
-<!-- ─── FOOTER ─── -->
+<!-- ═══ FOOTER ═══ -->
 <div class="footer">
   <span>数据来源: 腾讯财经 · 实时行情</span>
   <span>由宝宝自动更新 · 不构成投资建议</span>
@@ -358,7 +344,6 @@ const PICK_CODES = [
   { code: '603501', name: '豪威集团', sector: '芯片设计', reason: '半导体内部分化，设计强于封测', buyZone: '107.00~110.00' },
 ];
 
-// 板块模拟数据（真实数据的fallback）
 const SECTORS_FALLBACK = [
   { name: '创新药', change: 3.8 },
   { name: '家电', change: 1.2 },
@@ -369,47 +354,34 @@ const SECTORS_FALLBACK = [
 
 async function fetchTencent(codes) {
   const qs = codes.map(c => toTencent(c.code, c.prefix)).join(',');
-  const url = `https://qt.gtimg.cn/q=${qs}`;
+  const url = 'https://qt.gtimg.cn/q=' + qs;
   try {
-    const resp = await fetch(url, {
-      headers: { 'Referer': 'https://qt.gtimg.cn' },
-      cache: 'no-cache'
-    });
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const resp = await fetch(url, { headers: { 'Referer': 'https://qt.gtimg.cn' }, cache: 'no-cache' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const buf = await resp.arrayBuffer();
-    const decoder = new TextDecoder('gbk');
-    const text = decoder.decode(buf);
-    return parseTencentData(text);
+    return parseTencentData(new TextDecoder('gbk').decode(buf));
   } catch (e) {
     try {
-      const resp2 = await fetch(url, { cache: 'no-cache' });
-      const raw = await resp2.text();
+      const raw = await (await fetch(url, { cache: 'no-cache' })).text();
       return parseTencentData(raw);
-    } catch (e2) {
-      console.error('数据获取失败:', e2);
-      return null;
-    }
+    } catch (e2) { console.error('数据获取失败:', e2); return null; }
   }
 }
 
 function parseTencentData(raw) {
   const results = {};
-  const lines = raw.split('\n').filter(l => l.trim());
-  for (const line of lines) {
+  for (const line of raw.split('\n').filter(l => l.trim())) {
     try {
       const m = line.match(/v_(\w+)="(.+)"/);
       if (!m) continue;
-      const key = m[1].toLowerCase();
-      const values = m[2].split('~');
-      results[key] = {
-        name: values[1],
-        price: parseFloat(values[3]) || 0,
-        prevClose: parseFloat(values[4]) || 0,
-        change: parseFloat(parseFloat(values[32] || 0).toFixed(2)),
-        high: parseFloat(values[33]) || 0,
-        low: parseFloat(values[34]) || 0,
-        volume: parseFloat(values[6]) || 0,
-        amount: (parseFloat(values[37]) || 0) / 1000000,
+      const vals = m[2].split('~');
+      results[m[1].toLowerCase()] = {
+        name: vals[1], price: parseFloat(vals[3]) || 0,
+        prevClose: parseFloat(vals[4]) || 0,
+        change: parseFloat(parseFloat(vals[32] || 0).toFixed(2)),
+        high: parseFloat(vals[33]) || 0, low: parseFloat(vals[34]) || 0,
+        volume: parseFloat(vals[6]) || 0,
+        amount: (parseFloat(vals[37]) || 0) / 1000000,
       };
     } catch(e) {}
   }
@@ -426,30 +398,75 @@ const arrow = c => c>0?'▲':c<0?'▼':'—';
 const sign = n => n>0?'+':'';
 
 function renderMarket(data) {
-  if (!data) {
-    document.getElementById('marketContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>';
-    return;
-  }
+  if (!data) { document.getElementById('marketContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>'; return; }
   let h = '<table class="mkt-table"><thead><tr><th>指数</th><th>最新</th><th>涨跌幅</th><th>成交额</th></tr></thead><tbody>';
   for (const idx of INDEX_CODES) {
     const d = data[toTencent(idx.code, idx.prefix)];
     if (!d) continue;
-    const c = cls(d.change);
     const amt = d.amount >= 10000 ? (d.amount/10000).toFixed(1)+'亿' : d.amount.toFixed(0)+'万';
-    h += `<tr><td class="name-cell">${idx.name}<code>${idx.code}</code></td>
-      <td class="${c}">${fmt(d.price)}</td>
-      <td class="${c}">${arrow(d.change)} ${Math.abs(d.change).toFixed(2)}%</td>
-      <td style="font-size:11px;color:var(--text-dim)">${amt}</td></tr>`;
+    h += '<tr><td class="name-cell">'+idx.name+'<code>'+idx.code+'</code></td>'
+      +'<td class="'+cls(d.change)+'">'+fmt(d.price)+'</td>'
+      +'<td class="'+cls(d.change)+'">'+arrow(d.change)+' '+Math.abs(d.change).toFixed(2)+'%</td>'
+      +'<td style="font-size:11px;color:var(--text-dim)">'+amt+'</td></tr>';
   }
   h += '</tbody></table>';
   document.getElementById('marketContent').innerHTML = h;
 }
 
-function renderPortfolio(data) {
-  if (!data) {
-    document.getElementById('portfolioContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>';
-    return;
+function renderBrief(data) {
+  // 根据实时数据生成盘前策略
+  let sh = null, cyb = null, kc = null, sz = null;
+  if (data) {
+    sh = data[toTencent('000001','sh')];
+    cyb = data[toTencent('399006','sz')];
+    kc = data[toTencent('000688','sh')];
+    sz = data[toTencent('399001','sz')];
   }
+  // 动态判断
+  const shOk = sh && sh.price > 0;
+  const kcDown = kc && kc.change < -3;
+  const cybDown = cyb && cyb.change < -1;
+  const shDown = sh && sh.change < -0.3;
+
+  let direction = '震荡整理';
+  let dirColor = 'var(--gold)';
+  let reason = '多空力量均衡，等待方向选择';
+
+  if (kcDown && cybDown) {
+    direction = '防御为主';
+    dirColor = 'var(--green)';
+    reason = '科技双杀(科创-4.25%+创业-1.21%)，资金切防御板块，多看少动';
+  } else if (sh && sh.change > 0.5 && sh.price > 3960) {
+    direction = '震荡偏多';
+    dirColor = 'var(--red)';
+    reason = '上证企稳3960上方，成交活跃，但科技拖累整体情绪';
+  }
+
+  const h = '<div class="brief-grid">'
+    +'<div class="brief-block"><div class="blabel">📌 今日方向</div>'
+    +'<div class="bval lg" style="color:'+dirColor+'">'+direction+'</div>'
+    +'<div style="font-size:11px;color:var(--text-dim);margin-top:4px">'+reason+'</div></div>'
+
+    +'<div class="brief-block"><div class="blabel">🎯 操作基调</div>'
+    +'<div class="bval" style="color:var(--gold);font-size:18px">'+'3~4成 · 观望'+'</div>'
+    +'<div style="font-size:11px;color:var(--text-dim);margin-top:4px">等恒瑞回调买入区间再动手</div></div>'
+
+    +'<div class="brief-block"><div class="blabel">⚠️ 风险提示</div>'
+    +'<div class="bval" style="font-size:13px;font-weight:400;line-height:1.5;color:var(--green)">'
+    +'科创50暴跌-4.25%后可能还有惯性下探，不要抄底科技<br>放量滞涨后次日常有低开</div></div>'
+
+    +'<div class="brief-block"><div class="blabel">👀 今日盯盘</div>'
+    +'<div class="bval" style="font-size:13px;font-weight:400;line-height:1.5;color:var(--cyan)">'
+    +'① 恒瑞开盘方向（55.50~56.50买入区间）<br>'
+    +'② 科创50能否在1900附近止跌<br>'
+    +'③ 上证3940支撑位是否守住</div></div>'
+
+    +'</div>';
+  document.getElementById('briefContent').innerHTML = h;
+}
+
+function renderPortfolio(data) {
+  if (!data) { document.getElementById('portfolioContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>'; return; }
   let h = '';
   for (const st of STOCK_CODES) {
     const d = data[toTencent(st.code)];
@@ -457,227 +474,122 @@ function renderPortfolio(data) {
     const c = cls(d.change);
     const perf = sign(d.change) + d.change.toFixed(2) + '%';
     const dotColor = d.change>0?'var(--red)':d.change<0?'var(--green)':'var(--text-dim)';
-    let sub = `<div class="stock-code">${st.code} · ${st.sector||st.status}</div>`;
+    let sub = '<div class="stock-code">'+st.code+' · '+(st.sector||st.status)+'</div>';
     if (st.cost) {
       const loss = ((d.price - st.cost) / st.cost * 100).toFixed(1);
-      const isLoss = parseFloat(loss) < 0;
-      sub += `<div style="font-size:10px;color:var(--text-dim);margin-top:1px">成本 ${fmt(st.cost)} · <span style="color:${isLoss?'var(--green)':'var(--red)'}">${isLoss?'':'+'}</span>${loss}%</div>`;
+      sub += '<div style="font-size:10px;color:var(--text-dim);margin-top:1px">成本 '+fmt(st.cost)+' · <span style="color:'+(loss<0?'var(--green)':'var(--red)')+'">'+(loss<0?'':'+')+loss+'%</span></div>';
     }
     if (st.buyZone && !st.cost) {
-      const p = d.price;
-      const [low, high] = st.buyZone.split('~').map(Number);
-      const inZone = p >= low && p <= high;
-      const nearZone = p >= low*0.97 && p <= high*1.03;
+      const p = d.price, [low, high] = st.buyZone.split('~').map(Number);
       let hint = '';
-      if (inZone) hint = '<span style="color:var(--red);font-weight:600">🎯 在买入区间内</span>';
-      else if (nearZone) hint = `<span style="color:var(--gold)">👀 接近买入区间 (${st.buyZone})</span>`;
-      else if (p < low) hint = `<span style="color:var(--cyan);font-size:10px">📉 低于区间下限</span>`;
-      else hint = `<span style="font-size:10px;color:var(--text-dim)">📌 ${st.buyZone}</span>`;
-      sub += `<div style="font-size:11px;margin-top:2px">${hint}</div>`;
+      if (p >= low && p <= high) hint = '<span style="color:var(--red);font-weight:600">🎯 在买入区间内</span>';
+      else if (p >= low*0.97 && p <= high*1.03) hint = '<span style="color:var(--gold)">👀 接近买入区间 ('+st.buyZone+')</span>';
+      else if (p < low) hint = '<span style="color:var(--cyan);font-size:10px">📉 低于区间下限</span>';
+      else hint = '<span style="font-size:10px;color:var(--text-dim)">📌 '+st.buyZone+'</span>';
+      sub += '<div style="font-size:11px;margin-top:2px">'+hint+'</div>';
     }
-    h += `<div class="stock-row"><div class="stock-info">
-      <span class="stock-tag" style="background:${dotColor}"></span>
-      <div><div class="stock-name">${st.name}</div>${sub}</div>
-    </div>
-    <div class="stock-price">
-      <div class="price ${c}">${fmt(d.price)}</div>
-      <div class="change ${c}">${perf}</div>
-    </div></div>`;
+    h += '<div class="stock-row"><div class="stock-info"><span class="stock-tag" style="background:'+dotColor+'"></span>'
+      +'<div><div class="stock-name">'+st.name+'</div>'+sub+'</div></div>'
+      +'<div class="stock-price"><div class="price '+c+'">'+fmt(d.price)+'</div><div class="change '+c+'">'+perf+'</div></div></div>';
   }
   document.getElementById('portfolioContent').innerHTML = h;
 }
 
 function renderPicks(data) {
-  if (!data) {
-    document.getElementById('picksContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>';
-    return;
-  }
-  // 按涨跌幅降序排列
+  if (!data) { document.getElementById('picksContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>'; return; }
   const sorted = PICK_CODES.map(p => {
     const d = data[toTencent(p.code)];
-    return { ...p, change: d ? d.change : -Infinity, price: d ? d.price : 0 };
+    return Object.assign({}, p, { change: d ? d.change : -Infinity, price: d ? d.price : 0 });
   }).sort((a, b) => b.change - a.change);
-
   const labels = ['首推', '次选', '稳健', '成长', '观察'];
   let h = '<div class="picks-grid">';
   for (let i = 0; i < sorted.length; i++) {
     const p = sorted[i];
-    const c = cls(p.change);
-    h += `<div class="pick-item">
-      <div class="rank">${labels[i]} · ${p.sector}</div>
-      <div class="pname">${p.name}</div>
-      <div class="pcode">${p.code}</div>
-      <div class="pperf ${c}">${sign(p.change)}${p.change.toFixed(2)}%</div>
-      <div style="font-size:11px;color:var(--text-dim)">💰 ${fmt(p.price)}</div>
-      <div class="buy-in">📌 ${p.buyZone}</div>
-      <div class="reason">${p.reason}</div>
-    </div>`;
+    h += '<div class="pick-item"><div class="rank">'+labels[i]+' · '+p.sector+'</div>'
+      +'<div class="pname">'+p.name+'</div><div class="pcode">'+p.code+'</div>'
+      +'<div class="pperf '+cls(p.change)+'">'+sign(p.change)+p.change.toFixed(2)+'%</div>'
+      +'<div style="font-size:11px;color:var(--text-dim)">💰 '+fmt(p.price)+'</div>'
+      +'<div class="buy-in">📌 '+p.buyZone+'</div>'
+      +'<div class="reason">'+p.reason+'</div></div>';
   }
   h += '</div>';
   document.getElementById('picksContent').innerHTML = h;
 }
 
 function renderOutlook() {
-  // 宝宝板块观点 — 基于最新产业逻辑+市场评分的方向预测
   const outlook = [
-    {
-      sector: '🏭 创新药/医药',
-      view: '看好',
-      reason: '科技资金流出→医药防御切换，超跌反弹逻辑成立',
-      level: '主线'
-    },
-    {
-      sector: '🏭 券商/金融科技',
-      view: '看好',
-      reason: '天量成交直接受益，东方财富放量突破',
-      level: '主线'
-    },
-    {
-      sector: '🏭 家电',
-      view: '中性偏多',
-      reason: 'PE14倍历史低位，高股息防御属性',
-      level: '支线'
-    },
-    {
-      sector: '🏭 新能源汽车',
-      view: '中性',
-      reason: '赛力斯业绩支撑，但板块整体估值偏高',
-      level: '支线'
-    },
-    {
-      sector: '🏭 半导体',
-      view: '谨慎',
-      reason: '科创50暴跌-4.25%，短期风险未释放完',
-      level: '回避'
-    },
+    { sector: '🏭 创新药/医药', view: '看好', reason: '科技资金流出→医药防御切换，超跌反弹逻辑成立', level: '主线' },
+    { sector: '🏭 券商/金融科技', view: '看好', reason: '天量成交直接受益，东方财富放量突破', level: '主线' },
+    { sector: '🏭 家电', view: '中性偏多', reason: 'PE14倍历史低位，高股息防御属性', level: '支线' },
+    { sector: '🏭 新能源汽车', view: '中性', reason: '赛力斯业绩支撑，但板块整体估值偏高', level: '支线' },
+    { sector: '🏭 半导体', view: '谨慎', reason: '科创50暴跌-4.25%，短期风险未释放完', level: '回避' },
   ];
-
   let h = '';
   for (const o of outlook) {
-    const viewColor = o.view === '看好' ? 'var(--red)' : o.view === '中性偏多' ? 'var(--gold)' : o.view === '中性' ? 'var(--cyan)' : 'var(--green)';
-    const levelTag = o.level === '主线' ? 'tag-red' : o.level === '支线' ? 'tag-blue' : 'tag-green';
-    h += `<div class="stock-row">
-      <div class="stock-info">
-        <div>
-          <div class="stock-name">${o.sector}</div>
-          <div style="font-size:10px;color:var(--text-dim);margin-top:1px">${o.reason}</div>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-weight:600;font-size:13px;color:${viewColor}">${o.view}</div>
-        <div><span class="tag ${levelTag}" style="font-size:9px">${o.level}</span></div>
-      </div>
-    </div>`;
+    const vc = o.view==='看好'?'var(--red)':o.view==='中性偏多'?'var(--gold)':o.view==='中性'?'var(--cyan)':'var(--green)';
+    const lt = o.level==='主线'?'tag-red':o.level==='支线'?'tag-blue':'tag-green';
+    h += '<div class="stock-row"><div class="stock-info"><div>'
+      +'<div class="stock-name">'+o.sector+'</div>'
+      +'<div style="font-size:10px;color:var(--text-dim);margin-top:1px">'+o.reason+'</div></div></div>'
+      +'<div style="text-align:right"><div style="font-weight:600;font-size:13px;color:'+vc+'">'+o.view+'</div>'
+      +'<div><span class="tag '+lt+'" style="font-size:9px">'+o.level+'</span></div></div></div>';
   }
-  h += `<div style="font-size:10px;color:var(--text-dim);margin-top:6px;text-align:right">
-    观点基于当日市场数据 · 随收盘报告更新</div>`;
+  h += '<div style="font-size:10px;color:var(--text-dim);margin-top:6px;text-align:right">观点基于当日市场数据 · 随收盘报告更新</div>';
   document.getElementById('outlookContent').innerHTML = h;
 }
 
 function renderSectors() {
-  // 使用本地板块数据（从搜狐财经获取板块数据不稳定时使用）
-  const sectors = SECTORS_FALLBACK;
   let h = '<div class="sector-list">';
-  for (const s of sectors) {
-    const c = cls(s.change);
-    h += `<div class="sector-item">
-      <div class="sname">${s.name}</div>
-      <div class="schg ${c}">${sign(s.change)}${s.change.toFixed(1)}%</div>
-    </div>`;
+  for (const s of SECTORS_FALLBACK) {
+    h += '<div class="sector-item"><div class="sname">'+s.name+'</div>'
+      +'<div class="schg '+cls(s.change)+'">'+sign(s.change)+s.change.toFixed(1)+'%</div></div>';
   }
   h += '</div>';
   document.getElementById('sectorContent').innerHTML = h;
 }
 
 function renderNorthFlow() {
-  // 北向资金数据 — 用昨日估算（实时数据在非交易时段不可用）
-  // 可用腾讯API查询沪深港通
-  const today = new Date();
-  const hh = today.getHours();
-  // 交易时段（9:30-15:00）显示实时估算，非交易时段展示流数据
+  const hh = new Date().getHours();
   const isTrading = hh >= 9 && hh < 15;
   const flow = isTrading ? { value: '-28.5', label: '今日估算', dir: '流出' } : { value: '-28.5', label: '上一交易日', dir: '流出' };
-  const dirColor = flow.dir === '流入' ? 'var(--red)' : 'var(--green)';
-  let h = `<div class="nflow-wrap">
-    <div class="nflow-val" style="color:${dirColor}">${flow.value}亿</div>
-    <div>
-      <div class="nflow-label">${flow.label}</div>
-      <div style="font-size:12px;font-weight:500;color:${dirColor}">${flow.dir}</div>
-    </div>
-  </div>
-  <div style="font-size:11px;color:var(--text-dim);margin-top:6px">
-    沪股通+深股通 · 数据仅供参考
-  </div>`;
-  document.getElementById('northFlowContent').innerHTML = h;
-}
-
-function renderStrategy() {
-  const s = {
-    position: '3~4成',
-    advice: '等恒瑞回调到买入区间建仓，不追科技反弹',
-    focus: '科创50走势 + 恒瑞开盘方向',
-    risk: '放量滞涨后需警惕惯性下探'
-  };
-  let h = `<div class="strategy-wrap">
-    <div class="strategy-block">
-      <div class="slabel">建议仓位</div>
-      <div class="svalue gold" style="font-size:18px">${s.position}</div>
-    </div>
-    <div class="strategy-block">
-      <div class="slabel">操作建议</div>
-      <div class="svalue" style="font-size:13px;font-weight:400;line-height:1.5">${s.advice}</div>
-    </div>
-    <div class="strategy-block">
-      <div class="slabel">关注焦点</div>
-      <div class="svalue cyan" style="font-size:13px;font-weight:400;line-height:1.5">${s.focus}</div>
-    </div>
-    <div class="strategy-block">
-      <div class="slabel">风险提示</div>
-      <div class="svalue red" style="font-size:13px;font-weight:400;line-height:1.5">${s.risk}</div>
-    </div>
-  </div>`;
-  document.getElementById('strategyContent').innerHTML = h;
+  const dc = flow.dir==='流入'?'var(--red)':'var(--green)';
+  document.getElementById('northFlowContent').innerHTML = '<div class="nflow-wrap">'
+    +'<div class="nflow-val" style="color:'+dc+'">'+flow.value+'亿</div>'
+    +'<div><div class="nflow-label">'+flow.label+'</div><div style="font-size:12px;font-weight:500;color:'+dc+'">'+flow.dir+'</div></div></div>'
+    +'<div style="font-size:11px;color:var(--text-dim);margin-top:6px">沪股通+深股通 · 数据仅供参考</div>';
 }
 
 function renderFeeling() {
   const f = { score: 4.5, label: '偏弱 · 观望', detail: '放量滞涨+科技暴跌，短期风险偏好下降' };
   const pct = (f.score / 10) * 100;
-  const ringColor = pct > 60 ? '#16a34a' : pct > 30 ? '#b8860b' : '#dc2626';
-  let h = `<div class="temp-wrap">
-    <div class="temp-ring">
-      <svg viewBox="0 0 36 36">
-        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-          fill="none" stroke="#e5ddd5" stroke-width="2.5" />
-        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-          fill="none" stroke="${ringColor}" stroke-width="2.5"
-          stroke-dasharray="${pct}, 100" stroke-linecap="round" />
-      </svg>
-      <div class="val" style="color:${ringColor}">${f.score.toFixed(1)}</div>
-    </div>
-    <div class="temp-info">
-      <div class="label">${f.label}</div>
-      <div class="detail">${f.detail}</div>
-    </div>
-  </div>`;
-  document.getElementById('feelingContent').innerHTML = h;
+  const rc = pct > 60 ? '#16a34a' : pct > 30 ? '#b8860b' : '#dc2626';
+  document.getElementById('feelingContent').innerHTML = '<div class="temp-wrap">'
+    +'<div class="temp-ring"><svg viewBox="0 0 36 36">'
+    +'<path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#e5ddd5" stroke-width="2.5"/>'
+    +'<path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="'+rc+'" stroke-width="2.5" stroke-dasharray="'+pct+', 100" stroke-linecap="round"/>'
+    +'</svg><div class="val" style="color:'+rc+'">'+f.score.toFixed(1)+'</div></div>'
+    +'<div class="temp-info"><div class="label">'+f.label+'</div><div class="detail">'+f.detail+'</div></div></div>';
+}
+
+function renderStrategy() {
+  document.getElementById('strategyContent').innerHTML = '<div class="strategy-wrap">'
+    +'<div class="strategy-block"><div class="slabel">建议仓位</div><div class="svalue gold" style="font-size:18px">3~4成</div></div>'
+    +'<div class="strategy-block"><div class="slabel">操作建议</div><div class="svalue" style="font-size:13px;font-weight:400;line-height:1.5">等恒瑞回调到买入区间建仓，不追科技反弹</div></div>'
+    +'<div class="strategy-block"><div class="slabel">关注焦点</div><div class="svalue cyan" style="font-size:13px;font-weight:400;line-height:1.5">科创50走势 + 恒瑞开盘方向</div></div>'
+    +'<div class="strategy-block"><div class="slabel">风险提示</div><div class="svalue red" style="font-size:13px;font-weight:400;line-height:1.5">放量滞涨后需警惕惯性下探</div></div></div>';
 }
 
 function renderSignals() {
-  const signals = [
-    '📊 实时行情来自腾讯财经，每次打开自动获取',
-    '🎯 精选推荐基于近期的产业逻辑+基本面筛选',
-    '💰 恒瑞医药买入区间 55.50~56.50，耐心等回调',
-    '⚠️ 以上数据不构成投资建议',
-  ];
   let h = '<ul class="sig-list">';
-  for (const s of signals) { h += `<li><span class="sig-dot">✦</span>${s}</li>`; }
+  const s = ['📊 实时行情来自腾讯财经，每次打开自动获取','🎯 精选推荐基于近期的产业逻辑+基本面筛选','💰 恒瑞医药买入区间 55.50~56.50，耐心等回调','⚠️ 以上数据不构成投资建议'];
+  for (const x of s) h += '<li><span class="sig-dot">✦</span>'+x+'</li>';
   h += '</ul>';
   document.getElementById('signalContent').innerHTML = h;
 }
 
 function renderReview() {
   const r = {
-    yesterday: '2026-07-14',
+    yesterday: '2026-07-14', accuracy: '20% (1/5上涨)', note: '昨日推荐表现不佳，市场环境剧烈变化',
     stocks: [
       {name:'东方财富', change:2.76, verdict:'✅ 上涨'},
       {name:'洛阳钼业', change:-0.55, verdict:'❌ 下跌'},
@@ -685,21 +597,12 @@ function renderReview() {
       {name:'TCL科技', change:-1.56, verdict:'❌ 下跌'},
       {name:'紫金矿业', change:-0.38, verdict:'➖ 平盘'},
     ],
-    accuracy: '20% (1/5上涨)',
-    note: '昨日推荐表现不佳，市场环境剧烈变化'
   };
-  let h = `<div class="review-header">${r.yesterday} · 准确率 <strong style="color:var(--gold)">${r.accuracy}</strong></div>`;
-  h += '<div class="review-grid">';
+  let h = '<div class="review-header">'+r.yesterday+' · 准确率 <strong style="color:var(--gold)">'+r.accuracy+'</strong></div><div class="review-grid">';
   for (const st of r.stocks) {
-    const c = cls(st.change);
-    h += `<div class="review-chip">
-      <div class="rname">${st.name}</div>
-      <div class="rchange ${c}">${sign(st.change)}${st.change.toFixed(2)}%</div>
-      <div class="rverdict">${st.verdict}</div>
-    </div>`;
+    h += '<div class="review-chip"><div class="rname">'+st.name+'</div><div class="rchange '+cls(st.change)+'">'+sign(st.change)+st.change.toFixed(2)+'%</div><div class="rverdict">'+st.verdict+'</div></div>';
   }
-  h += '</div>';
-  h += `<div class="review-note">💬 ${r.note}</div>`;
+  h += '</div><div class="review-note">💬 '+r.note+'</div>';
   document.getElementById('reviewContent').innerHTML = h;
 }
 
@@ -709,22 +612,18 @@ function renderReview() {
 
 async function loadData() {
   const btn = document.getElementById('btnRefresh');
-  btn.disabled = true;
-  btn.textContent = '⟳ 更新中...';
-
-  // 更新时间戳
+  btn.disabled = true; btn.textContent = '⟳ 更新中...';
   const now = new Date();
   document.getElementById('reportDate').textContent = now.toISOString().slice(0,10);
   document.getElementById('reportTime').textContent = now.toTimeString().slice(0,5);
 
-  // 拉取数据
   const allCodes = [...INDEX_CODES, ...STOCK_CODES, ...PICK_CODES];
   const seen = new Set();
   const uniqueCodes = allCodes.filter(c => { if (seen.has(c.code)) return false; seen.add(c.code); return true; });
   const data = await fetchTencent(uniqueCodes);
 
-  // 渲染
   renderMarket(data);
+  renderBrief(data);
   renderPortfolio(data);
   renderOutlook();
   renderPicks(data);
@@ -735,11 +634,9 @@ async function loadData() {
   renderSignals();
   renderReview();
 
-  btn.disabled = false;
-  btn.textContent = '⟳ 刷新';
+  btn.disabled = false; btn.textContent = '⟳ 刷新';
 }
 
-// 初次加载
 loadData();
 </script>
 </body>
