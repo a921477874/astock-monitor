@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-07-16 14:22",
+  "total_days": 1,
+  "total_picks": 0,
+  "win_rate": 0,
+  "avg_pnl_per_pick": 0,
+  "total_return": 0,
+  "max_drawdown": 0,
+  "sharpe_ratio": 0,
+  "daily_records": [
+    {
+      "date": "2026-07-15",
+      "picks": [],
+      "day_pnl": 0,
+      "up": 0,
+      "down": 0
+    }
+  ]
+}
