@@ -8,11 +8,11 @@
     "down": 1,
     "win_rate": 75.0,
     "picks": [
-      {"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 8.99, "today_change": 5.64, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量上涨+9.9% 日内走强"},
-      {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 10.12, "today_change": 3.69, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比3.2x放量上涨+6.3% 低PE2.3倍"},
-      {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 88.84, "today_change": 0.35, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "➖ 平", "reason": "接近涨停+10.0% 注意明日溢价"},
-      {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.80, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 48.56, "today_change": 1.59, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"},
-      {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.80, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.59, "today_change": -2.69, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "❌ 跌", "reason": "涨停+10.0% 板块大涨🔥"}
+      {"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%"},
+      {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE"},
+      {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨"},
+      {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.80, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"},
+      {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.80, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.90, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥"}
     ]
   }
 ]
