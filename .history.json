@@ -1,0 +1,47 @@
+[
+  {
+    "date": "2026-07-10",
+    "shPrice": 3878.12,
+    "shChange": -0.34,
+    "direction": "震荡整理",
+    "result": "➖ 待验证",
+    "kcChange": -1.12,
+    "cybChange": -0.28
+  },
+  {
+    "date": "2026-07-13",
+    "shPrice": 3913.8,
+    "shChange": 0.92,
+    "direction": "震荡反弹",
+    "result": "✅ 对",
+    "kcChange": 1.85,
+    "cybChange": 1.62
+  },
+  {
+    "date": "2026-07-14",
+    "shPrice": 3967.13,
+    "shChange": 1.36,
+    "direction": "稳健上行",
+    "result": "✅ 对",
+    "kcChange": 0.77,
+    "cybChange": 3.43
+  },
+  {
+    "date": "2026-07-15",
+    "shPrice": 3955.58,
+    "shChange": -0.82,
+    "direction": "窄幅震荡",
+    "result": "➖ 待验证",
+    "kcChange": -4.25,
+    "cybChange": -1.56
+  },
+  {
+    "date": "2026-07-16",
+    "shPrice": 3917.53,
+    "shChange": -0.96,
+    "direction": "承压调整",
+    "result": "✅ 对",
+    "kcChange": -2.36,
+    "cybChange": -1.95
+  }
+]

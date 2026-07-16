@@ -463,14 +463,13 @@ async function loadData() {
   renderSignals();
   renderReview();
   renderDailyReport();
-  saveTodayRecord(data);
   renderHistory();
 }
 
 // ═══════════════════════════════════════════
 // 今日报告数据（收盘后由脚本更新）
 // ═══════════════════════════════════════════
-const DAILY_REPORT = {"date": "2026-07-16", "marketState": "混沌", "shPrice": 3919.69, "shChange": -0.91, "newsScore": 6, "honestResult": "✅ 盘中实时 · 承压调整", "honestReflect": "每30分钟更新 | 上证-0.91% | 评分4.1", "updatedAt": "2026-07-16 13:18", "picks": [{"rank": 1, "name": "长电科技", "code": "600584", "sector": "半导体封测", "price": 84.96, "change": -8.11, "zone": "--", "reason": "--"}, {"rank": 2, "name": "恒瑞医药", "code": "600276", "sector": "创新药", "price": 56.67, "change": -1.44, "zone": "--", "reason": "--"}, {"rank": 3, "name": "美的集团", "code": "000333", "sector": "家电", "price": 82.17, "change": -0.6, "zone": "--", "reason": "--"}, {"rank": 4, "name": "赛力斯", "code": "601127", "sector": "新能源汽车", "price": 56.93, "change": 1.86, "zone": "--", "reason": "--"}, {"rank": 5, "name": "豪威集团", "code": "603501", "sector": "芯片设计", "price": 111.99, "change": 0.78, "zone": "--", "reason": "--"}, {"rank": 6, "name": "比亚迪", "code": "002594", "sector": "新能源汽车", "price": 94.49, "change": 2.98, "zone": "--", "reason": "--"}, {"rank": 7, "name": "立讯精密", "code": "002475", "sector": "消费电子", "price": 62.29, "change": 3.01, "zone": "--", "reason": "--"}], "strategy": "仓位2~4成。市场评分4.1，偏弱防御为主。控制仓位等待企稳信号", "market": {"sh": {"price": 3919.6867, "change": -0.91}, "sz": {"price": 14669.025, "change": -0.75}, "cyb": {"price": 3748.402, "change": -1.48}, "kc": {"price": 1889.3907, "change": -1.81}, "hs300": {"price": 4745.978, "change": -0.85}, "sh50": {"price": 2931.6084, "change": -1.2}}, "feeling": {"score": 4.1, "label": "🌧️ 偏弱 · 谨慎", "detail": "市场偏弱，控制仓位等待方向"}, "board": {"score": 5, "label": "📊 正常", "note": "情绪中性，结构性机会", "limitUp": 0, "limitDown": 0, "up5": 0, "down5": 1}, "north": {"flow": 19.6, "dir": "流出", "label": "今日估算"}, "sectors": [{"sector": "🏭 市场混沌", "view": "中性", "reason": "无明显主线板块", "level": "观望"}], "trend": {"score": 2.9, "structScore": 4.7, "totalScore": 4.1}, "position": "2~4成", "advice": "市场评分4.1，偏弱防御为主", "focus": "上证dict_keys(['新能源汽车', '消费电子'])", "risk": "控制仓位等待企稳信号", "signals": ["📊 实时行情来自腾讯财经，每30分钟自动刷新", "🎯 追踪7只个股，重点看涨跌分化", "💰 评分4.1，建议仓位2~4成", "⚠️ 以上数据不构成投资建议"], "closingPicks": {"date": "2026-07-15", "generated_at": "2026-07-15 21:18", "total_scanned": 8, "top5": [{"rank": 1, "name": "恺英网络", "code": "002517", "sector": "综合", "price": 17.18, "change_pct": 9.99, "ratio5": 1.47, "score": 8.4, "reason": "温和放量上涨+10.0%，量价配合好 日内走强(开盘→现+10.7%) [游戏] 板块大涨+10.0%🔥", "buy_low": 16.75, "buy_high": 17.35}, {"rank": 2, "name": "好想你", "code": "002582", "sector": "综合", "price": 9.76, "change_pct": 6.32, "ratio5": 3.22, "score": 8.1, "reason": "放量上涨+6.3%(量比3.2x)，空间充裕 日内走强(开盘→现+8.4%) 低PE2.3倍", "buy_low": 9.52, "buy_high": 9.86}, {"rank": 3, "name": "古井贡酒", "code": "000596", "sector": "综合", "price": 88.53, "change_pct": 10.0, "ratio5": 1.91, "score": 7.9, "reason": "接近涨停+10.0%，注意明日溢价 日内走强(开盘→现+10.8%) [白酒] 板块大涨+10.0%🔥", "buy_low": 86.32, "buy_high": 89.42}, {"rank": 4, "name": "盐津铺子", "code": "002847", "sector": "综合", "price": 47.8, "change_pct": 8.41, "ratio5": 2.54, "score": 7.8, "reason": "放量上涨+8.4%(量比2.5x)，空间充裕 日内走强(开盘→现+8.5%)", "buy_low": 46.6, "buy_high": 48.28}, {"rank": 5, "name": "银龙股份", "code": "603969", "sector": "综合", "price": 7.8, "change_pct": 10.01, "ratio5": 1.14, "score": 7.8, "reason": "小幅上涨+10.0%，量能一般 日内走强(开盘→现+12.4%) [建筑材料] 板块大涨+10.0%🔥", "buy_low": 7.6, "buy_high": 7.88}]}, "review": {"yesterday": "2026-07-16", "stats": "盘中数据 · 实时更新", "note": "盘中追踪，收盘后宝宝会做完整复盘", "stocks": [{"name": "长电科技", "change": -8.11, "code": "600584"}, {"name": "恒瑞医药", "change": -1.44, "code": "600276"}, {"name": "美的集团", "change": -0.6, "code": "000333"}, {"name": "赛力斯", "change": 1.86, "code": "601127"}, {"name": "豪威集团", "change": 0.78, "code": "603501"}]}};
+const DAILY_REPORT = {"date": "2026-07-16", "marketState": "混沌", "shPrice": 3918.54, "shChange": -0.94, "newsScore": 6, "honestResult": "✅ 盘中实时 · 承压调整", "honestReflect": "每30分钟更新 | 上证-0.94% | 评分3.9", "updatedAt": "2026-07-16 13:27", "picks": [{"rank": 1, "name": "长电科技", "code": "600584", "sector": "半导体封测", "price": 84.55, "change": -8.56, "zone": "--", "reason": "--"}, {"rank": 2, "name": "恒瑞医药", "code": "600276", "sector": "创新药", "price": 57.09, "change": -0.71, "zone": "--", "reason": "--"}, {"rank": 3, "name": "美的集团", "code": "000333", "sector": "家电", "price": 82.21, "change": -0.56, "zone": "--", "reason": "--"}, {"rank": 4, "name": "赛力斯", "code": "601127", "sector": "新能源汽车", "price": 57.03, "change": 2.04, "zone": "--", "reason": "--"}, {"rank": 5, "name": "豪威集团", "code": "603501", "sector": "芯片设计", "price": 111.4, "change": 0.25, "zone": "--", "reason": "--"}, {"rank": 6, "name": "比亚迪", "code": "002594", "sector": "新能源汽车", "price": 94.47, "change": 2.95, "zone": "--", "reason": "--"}, {"rank": 7, "name": "立讯精密", "code": "002475", "sector": "消费电子", "price": 62.13, "change": 2.75, "zone": "--", "reason": "--"}], "strategy": "仓位2~4成。市场评分3.9，偏弱防御为主。控制仓位等待企稳信号", "market": {"sh": {"price": 3918.5439, "change": -0.94}, "sz": {"price": 14628.271, "change": -1.02}, "cyb": {"price": 3732.481, "change": -1.9}, "kc": {"price": 1880.2049, "change": -2.29}, "hs300": {"price": 4740.5818, "change": -0.97}, "sh50": {"price": 2933.9873, "change": -1.11}}, "feeling": {"score": 3.9, "label": "❄️ 冰点 · 防御", "detail": "情绪冰点，防御为主不轻易抄底"}, "board": {"score": 5, "label": "📊 正常", "note": "情绪中性，结构性机会", "limitUp": 0, "limitDown": 0, "up5": 0, "down5": 1}, "north": {"flow": 19.7, "dir": "流出", "label": "今日估算"}, "sectors": [{"sector": "🏭 科创/科技", "view": "谨慎", "reason": "科创50-2.29%承压", "level": "回避"}], "trend": {"score": 2.6, "structScore": 4.4, "totalScore": 3.9}, "position": "2~4成", "advice": "市场评分3.9，偏弱防御为主", "focus": "上证dict_keys(['新能源汽车', '消费电子'])", "risk": "控制仓位等待企稳信号", "signals": ["📊 实时行情来自腾讯财经，每30分钟自动刷新", "🎯 追踪7只个股，重点看涨跌分化", "💰 评分3.9，建议仓位2~4成", "⚠️ 以上数据不构成投资建议"], "closingPicks": {"date": "2026-07-15", "generated_at": "2026-07-15 21:18", "total_scanned": 8, "top5": [{"rank": 1, "name": "恺英网络", "code": "002517", "sector": "综合", "price": 17.18, "change_pct": 9.99, "ratio5": 1.47, "score": 8.4, "reason": "温和放量上涨+10.0%，量价配合好 日内走强(开盘→现+10.7%) [游戏] 板块大涨+10.0%🔥", "buy_low": 16.75, "buy_high": 17.35}, {"rank": 2, "name": "好想你", "code": "002582", "sector": "综合", "price": 9.76, "change_pct": 6.32, "ratio5": 3.22, "score": 8.1, "reason": "放量上涨+6.3%(量比3.2x)，空间充裕 日内走强(开盘→现+8.4%) 低PE2.3倍", "buy_low": 9.52, "buy_high": 9.86}, {"rank": 3, "name": "古井贡酒", "code": "000596", "sector": "综合", "price": 88.53, "change_pct": 10.0, "ratio5": 1.91, "score": 7.9, "reason": "接近涨停+10.0%，注意明日溢价 日内走强(开盘→现+10.8%) [白酒] 板块大涨+10.0%🔥", "buy_low": 86.32, "buy_high": 89.42}, {"rank": 4, "name": "盐津铺子", "code": "002847", "sector": "综合", "price": 47.8, "change_pct": 8.41, "ratio5": 2.54, "score": 7.8, "reason": "放量上涨+8.4%(量比2.5x)，空间充裕 日内走强(开盘→现+8.5%)", "buy_low": 46.6, "buy_high": 48.28}, {"rank": 5, "name": "银龙股份", "code": "603969", "sector": "综合", "price": 7.8, "change_pct": 10.01, "ratio5": 1.14, "score": 7.8, "reason": "小幅上涨+10.0%，量能一般 日内走强(开盘→现+12.4%) [建筑材料] 板块大涨+10.0%🔥", "buy_low": 7.6, "buy_high": 7.88}]}, "history": [{"date": "2026-07-10", "shPrice": 3878.12, "shChange": -0.34, "direction": "震荡整理", "result": "➖ 待验证", "kcChange": -1.12, "cybChange": -0.28}, {"date": "2026-07-13", "shPrice": 3913.8, "shChange": 0.92, "direction": "震荡反弹", "result": "✅ 对", "kcChange": 1.85, "cybChange": 1.62}, {"date": "2026-07-14", "shPrice": 3967.13, "shChange": 1.36, "direction": "稳健上行", "result": "✅ 对", "kcChange": 0.77, "cybChange": 3.43}, {"date": "2026-07-15", "shPrice": 3955.58, "shChange": -0.82, "direction": "窄幅震荡", "result": "➖ 待验证", "kcChange": -4.25, "cybChange": -1.56}, {"date": "2026-07-16", "shPrice": 3917.53, "shChange": -0.96, "direction": "承压调整", "result": "✅ 对", "kcChange": -2.36, "cybChange": -1.95}], "review": {"yesterday": "2026-07-16", "stats": "盘中数据 · 实时更新", "note": "盘中追踪，收盘后宝宝会做完整复盘", "stocks": [{"name": "长电科技", "change": -8.56, "code": "600584"}, {"name": "恒瑞医药", "change": -0.71, "code": "600276"}, {"name": "美的集团", "change": -0.56, "code": "000333"}, {"name": "赛力斯", "change": 2.04, "code": "601127"}, {"name": "豪威集团", "change": 0.25, "code": "603501"}]}};
 
 async function fetchTencent(codes) {
   const qs = codes.map(c => toTencent(c.code, c.prefix)).join(',');
@@ -926,95 +925,11 @@ function renderReview() {
   document.getElementById('reviewContent').innerHTML = h;
 }
 
+// 历史战绩 — 数据由后端每日维护
 // ═══════════════════════════════════════════
-// 历史战绩 — localStorage 持久化
-// ═══════════════════════════════════════════
-
-// 宝宝历史战绩初始种子数据（从过往报告提取）
-const SEED_HISTORY = [
-  { date: '2026-07-14', shPrice: 3967.13, shChange: 1.36, direction: '稳健上行', result: '✅ 对', kcChange: 0.77, cybChange: 3.43 },
-  { date: '2026-07-13', shPrice: 3913.80, shChange: 0.92, direction: '震荡反弹', result: '✅ 对', kcChange: 1.85, cybChange: 1.62 },
-  { date: '2026-07-10', shPrice: 3878.12, shChange: -0.34, direction: '震荡整理', result: '➖ 待验证', kcChange: -1.12, cybChange: -0.28 },
-];
-
-// 从 localStorage 读取历史记录（合并种子数据）
-function loadHistory() {
-  try {
-    const raw = localStorage.getItem('baobao_history');
-    if (raw) {
-      const stored = JSON.parse(raw);
-      // 如果localStorage已有数据，用已有的（避免重复覆盖种子）
-      return stored;
-    }
-    // 首次使用：写入种子数据
-    try { localStorage.setItem('baobao_history', JSON.stringify(SEED_HISTORY)); } catch(e) {}
-    return SEED_HISTORY;
-  } catch(e) { return []; }
-}
-
-// 保存今日记录到 localStorage
-function saveTodayRecord(data) {
-  const history = loadHistory();
-  const today = new Date().toISOString().slice(0,10);
-  // 避免重复保存同一天
-  if (history.length > 0 && history[history.length-1].date === today) return;
-
-  // 复用评分引擎（与renderBrief同步）
-  let totalScore = 5, direction = '震荡整理';
-  if (data) {
-    const sh = data[toTencent('000001','sh')];
-    const cyb = data[toTencent('399006','sz')];
-    const kc = data[toTencent('000688','sh')];
-    const sz = data[toTencent('399001','sz')];
-    const hs300 = data[toTencent('000300','sh')];
-    const sh50 = data[toTencent('000016','sh')];
-
-    const idxs = [sh, sz, cyb, hs300, sh50].filter(Boolean);
-    const avgChg = idxs.reduce((s, x) => s + x.change, 0) / (idxs.length || 1);
-    const trendScore = Math.min(10, Math.max(0, 5 + avgChg * 2));
-    const structScore = (kc && sh50) ? Math.min(10, Math.max(0, 5 + (kc.change - sh50.change) * 0.5)) : 5;
-    const totalAmt = idxs.reduce((s, x) => s + (x.amount || 0), 0);
-    const volumeScore = Math.min(10, Math.max(0, (totalAmt / 2000) * 5));
-    const northScore = (kc && sh50 && kc.change < -2 && sh50.change > -0.5) ? 4 : (sh && sh.change > 0.5) ? 6 : 5;
-    const breadthScore = (cyb && sh) ? Math.min(10, Math.max(0, 5 + (cyb.change - sh.change) * 0.8)) : 5;
-    const externalScore = kc ? Math.min(10, Math.max(0, 5 + kc.change * 0.4)) : 5;
-
-    const weights = { t: 0.25, s: 0.20, v: 0.20, n: 0.15, b: 0.10, e: 0.10 };
-    totalScore = Math.round(trendScore * weights.t + structScore * weights.s + volumeScore * weights.v + northScore * weights.n + breadthScore * weights.b + externalScore * weights.e);
-    if (totalScore >= 7) direction = '进攻';
-    else if (totalScore >= 5.5) direction = '震荡偏多';
-    else if (totalScore >= 4) direction = '震荡偏弱';
-    else direction = '防守';
-  }
-
-  let dirResult = '➖ 待验证';
-  if (data) {
-    const sh = data[toTencent('000001','sh')];
-    if (sh) {
-      if (totalScore >= 5.5 && sh.change > -0.3) dirResult = '✅ 对';
-      else if (totalScore < 4 && sh.change < -0.3) dirResult = '✅ 对';
-      else if (totalScore >= 4 && totalScore < 5.5 && Math.abs(sh.change) < 0.8) dirResult = '✅ 对';
-      else if (sh.change > 0.5 && totalScore >= 5.5) dirResult = '✅ 对';
-      else if (sh.change < -0.5 && totalScore < 4) dirResult = '✅ 对';
-      else dirResult = '❌ 错';
-    }
-  }
-
-  const record = {
-    date: today,
-    shPrice: sh ? sh.price : 0,
-    shChange: sh ? sh.change : 0,
-    direction: direction,
-    result: dirResult,
-    kcChange: kc ? kc.change : 0,
-    cybChange: cyb ? cyb.change : 0,
-  };
-  history.push(record);
-  try { localStorage.setItem('baobao_history', JSON.stringify(history)); } catch(e) {}
-}
 
 function renderHistory() {
-  const history = loadHistory();
+  const history = DAILY_REPORT.history || [];
   if (!history || history.length === 0) {
     document.getElementById('historyContent').innerHTML = '<div class="history-empty">📭 暂无历史记录 — 从今天开始，宝宝每次运行收盘报告时自动记录</div>';
     return;
@@ -1055,7 +970,7 @@ function renderHistory() {
       +'</tr>';
   }
   h += '</tbody></table>';
-  h += '<div class="history-note">显示最近 '+maxShow+' 条 · 共 '+total+' 条记录 · 每次收盘报告自动追加</div>';
+  h += '<div class="history-note">显示最近 '+maxShow+' 条 · 共 '+total+' 条记录 · 宝宝每日自动记录</div>';
   document.getElementById('historyContent').innerHTML = h;
 }
 
