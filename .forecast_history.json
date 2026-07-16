@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-16",
+  "generated_at": "2026-07-16 13:03",
+  "prediction": {
+    "open_pred": "平开或小幅震荡 →",
+    "day_pred": "窄幅震荡，个股分化",
+    "confidence": "中",
+    "strategy": "控制仓位（5成左右），观望为主，不追高，等待方向明确"
+  },
+  "us_market": {
+    "nasdaq": 0.62,
+    "dow": 0.29,
+    "sp500": 0.38
+  },
+  "global_market": {
+    "hsi": null
+  },
+  "total_score": -0.23
+}
