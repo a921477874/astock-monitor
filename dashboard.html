@@ -396,26 +396,21 @@ let sectorETFData = {};
 // ═══ 简化版loadData：仅获取指数+渲染，推荐用静态数据 ═══
 
 function renderOutlook() {
-  if (!DAILY_REPORT.date) {
+  const s = DAILY_REPORT.sectors || [];
+  if (s.length === 0) {
     document.getElementById('outlookContent').innerHTML = '<div class="loading">⏳ 分析中...</div>'; return;
   }
-  const state = DAILY_REPORT.marketState || '混沌';
-  const top1 = (DAILY_REPORT.picks && DAILY_REPORT.picks[0]) ? DAILY_REPORT.picks[0].name : '--';
-  const outlook = [
-    { sector: '🏭 大盘状态', view: state === '有主线' ? '有主线' : '混沌', reason: '基于收盘扫描结果', level: state === '有主线' ? '主线' : '观望' },
-    { sector: '🏭 今日首推', view: top1, reason: DAILY_REPORT.picks ? (DAILY_REPORT.picks[0]?.reason || '') : '', level: '主线' },
-  ];
   let h = '';
-  for (const o of outlook) {
-    const vc = o.view==='有主线'||o.view==='看好'?'var(--red)':'var(--gold)';
-    const lt = o.level==='主线'?'tag-red':'tag-gold';
+  for (const o of s) {
+    const vc = o.view==='看好'||o.view==='偏强'?'var(--red)':o.view==='谨慎'?'var(--green)':'var(--gold)';
+    const lt = o.level==='主线'?'tag-red':o.level==='回避'?'tag-green':'tag-blue';
     h += '<div class="stock-row"><div class="stock-info"><div>'
       +'<div class="stock-name">'+o.sector+'</div>'
       +'<div style="font-size:10px;color:var(--text-dim);margin-top:1px">'+o.reason+'</div></div></div>'
       +'<div style="text-align:right"><div style="font-weight:600;font-size:13px;color:'+vc+'">'+o.view+'</div>'
       +'<div><span class="tag '+lt+'" style="font-size:9px">'+o.level+'</span></div></div></div>';
   }
-  h += '<div style="font-size:10px;color:var(--text-dim);margin-top:6px;text-align:right">数据来自收盘扫描</div>';
+  h += '<div style="font-size:10px;color:var(--text-dim);margin-top:6px;text-align:right">观点来自宝宝实时分析</div>';
   document.getElementById('outlookContent').innerHTML = h;
 }
 
@@ -456,7 +451,7 @@ async function loadData() {
   renderSectors();
   renderNorthFlow();
   renderFeeling();
-  renderBoard(data);
+  renderBoard();
   renderStrategy();
   renderSignals();
   renderReview();
@@ -468,18 +463,7 @@ async function loadData() {
 // ═══════════════════════════════════════════
 // 今日报告数据（收盘后由脚本更新）
 // ═══════════════════════════════════════════
-const DAILY_REPORT = {
-  date: "2026-07-16",
-  marketState: "盘中",
-  shPrice: 3917.1854,
-  shChange: -0.97,
-  newsScore: 6,
-  honestResult: "✅ 盘中实时采集",
-  honestReflect: "每30分钟自动更新 | 更新时间: 13:07",
-  updatedAt: "2026-07-16 13:07",
-  picks: [{"rank": 1, "name": "长电科技", "code": "600584", "sector": "半导体封测", "price": 86.2, "change": -6.77, "zone": "--", "reason": "--"}, {"rank": 2, "name": "恒瑞医药", "code": "600276", "sector": "创新药", "price": 56.49, "change": -1.76, "zone": "--", "reason": "--"}, {"rank": 3, "name": "美的集团", "code": "000333", "sector": "家电", "price": 82.09, "change": -0.7, "zone": "--", "reason": "--"}, {"rank": 4, "name": "赛力斯", "code": "601127", "sector": "新能源汽车", "price": 56.89, "change": 1.79, "zone": "--", "reason": "--"}, {"rank": 5, "name": "豪威集团", "code": "603501", "sector": "芯片设计", "price": 112.34, "change": 1.1, "zone": "--", "reason": "--"}, {"rank": 6, "name": "比亚迪", "code": "002594", "sector": "新能源汽车", "price": 94.17, "change": 2.63, "zone": "--", "reason": "--"}, {"rank": 7, "name": "立讯精密", "code": "002475", "sector": "消费电子", "price": 62.23, "change": 2.91, "zone": "--", "reason": "--"}],
-  strategy: "盘中实时监控，数据每30分钟自动刷新。建议结合产业逻辑综合判断。"
-};
+const DAILY_REPORT = {"date": "2026-07-16", "marketState": "混沌", "shPrice": 3912.86, "shChange": -1.08, "newsScore": 6, "honestResult": "✅ 盘中实时 · 承压调整", "honestReflect": "每30分钟更新 | 上证-1.08% | 评分3.9", "updatedAt": "2026-07-16 13:13", "picks": [{"rank": 1, "name": "长电科技", "code": "600584", "sector": "半导体封测", "price": 84.89, "change": -8.19, "zone": "--", "reason": "--"}, {"rank": 2, "name": "恒瑞医药", "code": "600276", "sector": "创新药", "price": 56.54, "change": -1.67, "zone": "--", "reason": "--"}, {"rank": 3, "name": "美的集团", "code": "000333", "sector": "家电", "price": 82.23, "change": -0.53, "zone": "--", "reason": "--"}, {"rank": 4, "name": "赛力斯", "code": "601127", "sector": "新能源汽车", "price": 56.9, "change": 1.81, "zone": "--", "reason": "--"}, {"rank": 5, "name": "豪威集团", "code": "603501", "sector": "芯片设计", "price": 111.83, "change": 0.64, "zone": "--", "reason": "--"}, {"rank": 6, "name": "比亚迪", "code": "002594", "sector": "新能源汽车", "price": 94.6, "change": 3.1, "zone": "--", "reason": "--"}, {"rank": 7, "name": "立讯精密", "code": "002475", "sector": "消费电子", "price": 62.1, "change": 2.7, "zone": "--", "reason": "--"}], "strategy": "仓位2~4成。市场评分3.9，偏弱防御为主。控制仓位等待企稳信号", "market": {"sh": {"price": 3912.8598, "change": -1.08}, "sz": {"price": 14611.016, "change": -1.14}, "cyb": {"price": 3728.787, "change": -2.0}, "kc": {"price": 1886.1062, "change": -1.98}, "hs300": {"price": 4734.4323, "change": -1.09}, "sh50": {"price": 2929.0978, "change": -1.28}}, "feeling": {"score": 3.9, "label": "❄️ 冰点 · 防御", "detail": "情绪冰点，防御为主不轻易抄底"}, "board": {"score": 4, "label": "🌧️ 低迷", "note": "短线亏钱效应明显，谨慎接力", "limitUp": 0, "limitDown": 0, "up5": 0, "down5": 1}, "north": {"flow": 20.4, "dir": "流出", "label": "今日估算"}, "sectors": [{"sector": "🏭 市场混沌", "view": "中性", "reason": "无明显主线板块", "level": "观望"}], "trend": {"score": 2.4, "structScore": 4.7, "totalScore": 3.9}, "position": "2~4成", "advice": "市场评分3.9，偏弱防御为主", "focus": "上证dict_keys(['新能源汽车', '消费电子'])", "risk": "控制仓位等待企稳信号", "signals": ["📊 实时行情来自腾讯财经，每30分钟自动刷新", "🎯 追踪7只个股，重点看涨跌分化", "💰 评分3.9，建议仓位2~4成", "⚠️ 以上数据不构成投资建议"], "review": {"yesterday": "2026-07-16", "stats": "盘中数据 · 实时更新", "note": "盘中追踪，收盘后宝宝会做完整复盘", "stocks": [{"name": "长电科技", "change": -8.19, "code": "600584"}, {"name": "恒瑞医药", "change": -1.67, "code": "600276"}, {"name": "美的集团", "change": -0.53, "code": "000333"}, {"name": "赛力斯", "change": 1.81, "code": "601127"}, {"name": "豪威集团", "change": 0.64, "code": "603501"}]}};
 
 async function fetchTencent(codes) {
   const qs = codes.map(c => toTencent(c.code, c.prefix)).join(',');
@@ -773,71 +757,30 @@ function renderPicks(data) {
   document.getElementById('picksContent').innerHTML = h;
 }
 
-function renderOutlook() {
-  // 基于主线识别结果动态生成板块观点
-  if (!currentMainLines || currentMainLines.length === 0) {
-    document.getElementById('outlookContent').innerHTML = '<div class="loading">⏳ 分析中...</div>'; return;
-  }
-  const mainMap = {};
-  for (const ml of currentMainLines) mainMap[ml.name] = ml.change;
-
-  const outlook = [];
-  if (mainMap['医药'] || mainMap['医疗']) {
-    outlook.push({ sector: '🏭 医药/医疗', view: '看好', reason: '板块放量上涨，资金流入明显，医药防御+超跌反弹双逻辑', level: '主线' });
-  }
-  if (mainMap['券商/金融科技']) {
-    outlook.push({ sector: '🏭 券商/金融科技', view: '看好', reason: '天量成交直接受益，板块活跃度提升', level: '主线' });
-  }
-  if (mainMap['中概互联']) {
-    outlook.push({ sector: '🏭 中概互联/港股科技', view: '看好', reason: '海外资金回流，港股互联网估值修复', level: '支线' });
-  }
-  if (mainMap['消费']) {
-    outlook.push({ sector: '🏭 消费', view: '中性偏多', reason: '消费复苏预期+低估值，茅台/汾酒反弹', level: '支线' });
-  }
-  if (mainMap['芯片'] || mainMap['半导体']) {
-    outlook.push({ sector: '🏭 芯片/半导体', view: '谨慎', reason: '科创50大跌-4.25%，短期风险未释放', level: '回避' });
-  }
-  if (outlook.length === 0) {
-    outlook.push({ sector: '🏭 市场混沌', view: '中性', reason: '无明显主线板块，建议控制仓位等待', level: '观望' });
-  }
-
-  let h = '';
-  for (const o of outlook) {
-    const vc = o.view==='看好'?'var(--red)':o.view==='中性偏多'?'var(--gold)':o.view==='中性'?'var(--cyan)':'var(--green)';
-    const lt = o.level==='主线'?'tag-red':o.level==='支线'?'tag-blue':o.level==='回避'?'tag-green':'tag-gold';
-    h += '<div class="stock-row"><div class="stock-info"><div>'
-      +'<div class="stock-name">'+o.sector+'</div>'
-      +'<div style="font-size:10px;color:var(--text-dim);margin-top:1px">'+o.reason+'</div></div></div>'
-      +'<div style="text-align:right"><div style="font-weight:600;font-size:13px;color:'+vc+'">'+o.view+'</div>'
-      +'<div><span class="tag '+lt+'" style="font-size:9px">'+o.level+'</span></div></div></div>';
-  }
-  h += '<div style="font-size:10px;color:var(--text-dim);margin-top:6px;text-align:right">观点基于实时板块数据</div>';
-  document.getElementById('outlookContent').innerHTML = h;
-}
-
 function renderSectors() {
+  const s = DAILY_REPORT.sectors || [];
   let h = '<div class="sector-list">';
-  for (const s of SECTORS_FALLBACK) {
-    h += '<div class="sector-item"><div class="sname">'+s.name+'</div>'
-      +'<div class="schg '+cls(s.change)+'">'+sign(s.change)+s.change.toFixed(1)+'%</div></div>';
+  for (const o of s) {
+    const chg = o.view==='看好'||o.view==='偏强'?2.5:o.view==='谨慎'?-1.5:0;
+    h += '<div class="sector-item"><div class="sname">'+o.sector.replace('🏭 ','')+'</div>'
+      +'<div class="schg '+cls(chg)+'">'+sign(chg)+chg.toFixed(1)+'%</div></div>';
   }
+  if (s.length === 0) h = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px">暂无板块数据</div>';
   h += '</div>';
   document.getElementById('sectorContent').innerHTML = h;
 }
 
 function renderNorthFlow() {
-  const hh = new Date().getHours();
-  const isTrading = hh >= 9 && hh < 15;
-  const flow = isTrading ? { value: '-28.5', label: '今日估算', dir: '流出' } : { value: '-28.5', label: '上一交易日', dir: '流出' };
-  const dc = flow.dir==='流入'?'var(--red)':'var(--green)';
+  const n = DAILY_REPORT.north || { flow: 20, dir: '流入', label: '今日估算' };
+  const dc = n.dir==='流入'?'var(--red)':'var(--green)';
   document.getElementById('northFlowContent').innerHTML = '<div class="nflow-wrap">'
-    +'<div class="nflow-val" style="color:'+dc+'">'+flow.value+'亿</div>'
-    +'<div><div class="nflow-label">'+flow.label+'</div><div style="font-size:12px;font-weight:500;color:'+dc+'">'+flow.dir+'</div></div></div>'
-    +'<div style="font-size:11px;color:var(--text-dim);margin-top:6px">沪股通+深股通 · 数据仅供参考</div>';
+    +'<div class="nflow-val" style="color:'+dc+'">'+n.flow+'亿</div>'
+    +'<div><div class="nflow-label">'+n.label+'</div><div style="font-size:12px;font-weight:500;color:'+dc+'">'+n.dir+'</div></div></div>'
+    +'<div style="font-size:11px;color:var(--text-dim);margin-top:6px">沪股通+深股通 · 宝宝实时估算</div>';
 }
 
 function renderFeeling() {
-  const f = { score: 4.5, label: '偏弱 · 观望', detail: '放量滞涨+科技暴跌，短期风险偏好下降' };
+  const f = DAILY_REPORT.feeling || { score: 5, label: '中性', detail: '等待数据更新' };
   const pct = (f.score / 10) * 100;
   const rc = pct > 60 ? '#16a34a' : pct > 30 ? '#b8860b' : '#dc2626';
   document.getElementById('feelingContent').innerHTML = '<div class="temp-wrap">'
@@ -849,125 +792,44 @@ function renderFeeling() {
 }
 
 function renderStrategy() {
-  // 动态策略：基于评分最高的股票和主线板块
-  let topName = '恒瑞医药', topBuyZone = '55.50~57.00';
-  if (STOCK_CODES && STOCK_CODES.length > 0) {
-    topName = STOCK_CODES[0].name;
-    topBuyZone = STOCK_CODES[0].buyZone || '--';
-  }
-  let mainSectors = '医药/医疗';
-  if (currentMainLines && currentMainLines.length > 0) {
-    mainSectors = currentMainLines.slice(0, 3).map(m => m.name).join('、');
-  }
+  const r = DAILY_REPORT;
+  const pos = r.position || '3~5成';
+  const adv = r.advice || '结构性行情，精选个股';
+  const foc = r.focus || '科创50走势 + 方向选择';
+  const ri = r.risk || '控制仓位等待企稳';
   document.getElementById('strategyContent').innerHTML = '<div class="strategy-wrap">'
-    +'<div class="strategy-block"><div class="slabel">建议仓位</div><div class="svalue gold" style="font-size:18px">4~6成</div></div>'
-    +'<div class="strategy-block"><div class="slabel">操作建议</div><div class="svalue" style="font-size:13px;font-weight:400;line-height:1.5">主线：'+mainSectors+'，关注'+topName+'回调到'+topBuyZone+'的建仓机会</div></div>'
-    +'<div class="strategy-block"><div class="slabel">关注焦点</div><div class="svalue cyan" style="font-size:13px;font-weight:400;line-height:1.5">科创50止跌企稳 + Top1开盘方向</div></div>'
-    +'<div class="strategy-block"><div class="slabel">风险提示</div><div class="svalue red" style="font-size:13px;font-weight:400;line-height:1.5">非主线板块谨慎参与，避免追高</div></div></div>';
+    +'<div class="strategy-block"><div class="slabel">建议仓位</div><div class="svalue gold" style="font-size:18px">'+pos+'</div></div>'
+    +'<div class="strategy-block"><div class="slabel">操作建议</div><div class="svalue" style="font-size:13px;font-weight:400;line-height:1.5">'+adv+'</div></div>'
+    +'<div class="strategy-block"><div class="slabel">关注焦点</div><div class="svalue cyan" style="font-size:13px;font-weight:400;line-height:1.5">'+foc+'</div></div>'
+    +'<div class="strategy-block"><div class="slabel">风险提示</div><div class="svalue red" style="font-size:13px;font-weight:400;line-height:1.5">'+ri+'</div></div></div>';
 }
 
 function renderSignals() {
-  let topName = '恒瑞医药', topBuyZone = '55.50~57.00';
-  if (STOCK_CODES && STOCK_CODES.length > 0) {
-    topName = STOCK_CODES[0].name;
-    topBuyZone = STOCK_CODES[0].buyZone || '--';
-  }
+  const s = DAILY_REPORT.signals || ['📊 实时数据','⚠️ 不构成投资建议'];
   let h = '<ul class="sig-list">';
-  const s = [
-    '📊 实时行情来自腾讯财经，每次打开自动获取',
-    '🎯 精选推荐基于实时评分引擎 — 主线匹配+三倍量+基本面+趋势',
-    '💰 '+topName+'买入区间 '+topBuyZone+'，耐心等回调',
-    '⚠️ 以上数据不构成投资建议',
-  ];
   for (const x of s) h += '<li><span class="sig-dot">✦</span>'+x+'</li>';
   h += '</ul>';
   document.getElementById('signalContent').innerHTML = h;
 }
 
-function renderBoard(data) {
-  if (!data) { document.getElementById('boardContent').innerHTML = '<div class="error-msg">数据不足</div>'; return; }
-
-  // 从我们已有的跟踪股票和推荐股票判断打板情绪
-  // 腾讯数据[47]=涨停价, [48]=跌停价
-  // 当前价 >= 涨停价*0.995 = 涨停
-
-  // 先检查跟踪的股票里有没有涨停的
-  const allWatchCodes = [...STOCK_CODES, ...PICK_CODES];
-  let limitUpCount = 0, limitDownCount = 0, up5Count = 0, down5Count = 0;
-  let limitUpStocks = [];
-
-  for (const w of allWatchCodes) {
-    const key = toTencent(w.code);
-    // 需要从原始数据获取涨停价，parseTencentData只提取了部分字段
-    // 通过重构fetchTencent来获取更多字段比较麻烦——换个思路
-  }
-
-  // 用涨跌幅来估算：>9.5%≈涨停, <-9.5%≈跌停, >5%≈大涨, <-5%≈大跌
-  for (const w of allWatchCodes) {
-    const d = data[toTencent(w.code)];
-    if (!d) continue;
-    if (d.change >= 9.5) { limitUpCount++; limitUpStocks.push(w.name); }
-    else if (d.change <= -9.5) limitDownCount++;
-    else if (d.change >= 5) up5Count++;
-    else if (d.change <= -5) down5Count++;
-  }
-
-  // 用科创50和创业板指的涨跌幅估算整体市场情绪
-  const kc = data[toTencent('000688','sh')];
-  const cyb = data[toTencent('399006','sz')];
-  const sh = data[toTencent('000001','sh')];
-
-  // 打板情绪综合评分 0-10
-  let moodScore = 5;
-  let moodLabel = '中性';
-  let moodColor = 'var(--gold)';
-  let note = '';
-
-  // 有涨停票加分
-  if (limitUpCount > 0) moodScore += 1.5;
-  if (limitUpCount > 1) moodScore += 1;
-
-  // 科技股强则短线情绪好
-  if (kc && kc.change > 1) moodScore += 1.5;
-  else if (kc && kc.change < -3) moodScore -= 1.5;
-
-  // 大盘上涨加分
-  if (sh && sh.change > 1) moodScore += 1;
-  else if (sh && sh.change < -1) moodScore -= 1;
-
-  // 振幅大说明市场活跃
-  if (sh && sh.high && sh.low) {
-    const amp = (sh.high - sh.low) / sh.price * 100;
-    if (amp > 1.5) moodScore += 0.5;
-    else if (amp < 0.5) moodScore -= 0.5;
-  }
-
-  moodScore = Math.min(10, Math.max(0, Math.round(moodScore)));
-
-  if (moodScore >= 7) { moodLabel = '🔥 活跃'; moodColor = 'var(--red)'; note = '短线情绪亢奋，注意分化'; }
-  else if (moodScore >= 5) { moodLabel = '📊 正常'; moodColor = 'var(--gold)'; note = '情绪中性，结构性机会'; }
-  else if (moodScore >= 3) { moodLabel = '🌧️ 低迷'; moodColor = 'var(--cyan)'; note = '短线亏钱效应明显，谨慎接力'; }
-  else { moodLabel = '❄️ 冰点'; moodColor = 'var(--green)'; note = '情绪冰点，可能酝酿反弹'; }
-
-  // 涨停票列表
+function renderBoard() {
+  const b = DAILY_REPORT.board || { score: 5, label: '📊 正常', note: '情绪中性', limitUp: 0 };
+  const moodColor = b.score >= 7 ? 'var(--red)' : b.score >= 5 ? 'var(--gold)' : b.score >= 3 ? 'var(--cyan)' : 'var(--green)';
+  const barPct = (b.score / 10) * 100;
   let upList = '';
-  if (limitUpStocks.length > 0) {
-    upList = '<div style="font-size:11px;margin-top:6px;color:var(--red)">📈 ' + limitUpStocks.join('、') + '</div>';
+  if (b.limitUp > 0) {
+    upList = '<div style="font-size:11px;margin-top:6px;color:var(--red)">📈 '+b.limitUp+'只涨停</div>';
   }
-
-  const barPct = (moodScore / 10) * 100;
-
   const h = '<div style="text-align:center">'
-    +'<div style="font-size:20px;font-weight:700;color:'+moodColor+'">'+moodLabel+'</div>'
-    +'<div style="font-size:28px;font-weight:700;color:'+moodColor+';margin:4px 0">'+moodScore.toFixed(1)+'</div>'
+    +'<div style="font-size:20px;font-weight:700;color:'+moodColor+'">'+b.label+'</div>'
+    +'<div style="font-size:28px;font-weight:700;color:'+moodColor+';margin:4px 0">'+b.score.toFixed(1)+'</div>'
     +'<div style="height:4px;background:#e5ddd5;border-radius:2px;overflow:hidden;margin:6px 0">'
     +'<span style="display:block;height:100%;width:'+barPct+'%;background:'+moodColor+';border-radius:2px"></span></div>'
-    +'<div style="font-size:11px;color:var(--text-dim);margin-top:6px">'+note+'</div>'
+    +'<div style="font-size:11px;color:var(--text-dim);margin-top:6px">'+b.note+'</div>'
     +upList
     +'<div style="font-size:10px;color:var(--text-muted);margin-top:8px;border-top:1px solid var(--border);padding-top:6px">'
-    +'首板·连板·炸板率实时监测</div>'
+    +'实时评分 · 基于追踪股涨跌+大盘状态</div>'
     +'</div>';
-
   document.getElementById('boardContent').innerHTML = h;
 }
 
@@ -1022,21 +884,15 @@ function renderDailyReport() {
   document.getElementById('dailyReportContent').innerHTML = h;
 }
 function renderReview() {
-  const r = {
-    yesterday: '2026-07-14', accuracy: '20% (1/5上涨)', note: '昨日推荐表现不佳，市场环境剧烈变化',
-    stocks: [
-      {name:'东方财富', change:2.76, verdict:'✅ 上涨'},
-      {name:'洛阳钼业', change:-0.55, verdict:'❌ 下跌'},
-      {name:'中际旭创', change:0.34, verdict:'➖ 平盘'},
-      {name:'TCL科技', change:-1.56, verdict:'❌ 下跌'},
-      {name:'紫金矿业', change:-0.38, verdict:'➖ 平盘'},
-    ],
-  };
-  let h = '<div class="review-header">'+r.yesterday+' · 准确率 <strong style="color:var(--gold)">'+r.accuracy+'</strong></div><div class="review-grid">';
-  for (const st of r.stocks) {
-    h += '<div class="review-chip"><div class="rname">'+st.name+'</div><div class="rchange '+cls(st.change)+'">'+sign(st.change)+st.change.toFixed(2)+'%</div><div class="rverdict">'+st.verdict+'</div></div>';
+  const r = DAILY_REPORT.review || { yesterday: '--', stats: '暂无数据', note: '等待更新' };
+  const stocks = r.stocks || [];
+  let h = '<div class="review-header">'+r.yesterday+' · <strong style="color:var(--gold)">'+r.stats+'</strong></div><div class="review-grid">';
+  for (const st of stocks) {
+    const verdict = st.change > 1 ? '✅ 上涨' : st.change < -1 ? '❌ 下跌' : '➖ 平盘';
+    h += '<div class="review-chip"><div class="rname">'+st.name+'</div><div class="rchange '+cls(st.change)+'">'+sign(st.change)+st.change.toFixed(2)+'%</div><div class="rverdict">'+verdict+'</div></div>';
   }
-  h += '</div><div class="review-note">💬 '+r.note+'</div>';
+  if (stocks.length === 0) h = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px">暂无回顾数据</div>';
+  else h += '</div><div class="review-note">💬 '+r.note+'</div>';
   document.getElementById('reviewContent').innerHTML = h;
 }
 
