@@ -303,10 +303,10 @@ body {
     <div id="picksContent" class="loading"><span>⏳ 加载中...</span></div>
   </div>
 
-  <!-- 尾盘精选（14:25更新，次日关注） -->
+  <!-- 盘前精选（23:59更新，明日关注） -->
   <div class="card span-12" id="closingCard">
     <div class="card-title"><span class="icon">🎯</span> 今日盘前精选 <span class="tag tag-gold">TOP3</span></div>
-    <div id="closingContent" class="loading"><span>⏳ 尾盘精选尚未生成...</span></div>
+    <div id="closingContent" class="loading"><span>⏳ 盘前精选尚未生成...</span></div>
   </div>
 
   <!-- 底部四列：板块轮动 | 北向资金 | 市场温度 | 打板情绪 -->
@@ -780,7 +780,7 @@ function renderPicks(data) {
 function renderClosingPicks() {
   const cp = DAILY_REPORT.closingPicks;
   if (!cp || !cp.top5 || cp.top5.length === 0) {
-    document.getElementById('closingContent').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:12px">⏳ 尾盘精选每天14:25自动生成 — 到时刷新即可查看</div>';
+    document.getElementById('closingContent').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:12px">⏳ 盘前精选每天23:59自动更新 — 次日刷新即可查看</div>';
     return;
   }
   const labels = ['💎 首推', '🥇 次选', '🥈 稳健', '🥉 关注', '📌 观察'];
@@ -920,7 +920,7 @@ function renderBacktest() {
 function renderReviewPicks() {
   const rp = DAILY_REPORT.pickReview;
   if (!rp || !rp.records || rp.records.length === 0) {
-    document.getElementById('reviewPicksContent').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:12px">📊 暂无复盘数据 — 尾盘精选运行后次日自动验证，届时刷新即可查看</div>';
+    document.getElementById('reviewPicksContent').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:12px">📊 暂无复盘数据 — 盘前精选运行后次日自动验证，届时刷新即可查看</div>';
     return;
   }
   const stats = rp.stats || {};
@@ -977,7 +977,7 @@ function renderReviewPicks() {
     }
   }
   h += '</tbody></table>';
-  h += '<div class="history-note">每日尾盘精选TOP5 · 次日收盘验证 · 数据持续积累中</div>';
+  h += '<div class="history-note">每日盘前精选TOP3 · 次日收盘验证 · 数据持续积累中</div>';
   document.getElementById('reviewPicksContent').innerHTML = h;
 }
 
