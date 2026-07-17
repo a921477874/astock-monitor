@@ -27,14 +27,50 @@
   --purple: #7c3aed;
   --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 10px;
+  --radius-sm: 7px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text);
-  padding: 20px;
+  padding: 24px;
+  max-width: 1440px; margin: 0 auto;
   min-height: 100vh;
+}
+/* ─── ICE BANNER (global, always on top) ─── */
+.ice-banner {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px; margin-bottom: 18px;
+  background: linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%);
+  border: 1px solid rgba(220,38,38,0.2);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(220,38,38,0.06);
+}
+.ice-banner .icon { font-size: 28px; flex-shrink: 0; }
+.ice-banner .content { flex: 1; }
+.ice-banner .title { font-size: 14px; font-weight: 700; color: var(--red); margin-bottom: 2px; }
+.ice-banner .desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+.ice-banner .score-tag {
+  flex-shrink: 0;
+  font-size: 20px; font-weight: 800; color: var(--red);
+  background: var(--red-bg); padding: 6px 14px;
+  border-radius: 8px; border: 1px solid rgba(220,38,38,0.15);
+}
+/* ─── ICE BLOCK (inside card) ─── */
+.ice-block {
+  padding: 24px; text-align: center;
+  background: var(--red-bg); border-radius: 8px;
+  border: 1px solid rgba(220,38,38,0.12);
+}
+.ice-block .icon { font-size: 28px; margin-bottom: 8px; }
+.ice-block .main { font-size: 15px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+.ice-block .body { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+.ice-block .rule {
+  margin-top: 8px; padding: 6px 14px;
+  background: var(--bg-card); border-radius: 6px;
+  display: inline-block; font-size: 11px;
 }
 /* ─── HEADER ─── */
 .header {
@@ -67,7 +103,7 @@ body {
 .btn-refresh:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-bg); }
 .btn-refresh:disabled { opacity: 0.5; cursor: wait; }
 /* ─── GRID ─── */
-.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
 .span-12 { grid-column: span 12; }
 .span-6 { grid-column: span 6; }
 .span-4 { grid-column: span 4; }
@@ -85,14 +121,14 @@ body {
 /* ─── CARD ─── */
 .card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 10px; padding: 16px 18px;
+  border-radius: var(--radius); padding: 18px 20px;
   box-shadow: var(--shadow); transition: box-shadow 0.2s, border-color 0.2s;
 }
 .card:hover { box-shadow: var(--shadow-hover); border-color: var(--border-light); }
 .card-title {
   display: flex; align-items: center; gap: 7px;
   font-size: 11px; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 12px;
+  letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 14px;
 }
 .card-title .icon { font-size: 14px; text-transform: none; letter-spacing: 0; }
 .tag {
@@ -232,8 +268,8 @@ body {
 .nflow-label { font-size:11px; color:var(--text-dim); }
 /* ─── FOOTER ─── */
 .footer {
-  margin-top:20px; padding-top:12px;
-  border-top:1px solid var(--border);
+  margin-top: 24px; padding-top: 14px;
+  border-top: 1px solid var(--border);
   display:flex; justify-content:space-between;
   font-size:10px; color:var(--text-muted); flex-wrap:wrap; gap:6px;
 }
@@ -258,11 +294,21 @@ body {
 </head>
 <body>
 
+<!-- ═══ 全局冰点提示条（冰点期置顶显示） ═══ -->
+<div id="globalIceBanner" class="ice-banner" style="display:none">
+  <div class="icon">❄️</div>
+  <div class="content">
+    <div class="title">冰点预警 · 系统暂停推荐新票</div>
+    <div class="desc" id="iceBannerDesc">市场情绪评分偏低，情绪修复前不推荐新标的，建议观望等待企稳</div>
+  </div>
+  <div class="score-tag" id="iceBannerScore">--</div>
+</div>
+
 <!-- ═══ HEADER ═══ -->
 <div class="header">
   <div class="header-left">
-    <div class="logo">📊 A股智能监控</div>
-    <span class="badge">宝宝看盘</span>
+    <div class="logo">📊 宝宝看盘</div>
+    <span class="badge">A股智能监控</span>
   </div>
   <div class="header-right">
     <span class="status-dot" id="statusDot"></span>
@@ -442,6 +488,25 @@ async function loadData() {
   reportDate.textContent = now.toISOString().slice(0,10);
   reportTime.textContent = now.toTimeString().slice(0,5);
 
+  // 冰点全局banner
+  const mood = DAILY_REPORT.moodCycle || {};
+  const isIce = DAILY_REPORT.isIcePoint || (mood.score !== undefined && mood.score < 3.5);
+  const iceBanner = document.getElementById('globalIceBanner');
+  if (iceBanner) {
+    if (isIce) {
+      iceBanner.style.display = 'flex';
+      const bannerDesc = document.getElementById('iceBannerDesc');
+      const bannerScore = document.getElementById('iceBannerScore');
+      if (bannerDesc) bannerDesc.textContent = (mood.advice || '情绪冰点') + ' — 等市场情绪修复后再恢复出票';
+      if (bannerScore) {
+        const s = mood.score !== undefined ? mood.score.toFixed(1) : '--';
+        bannerScore.textContent = s;
+      }
+    } else {
+      iceBanner.style.display = 'none';
+    }
+  }
+
   // 先渲染所有静态数据（每个包裹try-catch隔离）
   try { renderClosingPicks(); } catch(e) {}
   try { renderReview(); } catch(e) {}
@@ -489,7 +554,7 @@ async function loadData() {
 // ═══════════════════════════════════════════
 // 今日报告数据（收盘后由脚本更新）
 // ═══════════════════════════════════════════
-const DAILY_REPORT = {"date": "2026-07-17", "marketState": "混沌", "shPrice": 3855.02, "shChange": -0.71, "newsScore": 6, "honestResult": "✅ 盘中实时 · 承压调整", "honestReflect": "每30分钟更新 | 上证-0.71% | 评分3.2", "updatedAt": "2026-07-17 09:35", "picks": [{"rank": 1, "name": "山西高速", "code": "000755", "sector": "", "price": 4.72, "change": 1.94, "zone": "--", "reason": "--", "score": 5.0, "risk": "", "stop_loss": 0, "take_profit": 0, "pick_date": "2026-07-17"}, {"rank": 2, "name": "豪鹏科技", "code": "001283", "sector": "", "price": 44.12, "change": 0.25, "zone": "--", "reason": "--", "score": 4.6, "risk": "", "stop_loss": 0, "take_profit": 0, "pick_date": "2026-07-17"}, {"rank": 3, "name": "雅化集团", "code": "002497", "sector": "", "price": 18.08, "change": 3.61, "zone": "--", "reason": "--", "score": 4.6, "risk": "", "stop_loss": 0, "take_profit": 0, "pick_date": "2026-07-17"}], "strategy": "仓位2~4成。市场评分3.2，偏弱防御为主。🔴 高风险", "market": {"sh": {"price": 3855.0166, "change": -0.71}, "sz": {"price": 14114.26, "change": -2.58}, "cyb": {"price": 3558.26, "change": -3.63}, "kc": {"price": 1782.8929, "change": -3.46}, "hs300": {"price": 4614.6623, "change": -1.78}, "sh50": {"price": 2871.7552, "change": -1.11}}, "feeling": {"score": 3.2, "label": "❄️ 冰点 · 防御", "detail": "情绪冰点，防御为主不轻易抄底"}, "board": {"score": 3.5, "label": "🌧️ 低迷", "note": "短线亏钱效应明显，谨慎接力", "limitUp": 0, "limitDown": 0, "up5": 0, "down5": 0}, "north": {"flow": 18.6, "dir": "流出", "label": "今日估算"}, "sectors": [{"sector": "🏭 科创/科技", "view": "谨慎", "reason": "科创50-3.46%承压", "level": "回避"}], "trend": {"score": 1.1, "structScore": 3.8, "totalScore": 3.2}, "position": "2~4成", "advice": "市场评分3.2，偏弱防御为主", "focus": "上证dict_keys([''])", "risk": "🔴 高风险", "signals": ["📊 实时行情来自腾讯财经，每30分钟自动刷新", "🎯 追踪3只个股，重点看涨跌分化", "💰 评分3.2，建议仓位2~4成", "⚠️ 以上数据不构成投资建议"], "closingPicks": {"generated_at": "2026-07-17 09:26", "total_scanned": 39, "top3": [{"rank": 1, "name": "山西高速", "code": "000755", "price": 4.67, "change_pct": 0.86, "score": 5.0, "pe": 14.57, "mcap": 68.52}, {"rank": 2, "name": "豪鹏科技", "code": "001283", "price": 44.64, "change_pct": 1.43, "score": 4.6, "pe": 27.39, "mcap": 46.16}, {"rank": 3, "name": "雅化集团", "code": "002497", "price": 17.6, "change_pct": 0.86, "score": 4.6, "pe": 22.82, "mcap": 186.49}]}, "history": [{"date": "2026-07-10", "shPrice": 3878.12, "shChange": -0.34, "direction": "震荡整理", "result": "➖ 待验证", "kcChange": -1.12, "cybChange": -0.28}, {"date": "2026-07-13", "shPrice": 3913.8, "shChange": 0.92, "direction": "震荡反弹", "result": "✅ 对", "kcChange": 1.85, "cybChange": 1.62}, {"date": "2026-07-14", "shPrice": 3967.13, "shChange": 1.36, "direction": "稳健上行", "result": "✅ 对", "kcChange": 0.77, "cybChange": 3.43}, {"date": "2026-07-15", "shPrice": 3955.58, "shChange": -0.82, "direction": "窄幅震荡", "result": "➖ 待验证", "kcChange": -4.25, "cybChange": -1.56}, {"date": "2026-07-16", "shPrice": 3917.53, "shChange": -0.96, "direction": "承压调整", "result": "✅ 对", "kcChange": -2.36, "cybChange": -1.95}, {"date": "2026-07-17", "shPrice": 3865.32, "shChange": -0.44, "direction": "承压调整", "result": "✅ 对", "kcChange": -0.91, "cybChange": -1.36}], "pickReview": {"records": [{"date": "2026-07-15", "market_change": -0.82, "total": 5, "up": 3, "flat": 1, "down": 1, "win_rate": 75.0, "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%"}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE"}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨"}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥"}]}], "stats": {"total_days": 1, "total_picks": 5, "up": 3, "flat": 1, "down": 1, "win_rate": 75.0, "risk_stats": {"🟡 中等": {"total": 2, "up": 2, "down": 0, "win_rate": 100.0}, "🟢 低风险": {"total": 2, "up": 1, "down": 1, "win_rate": 50.0}, "🔴 高风险": {"total": 1, "up": 0, "down": 0, "win_rate": 0}}}}, "backtest": {"total_days": 1, "total_picks": 5, "win_rate": 75.0, "avg_pnl_per_pick": 3.0, "total_return": 3.0, "max_drawdown": 0, "sharpe_ratio": 47.56, "daily_records": [{"date": "2026-07-15", "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%"}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE"}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨"}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥"}], "day_pnl": 0, "up": 3, "down": 1}]}, "review": {"yesterday": "2026-07-17", "stats": "盘中数据 · 实时更新", "note": "盘中追踪，收盘后宝宝会做完整复盘", "stocks": [{"name": "山西高速", "change": 1.94, "code": "000755"}, {"name": "豪鹏科技", "change": 0.25, "code": "001283"}, {"name": "雅化集团", "change": 3.61, "code": "002497"}]}};
+const DAILY_REPORT = {"date": "2026-07-17", "marketState": "混沌", "shPrice": 3812.04, "shChange": -1.81, "newsScore": 6, "honestResult": "✅ 盘中实时 · 承压调整", "honestReflect": "每30分钟更新 | 上证-1.81% | 评分2.7", "updatedAt": "2026-07-17 13:01", "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%"}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE"}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨"}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥"}], "strategy": "仓位2~4成。市场评分2.7，偏弱防御为主。🔴 高风险", "moodCycle": {"score": 2.4, "label": "❄️ 冰点", "phase": "冰点", "advice": "情绪冰点, 可能酝酿反弹, 但不轻易抄底", "position": "1~2成", "pick_threshold": 8.0, "is_ice_point": true, "factors": {"涨跌家数": 1.5, "涨跌停比": 3.0, "强势弱势": 2.0, "大盘趋势": 2.0, "结构分化": 2.0, "均线趋势": 2.5, "量能健康": 5.0, "跨市场": 2.0}, "updated_at": "2026-07-17 12:22"}, "isIcePoint": true, "market": {"sh": {"price": 3812.0386, "change": -1.81}, "sz": {"price": 13911.936, "change": -3.98}, "cyb": {"price": 3503.915, "change": -5.11}, "kc": {"price": 1761.5005, "change": -4.62}, "hs300": {"price": 4573.9965, "change": -2.65}, "sh50": {"price": 2851.5055, "change": -1.81}}, "feeling": {"score": 2.7, "label": "❄️ 冰点 · 防御", "detail": "情绪冰点，防御为主不轻易抄底"}, "board": {"score": 2.5, "label": "❄️ 冰点", "note": "情绪冰点，可能酝酿反弹", "limitUp": 0, "limitDown": 0, "up5": 0, "down5": 0}, "north": {"flow": 24.1, "dir": "流出", "label": "今日估算"}, "sectors": [{"sector": "🏭 科创/科技", "view": "谨慎", "reason": "科创50-4.62%承压", "level": "回避"}], "trend": {"score": 0, "structScore": 3.6, "totalScore": 2.7}, "position": "2~4成", "advice": "市场评分2.7，偏弱防御为主", "focus": "上证方向选择", "risk": "🔴 高风险", "signals": ["📊 实时行情来自腾讯财经，每30分钟自动刷新", "🎯 追踪5只个股", "💰 评分2.7，建议仓位2~4成", "❄️ 冰点期：情绪评分低，系统暂停推荐新票，等待市场企稳", "⚠️ 以上数据不构成投资建议"], "closingPicks": null, "history": [{"date": "2026-07-10", "shPrice": 3878.12, "shChange": -0.34, "direction": "震荡整理", "result": "➖ 待验证", "kcChange": -1.12, "cybChange": -0.28}, {"date": "2026-07-13", "shPrice": 3913.8, "shChange": 0.92, "direction": "震荡反弹", "result": "✅ 对", "kcChange": 1.85, "cybChange": 1.62}, {"date": "2026-07-14", "shPrice": 3967.13, "shChange": 1.36, "direction": "稳健上行", "result": "✅ 对", "kcChange": 0.77, "cybChange": 3.43}, {"date": "2026-07-15", "shPrice": 3955.58, "shChange": -0.82, "direction": "窄幅震荡", "result": "➖ 待验证", "kcChange": -4.25, "cybChange": -1.56}, {"date": "2026-07-16", "shPrice": 3917.53, "shChange": -0.96, "direction": "承压调整", "result": "✅ 对", "kcChange": -2.36, "cybChange": -1.95}, {"date": "2026-07-17", "shPrice": 3865.32, "shChange": -0.44, "direction": "承压调整", "result": "✅ 对", "kcChange": -0.91, "cybChange": -1.36}], "pickReview": {"records": [{"date": "2026-07-15", "market_change": -0.82, "total": 5, "up": 3, "flat": 1, "down": 1, "win_rate": 75.0, "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%"}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE"}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨"}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥"}]}], "stats": {"total_days": 1, "total_picks": 5, "up": 3, "flat": 1, "down": 1, "win_rate": 75.0, "risk_stats": {"🟡 中等": {"total": 2, "up": 2, "down": 0, "win_rate": 100.0}, "🟢 低风险": {"total": 2, "up": 1, "down": 1, "win_rate": 50.0}, "🔴 高风险": {"total": 1, "up": 0, "down": 0, "win_rate": 0}}}}, "backtest": {"total_days": 1, "total_picks": 5, "win_rate": 75.0, "avg_pnl_per_pick": 3.0, "total_return": 3.0, "max_drawdown": 0, "sharpe_ratio": 0, "sharpe_label": "数据不足(仅1天)", "d1_avg": 3.61, "d1_win_rate": 66.7, "volatility": 0, "volatility_label": "待积累", "daily_records": [{"date": "2026-07-15", "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%"}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE"}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨"}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥"}], "day_pnl": 0, "up": 3, "down": 1}], "win_loss_ratio": 4.05, "down_volatility": 0.57, "down_volatility_label": "0.57%", "extreme_losses": 0, "sortino_ratio": 83.44, "sortino_label": "83.44", "total_wins": 3, "total_losses": 2, "avg_win": 5.98, "avg_loss": 1.47}, "review": {"yesterday": "2026-07-17", "stats": "盘中数据 · 实时更新", "note": "盘中追踪，收盘后宝宝会做完整复盘", "stocks": [{"name": "南华生物", "change": 0, "code": "000504"}, {"name": "好想你", "change": 0, "code": "002582"}, {"name": "古井贡酒", "change": 0, "code": "000596"}, {"name": "盐津铺子", "change": 0, "code": "002847"}, {"name": "银龙股份", "change": 0, "code": "603969"}]}};
 
 async function fetchTencent(codes) {
   const qs = codes.map(c => toTencent(c.code, c.prefix)).join(',');
@@ -714,7 +779,14 @@ function renderBrief(data) {
 
 function renderPortfolio(data) {
   if (!PICK_CODES || PICK_CODES.length === 0) {
-    document.getElementById('portfolioContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>'; return;
+    const isIce = DAILY_REPORT.isIcePoint || false;
+    if (isIce) {
+      document.getElementById('portfolioContent').innerHTML =
+        '<div class="ice-block"><div class="icon">❄️</div><div class="main">冰点期暂停追踪</div><div class="body">冰点情绪评分低，暂停追踪新标的<br>等情绪评分回升后恢复</div></div>';
+    } else {
+      document.getElementById('portfolioContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>';
+    }
+    return;
   }
   let h = '';
   for (const st of PICK_CODES.slice(0, 4)) {
@@ -744,7 +816,14 @@ function renderPortfolio(data) {
 
 function renderPicks(data) {
   if (!PICK_CODES || PICK_CODES.length === 0) {
-    document.getElementById('picksContent').innerHTML = '<div class="loading">⏳ 智能评分排序中...</div>'; return;
+    const isIce = DAILY_REPORT.isIcePoint || false;
+    if (isIce) {
+      document.getElementById('picksContent').innerHTML =
+        '<div class="ice-block"><div class="icon">❄️</div><div class="main">冰点期暂停推荐</div><div class="body">市场情绪评分低，不推荐新票<br>建议观望，等评分回升再操作</div></div>';
+    } else {
+      document.getElementById('picksContent').innerHTML = '<div class="loading">⏳ 智能评分排序中...</div>';
+    }
+    return;
   }
   const labels = ['💎 首推', '🥇 次选', '🥈 稳健', '🥉 成长', '📌 观察', '📌 关注', '📌 跟踪', '📌 备用'];
   const maxShow = Math.min(PICK_CODES.length, 8);
@@ -786,8 +865,45 @@ function renderPicks(data) {
 function renderClosingPicks() {
   const cp = DAILY_REPORT.closingPicks;
   const picks = cp && cp.top3 ? cp.top3 : (cp && cp.top5 ? cp.top5 : null);
+  const mood = DAILY_REPORT.moodCycle || {};
+  const isIce = DAILY_REPORT.isIcePoint || (mood.score !== undefined && mood.score < 3.5);
+
+  // 冰点期专用提示 —— 用CSS class统一样式
+  if (isIce) {
+    const scoreDisplay = mood.score !== undefined ? mood.score.toFixed(1) : '--';
+    const pickThreshold = mood.pick_threshold || 8.0;
+    const advice = mood.advice || '情绪冰点，防御为主，不轻易抄底';
+    const moodUpdated = mood.updated_at ? `（${mood.updated_at}数据）` : '';
+    const factors = mood.factors || {};
+    const factorRows = Object.keys(factors).slice(0,5).map(k =>
+      `<div style="display:flex;justify-content:space-between;padding:1px 0;font-size:10px">
+        <span>${k}</span>
+        <span style="font-weight:600;color:${factors[k]>=6?'var(--red)':factors[k]>=4?'var(--gold)':'var(--green)'}">${factors[k].toFixed(1)}</span>
+      </div>`
+    ).join('');
+    document.getElementById('closingContent').innerHTML =
+      '<div class="ice-block">'
+      + '<div class="icon">❄️</div>'
+      + '<div class="main">冰点期 · 暂停推荐新票</div>'
+      + '<div class="body">'
+      + '情绪评分 <strong style="color:var(--red)">' + scoreDisplay + '</strong> · 选股阈值提至 <strong style="color:var(--gold)">≥' + pickThreshold + '分</strong><br>'
+      + advice
+      + '<div class="rule">'
+      + '📋 冰点规则：系统情绪评分冰点时自动禁推新票，等市场企稳再出票'
+      + '</div>'
+      + (factorRows ? '<div style="margin-top:10px;border-top:1px solid rgba(220,38,38,0.1);padding-top:8px;max-width:280px;margin-left:auto;margin-right:auto">' + factorRows + '</div>' : '')
+      + (moodUpdated ? '<div style="margin-top:6px;font-size:10px;color:var(--text-muted)">' + moodUpdated + '</div>' : '')
+      + '</div></div>';
+    return;
+  }
+
+  // 正常有数据的情况
   if (!picks || picks.length === 0) {
-    document.getElementById('closingContent').innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-dim);font-size:12px">⏳ 盘前精选每天23:59自动更新 — 次日刷新即可查看</div>';
+    document.getElementById('closingContent').innerHTML =
+      '<div style="text-align:center;padding:24px;color:var(--text-dim);font-size:12px;line-height:1.8">'
+      + '⏳ 盘前精选每天 <strong>23:59</strong> 自动更新<br>'
+      + '<span style="font-size:11px;color:var(--text-muted)">届时刷新即可查看次日关注标的</span>'
+      + '</div>';
     return;
   }
   const labels = ['💎 首推', '🥇 次选', '🥈 稳健'];
@@ -821,7 +937,12 @@ function renderSectors() {
     h += '<div class="sector-item"><div class="sname">'+o.sector.replace('🏭 ','')+'</div>'
       +'<div class="schg '+cls(chg)+'">'+sign(chg)+chg.toFixed(1)+'%</div></div>';
   }
-  if (s.length === 0) h = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px">暂无板块数据</div>';
+  if (s.length === 0) {
+    const isIce = DAILY_REPORT.isIcePoint || false;
+    h = isIce
+      ? '<div class="ice-block"><div class="icon">❄️</div><div class="main" style="font-size:13px">冰点板块效应弱</div><div class="body">无明显主线板块，观望为主</div></div>'
+      : '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px">暂无板块数据</div>';
+  }
   h += '</div>';
   document.getElementById('sectorContent').innerHTML = h;
 }
@@ -836,23 +957,46 @@ function renderNorthFlow() {
 }
 
 function renderFeeling() {
-  const f = DAILY_REPORT.feeling || { score: 5, label: '中性', detail: '等待数据更新' };
-  const pct = (f.score / 10) * 100;
+  const mood = DAILY_REPORT.moodCycle || {};
+  const moodScore = mood.score !== undefined ? mood.score : (DAILY_REPORT.feeling ? DAILY_REPORT.feeling.score : 5);
+  const moodLabel = mood.label || (DAILY_REPORT.feeling ? DAILY_REPORT.feeling.label : '⏳ 等待数据更新');
+  const moodDetail = mood.advice || (DAILY_REPORT.feeling ? DAILY_REPORT.feeling.detail : '--');
+  const factorKeys = Object.keys(mood.factors || {});
+  let factorHtml = '';
+  if (factorKeys.length > 0) {
+    factorHtml = '<div style="margin-top:10px;border-top:1px solid var(--border);padding-top:7px">';
+    for (const fk of factorKeys.slice(0,5)) {
+      const fv = mood.factors[fk];
+      const fc = fv >= 6 ? 'var(--red)' : fv >= 4 ? 'var(--gold)' : 'var(--green)';
+      const pct = (fv / 10) * 100;
+      factorHtml += '<div style="display:flex;align-items:center;gap:5px;padding:1px 0;font-size:10px">'
+        + '<span style="min-width:58px;color:var(--text-muted)">' + fk + '</span>'
+        + '<span style="flex:1;height:3px;background:#e5ddd5;border-radius:2px;overflow:hidden">'
+        + '<span style="display:block;height:100%;width:'+pct+'%;background:'+fc+';border-radius:2px"></span></span>'
+        + '<span style="font-weight:600;color:'+fc+';width:18px;text-align:right">'+fv.toFixed(1)+'</span></div>';
+    }
+    factorHtml += '</div>';
+  }
+  const pct = (moodScore / 10) * 100;
   const rc = pct > 60 ? '#16a34a' : pct > 30 ? '#b8860b' : '#dc2626';
-  document.getElementById('feelingContent').innerHTML = '<div class="temp-wrap">'
-    +'<div class="temp-ring"><svg viewBox="0 0 36 36">'
-    +'<path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#e5ddd5" stroke-width="2.5"/>'
-    +'<path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="'+rc+'" stroke-width="2.5" stroke-dasharray="'+pct+', 100" stroke-linecap="round"/>'
-    +'</svg><div class="val" style="color:'+rc+'">'+f.score.toFixed(1)+'</div></div>'
-    +'<div class="temp-info"><div class="label">'+f.label+'</div><div class="detail">'+f.detail+'</div></div></div>';
+  let h = '<div class="temp-wrap">'
+    + '<div class="temp-ring"><svg viewBox="0 0 36 36">'
+    + '<path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="#e5ddd5" stroke-width="2.5"/>'
+    + '<path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831" fill="none" stroke="'+rc+'" stroke-width="2.5" stroke-dasharray="'+pct+', 100" stroke-linecap="round"/>'
+    + '</svg><div class="val" style="color:'+rc+';font-size:'+(moodScore>=10?'14px':'17px')+'">'+moodScore.toFixed(1)+'</div></div>'
+    + '<div class="temp-info"><div class="label">'+moodLabel+'</div><div class="detail">'+moodDetail+'</div></div></div>'
+    + factorHtml;
+  document.getElementById('feelingContent').innerHTML = h;
 }
 
 function renderStrategy() {
   const r = DAILY_REPORT;
-  const pos = r.position || '3~5成';
-  const adv = r.advice || '结构性行情，精选个股';
-  const foc = r.focus || '科创50走势 + 方向选择';
-  const ri = r.risk || '控制仓位等待企稳';
+  const mood = r.moodCycle || {};
+  const isIce = r.isIcePoint || false;
+  const pos = mood.position || r.position || '3~5成';
+  const adv = isIce ? (mood.advice || '冰点期防御为主，不轻易抄底') : (r.advice || '结构性行情，精选个股');
+  const foc = isIce ? '等市场企稳信号 · 不参与反弹 · 现金为王' : (r.focus || '科创50走势 + 方向选择');
+  const ri = isIce ? '🔴 高风险：冰点期不宜开新仓，等待评分回升' : (r.risk || '控制仓位等待企稳');
   const strat = r.strategy || '';
   let timeTag = '';
   if (strat.startsWith('⏰')) {
@@ -864,6 +1008,14 @@ function renderStrategy() {
     timeTag = r.updatedAt;
   }
   let h = '<div class="strategy-wrap">';
+  // 冰点期banner — 用CSS类
+  if (isIce) {
+    const s = mood.score !== undefined ? mood.score.toFixed(1) : '--';
+    h += '<div style="margin-bottom:10px;padding:10px 14px;background:var(--red-bg);border-radius:var(--radius-sm);display:flex;align-items:center;gap:10px;width:100%;border:1px solid rgba(220,38,38,0.15)">'
+      + '<span style="font-size:22px">❄️</span>'
+      + '<div><span style="font-weight:600;font-size:12px;color:var(--red)">冰点期 · 大盘评分偏低 (' + s + ')</span>'
+      + '<div style="font-size:11px;color:var(--text-dim)">暂停推荐新票，等情绪修复后再恢复出票</div></div></div>';
+  }
   if (timeTag) {
     h += '<div style="font-size:10px;color:var(--gold);margin-bottom:6px;padding:3px 8px;background:var(--gold-bg);border-radius:4px;display:inline-block">⏰ 基于 ' + timeTag + ' 数据</div>';
   }
@@ -876,7 +1028,11 @@ function renderStrategy() {
 
 function renderSignals() {
   const s = DAILY_REPORT.signals || ['📊 实时数据','⚠️ 不构成投资建议'];
+  const isIce = DAILY_REPORT.isIcePoint || false;
   let h = '<ul class="sig-list">';
+  if (isIce) {
+    h += '<li><span class="sig-dot">✦</span><span style="color:var(--red);font-weight:600">❄️ 冰点预警，系统暂停推荐新票</span></li>';
+  }
   for (const x of s) h += '<li><span class="sig-dot">✦</span>'+x+'</li>';
   h += '</ul>';
   document.getElementById('signalContent').innerHTML = h;
@@ -1036,6 +1192,18 @@ function renderDailyReport() {
     return;
   }
 
+  // 冰点提示
+  const mood = r.moodCycle || {};
+  const isIce = r.isIcePoint || false;
+  let iceBanner = '';
+  if (isIce) {
+    const scoreDisplay = mood.score !== undefined ? mood.score.toFixed(1) : '--';
+    iceBanner = '<div style="margin-bottom:12px;padding:10px 14px;background:var(--red-bg);border-radius:var(--radius-sm);display:flex;align-items:center;gap:10px;border:1px solid rgba(220,38,38,0.15)">'
+      + '<span style="font-size:22px">❄️</span>'
+      + '<div><div style="font-weight:600;font-size:12px;color:var(--red)">冰点期 · 暂停推荐新票</div>'
+      + '<div style="font-size:11px;color:var(--text-dim)">情绪评分 ' + scoreDisplay + '，等市场企稳后恢复出票</div></div></div>';
+  }
+
   const marketColor = r.marketState === '有主线' ? 'var(--red)' : 'var(--gold)';
   const resultColor = r.honestResult === '✅ 正确' ? 'var(--red)' : r.honestResult === '❌ 错误' ? 'var(--green)' : 'var(--text-dim)';
 
@@ -1058,7 +1226,7 @@ function renderDailyReport() {
     picksHtml += '<div style="font-size:10px;color:var(--gold);margin-top:6px;padding:6px;background:var(--gold-bg);border-radius:4px">💡 '+ (r.strategy || '') +'</div></div>';
   }
 
-  const h = '<div class="report-grid">'
+  const h = iceBanner + '<div class="report-grid">'
     +'<div class="report-block"><div class="rlabel">📌 市场状态</div>'
     +'<div class="rval lg" style="color:'+marketColor+'">'+(r.marketState||'--')+'</div>'
     +'<div class="rval sm">上证 '+(r.shPrice||'--')+' ('+(r.shChange>0?'+':'')+(r.shChange||'--')+'%)</div></div>'
