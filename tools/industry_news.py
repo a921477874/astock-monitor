@@ -41,6 +41,25 @@ INDUSTRY_KEYWORDS = {
     "机械设备": ["机械", "高端装备", "机器人", "工业母机", "智能制造"],
 }
 
+# ══════════════════════════════════════════════════
+# 宏观/政策因子 — 大IPO监测 + 政策信号
+# ══════════════════════════════════════════════════
+
+# 关注的大IPO（预计融资>50亿），手动维护
+# 格式: { "股票名": {"code": "代码", "sector": "所属板块", "est_fund": "预计募资(亿)", "status": "状态"} }
+MAJOR_IPOS = {
+    "长鑫存储": {"sector": "半导体", "est_fund": 500, "status": "注册生效/待发行"},
+}
+
+# 政策信号关键词 — 匹配新闻判断政策方向
+POLICY_SIGNALS = {
+    "科创板利好": ["科创板", "注册制", "战略配售", "IPO常态化"],
+    "产业扶持": ["集成电路大基金", "产业基金", "补贴", "国产替代政策", "自主可控"],
+    "监管收紧": ["IPO收紧", "再融资受限", "减持新规", "量化监管", "程序化交易"],
+    "货币宽松": ["降准", "降息", "MLF", "逆回购", "流动性", "宽松"],
+    "货币收紧": ["加息", "收紧", "去杠杆", "防风险", "压缩"],
+}
+
 
 def fetch_sina_news():
     """获取新浪财经新闻，返回新闻列表"""
@@ -169,6 +188,54 @@ def fetch_sector_changes():
     return result
 
 
+def scan_macro_policy(news_list):
+    """扫描宏观政策信号+大IPO动态"""
+    result = {
+        "ipos": {},
+        "policies": {},
+        "warnings": [],
+    }
+    
+    # 1. 检查大IPO是否在新闻中被提及
+    all_news_text = " ".join(news_list)
+    for ipo_name, ipo_info in MAJOR_IPOS.items():
+        if ipo_name in all_news_text:
+            result["ipos"][ipo_name] = {
+                "sector": ipo_info["sector"],
+                "est_fund": ipo_info["est_fund"],
+                "status": ipo_info["status"],
+                "mentioned": True,
+                "risk": f"大IPO抽血({ipo_info['est_fund']}亿), {ipo_info['sector']}板块承压"
+            }
+            result["warnings"].append(f"{ipo_name}即将发行({ipo_info['est_fund']}亿), {ipo_info['sector']}板块可能承压")
+        else:
+            result["ipos"][ipo_name] = {
+                "sector": ipo_info["sector"],
+                "est_fund": ipo_info["est_fund"],
+                "status": ipo_info["status"],
+                "mentioned": False,
+                "risk": f"大IPO抽血({ipo_info['est_fund']}亿), {ipo_info['sector']}板块承压"
+            }
+    
+    # 2. 扫描政策信号
+    for policy_name, keywords in POLICY_SIGNALS.items():
+        matched = [n for n in news_list if any(kw in n for kw in keywords)]
+        if matched:
+            # 简单情绪判断
+            pos_words = ["利好", "加码", "支持", "放量", "宽松", "补贴"]
+            neg_words = ["收紧", "严查", "处罚", "风险", "压缩"]
+            pos = sum(1 for n in matched for w in pos_words if w in n)
+            neg = sum(1 for n in matched for w in neg_words if w in n)
+            sentiment = "利好" if pos > neg else ("利空" if neg > pos else "中性")
+            result["policies"][policy_name] = {
+                "count": len(matched),
+                "sentiment": sentiment,
+                "samples": [n[:60] for n in matched[:2]],
+            }
+    
+    return result
+
+
 def main():
     now = datetime.now()
     print(f"{'='*50}")
@@ -189,8 +256,21 @@ def main():
     print(f"\n📈 Step 3: 板块涨跌聚合...")
     sector_data = fetch_sector_changes()
     print(f"  获取到 {len(sector_data)} 个板块数据")
+
+    # 3b. 宏观政策扫描
+    print(f"\n🌐 Step 3b: 宏观政策/IPO动态...")
+    macro = scan_macro_policy(news)
+    ipo_warnings = macro.get("warnings", [])
+    policy_count = len(macro.get("policies", {}))
+    if ipo_warnings:
+        for w in ipo_warnings:
+            print(f"  ⚠️ {w}")
+    if policy_count:
+        print(f"  监测到 {policy_count} 个政策信号")
+        for pn, pd in macro["policies"].items():
+            print(f"    {pn}: {pd['sentiment']} ({pd['count']}条)")
     
-    # 4. 综合评分输出
+    # 4. 综合评分输出 — 含IPO压制提示
     print(f"\n{'='*60}")
     print(f"🏭 产业逻辑评分排行")
     print(f"{'='*60}")
@@ -225,6 +305,12 @@ def main():
         sentiment = sig.get("sentiment", "中性") if sig else "中性"
         news_count = sig.get("news_count", 0) if sig else 0
         
+        # IPO压制修正：如果该板块有大IPO待发行，扣分
+        for ipo_name, ipo_info in macro.get("ipos", {}).items():
+            if ipo_info["sector"] == sector:
+                score = max(1, score - 1.0)  # 大IPO压制扣1分
+                print(f"  ⚠️ {sector}被{ipo_name}大IPO压制(募资{ipo_info['est_fund']}亿), 评分-1.0")
+        
         combined[sector] = {
             "score": score,
             "news_count": news_count,
@@ -242,6 +328,7 @@ def main():
         "updated_at": now.strftime("%Y-%m-%d %H:%M"),
         "industries": combined,
         "news_count": len(news),
+        "macro": macro,
     }
     os.makedirs(os.path.dirname(CACHE_FILE) or ".", exist_ok=True)
     with open(CACHE_FILE, "w", encoding="utf-8") as f:
