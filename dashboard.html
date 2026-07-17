@@ -438,8 +438,12 @@ async function loadData() {
   document.getElementById('reportDate').textContent = now.toISOString().slice(0,10);
   document.getElementById('reportTime').textContent = now.toTimeString().slice(0,5);
 
+  // 先渲染静态数据（不依赖异步）
+  renderClosingPicks();
+
   // 只取指数行情
-  const data = await fetchTencent(INDEX_CODES);
+  let data;
+  try { data = await fetchTencent(INDEX_CODES); } catch(e) { data = null; }
   renderMarket(data);
   renderBrief(data);
 
@@ -466,7 +470,6 @@ async function loadData() {
   renderPortfolio(data);
   renderOutlook();
   renderPicks(data);
-  renderClosingPicks();
   renderSectors();
   renderNorthFlow();
   renderFeeling();
