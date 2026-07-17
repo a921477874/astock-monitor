@@ -853,11 +853,25 @@ function renderStrategy() {
   const adv = r.advice || '结构性行情，精选个股';
   const foc = r.focus || '科创50走势 + 方向选择';
   const ri = r.risk || '控制仓位等待企稳';
-  document.getElementById('strategyContent').innerHTML = '<div class="strategy-wrap">'
-    +'<div class="strategy-block"><div class="slabel">建议仓位</div><div class="svalue gold" style="font-size:18px">'+pos+'</div></div>'
+  const strat = r.strategy || '';
+  let timeTag = '';
+  let stratBody = strat;
+  if (strat.startsWith('⏰')) {
+    const bang = strat.indexOf('|');
+    if (bang > 0) {
+      timeTag = strat.substring(0, bang).replace('⏰ ','').trim();
+      stratBody = strat.substring(bang + 1).trim();
+    }
+  }
+  let h = '<div class="strategy-wrap">';
+  if (timeTag) {
+    h += '<div style="font-size:10px;color:var(--gold);margin-bottom:6px;padding:3px 8px;background:var(--gold-bg);border-radius:4px;display:inline-block">⏰ 基于 ' + timeTag + ' 数据</div>';
+  }
+  h += '<div class="strategy-block"><div class="slabel">建议仓位</div><div class="svalue gold" style="font-size:18px">'+pos+'</div></div>'
     +'<div class="strategy-block"><div class="slabel">操作建议</div><div class="svalue" style="font-size:13px;font-weight:400;line-height:1.5">'+adv+'</div></div>'
     +'<div class="strategy-block"><div class="slabel">关注焦点</div><div class="svalue cyan" style="font-size:13px;font-weight:400;line-height:1.5">'+foc+'</div></div>'
     +'<div class="strategy-block"><div class="slabel">风险提示</div><div class="svalue red" style="font-size:13px;font-weight:400;line-height:1.5">'+ri+'</div></div></div>';
+  document.getElementById('strategyContent').innerHTML = h;
 }
 
 function renderSignals() {
