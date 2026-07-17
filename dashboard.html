@@ -438,10 +438,20 @@ async function loadData() {
   document.getElementById('reportDate').textContent = now.toISOString().slice(0,10);
   document.getElementById('reportTime').textContent = now.toTimeString().slice(0,5);
 
-  // 先渲染静态数据（不依赖异步）
+  // 先渲染所有静态数据（不依赖异步fetch，避免CORS阻塞导致白屏）
   renderClosingPicks();
+  renderReview();
+  renderReviewPicks();
+  renderDailyReport();
+  renderHistory();
+  renderBacktest();
+  renderSectors();
+  renderFeeling();
+  renderBoard();
+  renderStrategy();
+  renderSignals();
 
-  // 只取指数行情
+  // 只取指数行情（异步，可能被CORS拦截）
   let data;
   try { data = await fetchTencent(INDEX_CODES); } catch(e) { data = null; }
   renderMarket(data);
@@ -470,17 +480,6 @@ async function loadData() {
   renderPortfolio(data);
   renderOutlook();
   renderPicks(data);
-  renderSectors();
-  renderNorthFlow();
-  renderFeeling();
-  renderBoard();
-  renderStrategy();
-  renderSignals();
-  renderReview();
-  renderDailyReport();
-  renderHistory();
-  renderReviewPicks();
-  renderBacktest();
 }
 
 // ═══════════════════════════════════════════
