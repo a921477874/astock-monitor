@@ -1,6 +1,6 @@
 {
   "date": "2026-07-17",
-  "generated_at": "2026-07-17 09:09",
+  "generated_at": "2026-07-17 09:48",
   "prediction": {
     "open_pred": "小幅低开 ↘",
     "day_pred": "震荡偏弱，注意风险控制",
@@ -13,7 +13,7 @@
     "sp500": -0.51
   },
   "global_market": {
-    "hsi": null
+    "hsi": -79
   },
-  "total_score": -0.4
+  "total_score": -0.7
 }

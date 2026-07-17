@@ -17,10 +17,13 @@ def fetch_sector_flow():
         url = ("https://push2.eastmoney.com/api/qt/clist/get?cb=&pn=1&pz=100&po=" + str(po) + "&np=1"
                "&fields=f2,f3,f4,f12,f14,f62,f184,f66&fid=" + fid + "&fs=m:90+t:2")
         r = subprocess.run(
-            f'curl -s --max-time 10 "{url}" -H "User-Agent: Mozilla/5.0" -H "Referer: https://data.eastmoney.com/"',
+            f'curl -s --max-time 10 -k "{url}" -H "User-Agent: Mozilla/5.0" -H "Referer: https://data.eastmoney.com/"',
             shell=True, capture_output=True, text=True, timeout=10
         )
-        data = json.loads(r.stdout)
+        try:
+            data = json.loads(r.stdout)
+        except:
+            return []
         return data.get('data', {}).get('diff', [])
     
     # 按净流入倒序 + 按涨跌幅倒序，合并去重

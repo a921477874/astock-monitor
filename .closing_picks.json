@@ -1,38 +1,7 @@
 {
   "date": "2026-07-17",
-  "generated_at": "2026-07-17 09:26",
+  "generated_at": "2026-07-17 12:23",
   "version": "v4.0",
-  "total_scanned": 39,
-  "top3": [
-    {
-      "rank": 1,
-      "name": "山西高速",
-      "code": "000755",
-      "price": 4.67,
-      "change_pct": 0.86,
-      "score": 5.0,
-      "pe": 14.57,
-      "mcap": 68.52
-    },
-    {
-      "rank": 2,
-      "name": "豪鹏科技",
-      "code": "001283",
-      "price": 44.64,
-      "change_pct": 1.43,
-      "score": 4.6,
-      "pe": 27.39,
-      "mcap": 46.16
-    },
-    {
-      "rank": 3,
-      "name": "雅化集团",
-      "code": "002497",
-      "price": 17.6,
-      "change_pct": 0.86,
-      "score": 4.6,
-      "pe": 22.82,
-      "mcap": 186.49
-    }
-  ]
+  "total_scanned": 0,
+  "top3": []
 }
