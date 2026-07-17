@@ -433,10 +433,14 @@ function renderOutlook() {
 }
 
 async function loadData() {
+  // 确保关键元素存在
+  const reportDate = document.getElementById('reportDate');
+  const reportTime = document.getElementById('reportTime');
   const btn = document.getElementById('btnRefresh');
+  if (!reportDate || !reportTime) return;
   const now = new Date();
-  document.getElementById('reportDate').textContent = now.toISOString().slice(0,10);
-  document.getElementById('reportTime').textContent = now.toTimeString().slice(0,5);
+  reportDate.textContent = now.toISOString().slice(0,10);
+  reportTime.textContent = now.toTimeString().slice(0,5);
 
   // 先渲染所有静态数据（不依赖异步fetch，避免CORS阻塞导致白屏）
   renderClosingPicks();
