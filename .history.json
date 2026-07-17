@@ -43,5 +43,14 @@
     "result": "✅ 对",
     "kcChange": -2.36,
     "cybChange": -1.95
+  },
+  {
+    "date": "2026-07-17",
+    "shPrice": 3865.32,
+    "shChange": -0.44,
+    "direction": "承压调整",
+    "result": "✅ 对",
+    "kcChange": -0.91,
+    "cybChange": -1.36
   }
 ]

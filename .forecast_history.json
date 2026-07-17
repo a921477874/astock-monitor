@@ -1,19 +1,19 @@
 {
-  "date": "2026-07-16",
-  "generated_at": "2026-07-16 13:03",
+  "date": "2026-07-17",
+  "generated_at": "2026-07-17 09:09",
   "prediction": {
-    "open_pred": "平开或小幅震荡 →",
-    "day_pred": "窄幅震荡，个股分化",
-    "confidence": "中",
-    "strategy": "控制仓位（5成左右），观望为主，不追高，等待方向明确"
+    "open_pred": "小幅低开 ↘",
+    "day_pred": "震荡偏弱，注意风险控制",
+    "confidence": "较高",
+    "strategy": "降低仓位（3-4成），防御配置为主，关注高股息品种"
   },
   "us_market": {
-    "nasdaq": 0.62,
-    "dow": 0.29,
-    "sp500": 0.38
+    "nasdaq": -1.47,
+    "dow": -0.2,
+    "sp500": -0.51
   },
   "global_market": {
     "hsi": null
   },
-  "total_score": -0.23
+  "total_score": -0.4
 }
