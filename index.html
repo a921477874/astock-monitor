@@ -906,6 +906,34 @@ function renderBacktest() {
     +'<div class="history-stat"><div class="hnum" style="color:'+sc+'">'+bt.sharpe_ratio.toFixed(2)+'</div><div class="hlabel">夏普比率</div></div>'
     +'</div>';
 
+  // 新增核心维度（数据充足时显示）
+  if (bt.win_loss_ratio > 0 || bt.extreme_losses > 0) {
+    h += '<div style="display:flex;gap:6px;margin:6px 0;font-size:11px;flex-wrap:wrap">';
+    if (bt.win_loss_ratio > 0) {
+      h += '<div style="background:var(--bg-alt);padding:3px 8px;border-radius:4px;border:1px solid var(--border)">盈亏比 <span style="font-weight:600;color:'+(bt.win_loss_ratio>=1.5?'var(--red)':'var(--gold)')+'">'+bt.win_loss_ratio+'</span></div>';
+    }
+    if (bt.avg_win > 0) {
+      h += '<div style="background:var(--bg-alt);padding:3px 8px;border-radius:4px;border:1px solid var(--border)">平均盈 <span style="color:var(--red);font-weight:600">+'+bt.avg_win+'%</span></div>';
+    }
+    if (bt.avg_loss > 0) {
+      h += '<div style="background:var(--bg-alt);padding:3px 8px;border-radius:4px;border:1px solid var(--border)">平均亏 <span style="color:var(--green);font-weight:600">-'+bt.avg_loss+'%</span></div>';
+    }
+    if (bt.extreme_losses > 0) {
+      h += '<div style="background:var(--red-bg);padding:3px 8px;border-radius:4px;border:1px solid var(--border)">极端亏损 <span style="color:var(--red);font-weight:600">'+bt.extreme_losses+'次</span></div>';
+    }
+    if (bt.sortino_label && bt.sortino_label !== '待积累') {
+      const sc2 = bt.sortino_ratio > 1 ? 'var(--red)' : 'var(--gold)';
+      h += '<div style="background:var(--bg-alt);padding:3px 8px;border-radius:4px;border:1px solid var(--border)">索提诺 <span style="color:'+sc2+';font-weight:600">'+bt.sortino_label+'</span></div>';
+    }
+    if (bt.volatility_label && bt.volatility_label !== '待积累') {
+      h += '<div style="background:var(--bg-alt);padding:3px 8px;border-radius:4px;border:1px solid var(--border)">波动率 <span style="font-weight:600">'+bt.volatility_label+'</span></div>';
+    }
+    if (bt.down_volatility_label && bt.down_volatility_label !== '待积累') {
+      h += '<div style="background:var(--bg-alt);padding:3px 8px;border-radius:4px;border:1px solid var(--border)">下行波动 <span style="font-weight:600">'+bt.down_volatility_label+'</span></div>';
+    }
+    h += '</div>';
+  }
+
   if (bt.daily_records && bt.daily_records.length > 0) {
     h += '<table class="history-table"><thead><tr>'
       +'<th>日期</th><th>推荐数</th><th>上涨</th><th>下跌</th><th>当日收益</th></tr></thead><tbody>';
