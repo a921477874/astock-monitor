@@ -445,7 +445,7 @@ async function loadData() {
   document.getElementById('reportDate').textContent = now.toISOString().slice(0,10);
   document.getElementById('reportTime').textContent = now.toTimeString().slice(0,5);
 
-  // 先渲染所有静态数据（每个包裹try-catch，单个失败不影响其他）
+  // 先渲染所有静态数据（不依赖异步fetch）
   try { renderClosingPicks(); } catch(e) { console.error('closingPicks',e); }
   try { renderReview(); } catch(e) { console.error('review',e); }
   try { renderReviewPicks(); } catch(e) { console.error('reviewPicks',e); }
@@ -458,7 +458,7 @@ async function loadData() {
   try { renderStrategy(); } catch(e) { console.error('strategy',e); }
   try { renderSignals(); } catch(e) { console.error('signals',e); }
 
-  // 只取指数行情（异步，可能被CORS拦截）
+  // 只取指数行情（异步）
   let data;
   try { data = await fetchTencent(INDEX_CODES); } catch(e) { data = null; }
   renderMarket(data);
@@ -466,13 +466,11 @@ async function loadData() {
 
   // 优先使用DAILY_REPORT的静态数据
   if (DAILY_REPORT.date && DAILY_REPORT.picks && DAILY_REPORT.picks.length > 0) {
-    // 构造STOCK_CODES
     STOCK_CODES = DAILY_REPORT.picks.slice(0, 4).map(p => ({
       code: p.code, name: p.name, sector: p.sector,
       status: p.rank <= 2 ? '强烈推荐' : '推荐',
       buyZone: p.zone,
     }));
-    // 构造PICK_CODES（直接带量价标签）
     PICK_CODES = DAILY_REPORT.picks.map(p => ({
       code: p.code, name: p.name, sector: p.sector,
       reason: p.reason, buyZone: p.zone,
@@ -480,17 +478,14 @@ async function loadData() {
       volRatio: p.reason.includes('量比') ? parseFloat(p.reason.match(/量比([\d.]+)x/)?.[1] || 0) : 0,
       volQuality: p.reason.includes('放量上涨') ? 'good' : 'normal',
     }));
-    // 构造板块
     SECTORS_FALLBACK = [...new Set(DAILY_REPORT.picks.map(p => p.sector))].slice(0, 4).map(s => ({ name: s, change: 2.0 }));
   }
 
   renderPortfolio(data);
   renderOutlook();
   renderPicks(data);
-  }
+}
 
-  // ═══════════════════════════════════════════
-// 今日报告数据（收盘后由脚本更新）
 // ═══════════════════════════════════════════
 const DAILY_REPORT = {"date": "2026-07-17", "marketState": "混沌", "shPrice": 3818.59, "shChange": -1.64, "newsScore": 6, "honestResult": "✅ 盘中实时 · 承压调整", "honestReflect": "每30分钟更新 | 上证-1.64% | 评分2.7", "updatedAt": "2026-07-17 12:24", "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%"}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE"}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨"}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥"}], "strategy": "仓位2~4成。市场评分2.7，偏弱防御为主。🔴 高风险", "market": {"sh": {"price": 3818.5939, "change": -1.64}, "sz": {"price": 13953.256, "change": -3.7}, "cyb": {"price": 3518.645, "change": -4.71}, "kc": {"price": 1763.2223, "change": -4.53}, "hs300": {"price": 4583.2296, "change": -2.45}, "sh50": {"price": 2854.4009, "change": -1.71}}, "feeling": {"score": 2.7, "label": "❄️ 冰点 · 防御", "detail": "情绪冰点，防御为主不轻易抄底"}, "board": {"score": 2.5, "label": "❄️ 冰点", "note": "情绪冰点，可能酝酿反弹", "limitUp": 0, "limitDown": 0, "up5": 0, "down5": 0}, "north": {"flow": 23.2, "dir": "流出", "label": "今日估算"}, "sectors": [{"sector": "🏭 科创/科技", "view": "谨慎", "reason": "科创50-4.53%承压", "level": "回避"}], "trend": {"score": 0, "structScore": 3.6, "totalScore": 2.7}, "position": "2~4成", "advice": "市场评分2.7，偏弱防御为主", "focus": "上证方向选择", "risk": "🔴 高风险", "signals": ["📊 实时行情来自腾讯财经，每30分钟自动刷新", "🎯 追踪5只个股，重点看涨跌分化", "💰 评分2.7，建议仓位2~4成", "四大指数全线低开，创业板指跌幅最大达-3.41%，市场情绪悲观", "上证指数开报3865后回落至3838，跌幅-1.12%相对抗跌，权重护盘迹象", "科创50跌-2.61%，半导体科技板块承压，短期谨慎", "⚠️ 以上数据不构成投资建议"], "closingPicks": null, "history": [{"date": "2026-07-10", "shPrice": 3878.12, "shChange": -0.34, "direction": "震荡整理", "result": "➖ 待验证", "kcChange": -1.12, "cybChange": -0.28}, {"date": "2026-07-13", "shPrice": 3913.8, "shChange": 0.92, "direction": "震荡反弹", "result": "✅ 对", "kcChange": 1.85, "cybChange": 1.62}, {"date": "2026-07-14", "shPrice": 3967.13, "shChange": 1.36, "direction": "稳健上行", "result": "✅ 对", "kcChange": 0.77, "cybChange": 3.43}, {"date": "2026-07-15", "shPrice": 3955.58, "shChange": -0.82, "direction": "窄幅震荡", "result": "➖ 待验证", "kcChange": -4.25, "cybChange": -1.56}, {"date": "2026-07-16", "shPrice": 3917.53, "shChange": -0.96, "direction": "承压调整", "result": "✅ 对", "kcChange": -2.36, "cybChange": -1.95}, {"date": "2026-07-17", "shPrice": 3865.32, "shChange": -0.44, "direction": "承压调整", "result": "✅ 对", "kcChange": -0.91, "cybChange": -1.36}], "pickReview": {"records": [{"date": "2026-07-15", "market_change": -0.82, "total": 5, "up": 3, "flat": 1, "down": 1, "win_rate": 75.0, "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%"}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE"}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨"}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥"}]}], "stats": {"total_days": 1, "total_picks": 5, "up": 3, "flat": 1, "down": 1, "win_rate": 75.0, "risk_stats": {"🟡 中等": {"total": 2, "up": 2, "down": 0, "win_rate": 100.0}, "🟢 低风险": {"total": 2, "up": 1, "down": 1, "win_rate": 50.0}, "🔴 高风险": {"total": 1, "up": 0, "down": 0, "win_rate": 0}}}}, "backtest": {"total_days": 1, "total_picks": 5, "win_rate": 75.0, "avg_pnl_per_pick": 3.0, "total_return": 3.0, "max_drawdown": 0, "sharpe_ratio": 0, "sharpe_label": "数据不足(仅1天)", "d1_avg": 3.61, "d1_win_rate": 66.7, "daily_records": [{"date": "2026-07-15", "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%"}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE"}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨"}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%"}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥"}], "day_pnl": 0, "up": 3, "down": 1}]}, "review": {"yesterday": "2026-07-17", "stats": "盘中数据 · 实时更新", "note": "盘中追踪，收盘后宝宝会做完整复盘", "stocks": [{"name": "南华生物", "change": 0, "code": "000504"}, {"name": "好想你", "change": 0, "code": "002582"}, {"name": "古井贡酒", "change": 0, "code": "000596"}, {"name": "盐津铺子", "change": 0, "code": "002847"}, {"name": "银龙股份", "change": 0, "code": "603969"}]}};
 
