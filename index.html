@@ -442,18 +442,18 @@ async function loadData() {
   reportDate.textContent = now.toISOString().slice(0,10);
   reportTime.textContent = now.toTimeString().slice(0,5);
 
-  // 先渲染所有静态数据（不依赖异步fetch，避免CORS阻塞导致白屏）
-  renderClosingPicks();
-  renderReview();
-  renderReviewPicks();
-  renderDailyReport();
-  renderHistory();
-  renderBacktest();
-  renderSectors();
-  renderFeeling();
-  renderBoard();
-  renderStrategy();
-  renderSignals();
+  // 先渲染所有静态数据（每个包裹try-catch隔离）
+  try { renderClosingPicks(); } catch(e) {}
+  try { renderReview(); } catch(e) {}
+  try { renderReviewPicks(); } catch(e) {}
+  try { renderDailyReport(); } catch(e) {}
+  try { renderHistory(); } catch(e) {}
+  try { renderBacktest(); } catch(e) {}
+  try { renderSectors(); } catch(e) {}
+  try { renderFeeling(); } catch(e) {}
+  try { renderBoard(); } catch(e) {}
+  try { renderStrategy(); } catch(e) {}
+  try { renderSignals(); } catch(e) {}
 
   // 只取指数行情（异步，可能被CORS拦截）
   let data;
