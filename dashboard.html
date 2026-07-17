@@ -261,132 +261,7 @@ window.onerror = function(msg, url, line) {
   document.body.innerHTML += '<div style="position:fixed;bottom:0;left:0;right:0;background:#dc2626;color:white;padding:10px;font-size:12px;z-index:9999">JS错误: ' + msg + ' (行' + line + ')</div>';
   return false;
 };
-</script>
-</head>
-<body>
 
-<!-- ═══ HEADER ═══ -->
-<div class="header">
-  <div class="header-left">
-    <div class="logo">📊 A股智能监控</div>
-    <span class="badge">宝宝看盘</span>
-  </div>
-  <div class="header-right">
-    <span class="status-dot" id="statusDot"></span>
-    <span class="date" id="reportDate">加载中...</span>
-    <span style="font-size:11px" id="reportTime">--:--</span>
-    <button class="btn-refresh" id="btnRefresh" onclick="loadData()">⟳ 刷新</button>
-  </div>
-</div>
-
-<!-- ═══ GRID ═══ -->
-<div class="grid" id="app">
-
-  <!-- 大盘概况（左）+ 盘前策略（右）-->
-  <div class="card span-6" id="marketCard">
-    <div class="card-title"><span class="icon">📈</span> 大盘概况</div>
-    <div id="marketContent" class="loading"><span>⏳ 加载中...</span></div>
-  </div>
-
-  <div class="card span-6" id="briefCard">
-    <div class="card-title"><span class="icon">🌅</span> 今日盘前策略 <span class="tag tag-blue">宝宝观点</span></div>
-    <div id="briefContent" class="loading"><span>⏳ 加载中...</span></div>
-  </div>
-
-  <!-- 重点追踪（左）+ 宝宝板块观点（右）-->
-  <div class="card span-6" id="portfolioCard">
-    <div class="card-title"><span class="icon">🔍</span> 重点追踪 <span class="tag tag-blue">评分Top 4</span></div>
-    <div id="portfolioContent" class="loading"><span>⏳ 加载中...</span></div>
-  </div>
-
-  <div class="card span-6" id="outlookCard">
-    <div class="card-title"><span class="icon">🧠</span> 板块观点 <span class="tag tag-gold">方向预测</span></div>
-    <div id="outlookContent" class="loading"><span>⏳ 加载中...</span></div>
-  </div>
-
-  <!-- 盘中实时追踪 -->
-  <div class="card span-12" id="picksCard">
-    <div class="card-title"><span class="icon">🎯</span> 昨日盘前精选TOP5 <span class="tag tag-red">实时行情</span></div>
-    <div id="picksContent" class="loading"><span>⏳ 加载中...</span></div>
-  </div>
-
-  <!-- 盘前精选（23:59更新，明日关注） -->
-  <div class="card span-12" id="closingCard">
-    <div class="card-title"><span class="icon">🎯</span> 今日盘前精选 <span class="tag tag-gold">TOP3</span></div>
-    <div id="closingContent" class="loading"><span>⏳ 盘前精选尚未生成...</span></div>
-  </div>
-
-  <!-- 底部四列：板块轮动 | 北向资金 | 市场温度 | 打板情绪 -->
-  <div class="card span-3" id="sectorCard">
-    <div class="card-title"><span class="icon">🏭</span> 热门板块 <span class="tag tag-blue">今日</span></div>
-    <div id="sectorContent" class="loading">⏳ 加载中...</div>
-  </div>
-
-  <div class="card span-3" id="northFlowCard">
-    <div class="card-title"><span class="icon">🌊</span> 北向资金</div>
-    <div id="northFlowContent" class="loading">⏳ 加载中...</div>
-  </div>
-
-  <div class="card span-3" id="feelingCard">
-    <div class="card-title"><span class="icon">🌡️</span> 市场温度</div>
-    <div id="feelingContent" class="loading">⏳ 加载中...</div>
-  </div>
-
-  <div class="card span-3" id="boardCard">
-    <div class="card-title"><span class="icon">⚡</span> 打板情绪 <span class="tag tag-red">游资风向</span></div>
-    <div id="boardContent" class="loading">⏳ 加载中...</div>
-  </div>
-
-  <!-- 底部两列：操作策略 | 关键信号 -->
-  <div class="card span-6" id="strategyCard">
-    <div class="card-title"><span class="icon">💡</span> 操作策略</div>
-    <div id="strategyContent" class="loading">⏳ 加载中...</div>
-  </div>
-
-  <div class="card span-6" id="signalCard">
-    <div class="card-title"><span class="icon">⚡</span> 关键信号</div>
-    <div id="signalContent" class="loading">⏳ 加载中...</div>
-  </div>
-
-  <!-- 昨日回顾 -->
-  <div class="card span-12" id="reviewCard">
-    <div class="card-title"><span class="icon">🔄</span> 昨日推荐回顾</div>
-    <div id="reviewContent" class="loading">⏳ 加载中...</div>
-  </div>
-
-  <!-- 今日宝宝报告 -->
-  <div class="card span-12" id="dailyReportCard">
-    <div class="card-title"><span class="icon">📋</span> 今日宝宝报告 <span class="tag tag-red" id="reportStatusTag">每日收盘更新</span></div>
-    <div id="dailyReportContent" class="loading"><span>⏳ 报告加载中...</span></div>
-  </div>
-
-  <!-- 宝宝历史战绩 -->
-  <div class="card span-12" id="historyCard">
-    <div class="card-title"><span class="icon">📜</span> 宝宝历史战绩 <span class="tag tag-gold">全量记录</span></div>
-    <div id="historyContent" class="loading">⏳ 加载中...</div>
-  </div>
-
-  <!-- 宝宝选股复盘 -->
-  <div class="card span-12" id="reviewPicksCard">
-    <div class="card-title"><span class="icon">🔬</span> 宝宝选股复盘 <span class="tag tag-red">逐日验证</span></div>
-    <div id="reviewPicksContent" class="loading"><span>⏳ 复盘数据加载中...</span></div>
-  </div>
-
-  <!-- 量化回测 -->
-  <div class="card span-12" id="backtestCard">
-    <div class="card-title"><span class="icon">🧪</span> 量化回测 <span class="tag tag-blue">策略表现</span></div>
-    <div id="backtestContent" class="loading"><span>⏳ 回测数据积累中...</span></div>
-  </div>
-
-</div>
-
-<!-- ═══ FOOTER ═══ -->
-<div class="footer">
-  <span>数据来源: 腾讯财经 · 实时行情</span>
-  <span>由宝宝自动更新 · 不构成投资建议</span>
-</div>
-
-<script>
 // ═══════════════════════════════════════════
 // 数据采集 — 腾讯 qt.gtimg.cn (CORS ✅)
 // ═══════════════════════════════════════════
@@ -1108,6 +983,9 @@ function renderHistory() {
   document.getElementById('historyContent').innerHTML = h;
 }
 
->
+setTimeout(() => { try { loadData(); } catch(e) { console.error('loadData',e); } }, 100);
+</script>
+
+
 </body>
-</html></script><script>setTimeout(() => { try { loadData(); } catch(e) { console.error('loadData',e); } }, 100);</script>
+</html>
