@@ -378,7 +378,7 @@ body {
 
   <!-- 底部两列：操作策略 | 关键信号 -->
   <div class="card span-6" id="strategyCard">
-    <div class="card-title"><span class="icon">💡</span> 操作策略</div>
+    <div class="card-title"><span class="icon">💡</span> 操作策略 <span class="tag tag-blue">核心</span></div>
     <div id="strategyContent" class="loading">⏳ 加载中...</div>
   </div>
 
@@ -393,28 +393,37 @@ body {
     <div id="reviewContent" class="loading">⏳ 加载中...</div>
   </div>
 
-  <!-- 今日宝宝报告 -->
-  <div class="card span-12" id="dailyReportCard">
-    <div class="card-title"><span class="icon">📋</span> 今日宝宝报告 <span class="tag tag-red" id="reportStatusTag">每日收盘更新</span></div>
-    <div id="dailyReportContent" class="loading"><span>⏳ 报告加载中...</span></div>
-  </div>
+  <!-- 详细数据区（折叠） -->
+  <div class="card span-12" id="dataSection" style="padding:0;overflow:hidden">
+    <div id="dataSectionToggle" style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;cursor:pointer;user-select:none;">
+      <span style="font-size:12px;font-weight:600;color:var(--text-dim)">📋 详细数据 <span style="font-weight:400;color:var(--text-muted);font-size:11px">（宝宝报告 · 历史战绩 · 选股复盘 · 量化回测）</span></span>
+      <span id="dataSectionArrow" style="font-size:11px;color:var(--text-muted)">▼ 展开</span>
+    </div>
+    <div id="dataSectionBody" style="display:none;border-top:1px solid var(--border);padding:18px">
+      <!-- 今日宝宝报告 -->
+      <div id="dailyReportCard" style="margin-bottom:18px">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);margin-bottom:12px">📋 今日宝宝报告 <span class="tag tag-red" id="reportStatusTag">每日收盘更新</span></div>
+        <div id="dailyReportContent" class="loading"><span>⏳ 报告加载中...</span></div>
+      </div>
 
-  <!-- 宝宝历史战绩 -->
-  <div class="card span-12" id="historyCard">
-    <div class="card-title"><span class="icon">📜</span> 宝宝历史战绩 <span class="tag tag-gold">全量记录</span></div>
-    <div id="historyContent" class="loading">⏳ 加载中...</div>
-  </div>
+      <!-- 宝宝历史战绩 -->
+      <div id="historyCard" style="margin-bottom:18px">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);margin-bottom:12px">📜 宝宝历史战绩 <span class="tag tag-gold">全量记录</span></div>
+        <div id="historyContent" class="loading">⏳ 加载中...</div>
+      </div>
 
-  <!-- 宝宝选股复盘 -->
-  <div class="card span-12" id="reviewPicksCard">
-    <div class="card-title"><span class="icon">🔬</span> 宝宝选股复盘 <span class="tag tag-red">逐日验证</span></div>
-    <div id="reviewPicksContent" class="loading"><span>⏳ 复盘数据加载中...</span></div>
-  </div>
+      <!-- 宝宝选股复盘 -->
+      <div id="reviewPicksCard" style="margin-bottom:18px">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);margin-bottom:12px">🔬 宝宝选股复盘 <span class="tag tag-red">逐日验证</span></div>
+        <div id="reviewPicksContent" class="loading"><span>⏳ 复盘数据加载中...</span></div>
+      </div>
 
-  <!-- 量化回测 -->
-  <div class="card span-12" id="backtestCard">
-    <div class="card-title"><span class="icon">🧪</span> 量化回测 <span class="tag tag-blue">策略表现</span></div>
-    <div id="backtestContent" class="loading"><span>⏳ 回测数据积累中...</span></div>
+      <!-- 量化回测 -->
+      <div id="backtestCard">
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-dim);margin-bottom:12px">🧪 量化回测 <span class="tag tag-blue">策略表现</span></div>
+        <div id="backtestContent" class="loading"><span>⏳ 回测数据积累中...</span></div>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -514,6 +523,18 @@ async function loadData() {
   try { renderDailyReport(); } catch(e) {}
   try { renderHistory(); } catch(e) {}
   try { renderBacktest(); } catch(e) {}
+
+  // 详细数据折叠切换
+  const dsToggle = document.getElementById('dataSectionToggle');
+  const dsBody = document.getElementById('dataSectionBody');
+  const dsArrow = document.getElementById('dataSectionArrow');
+  if (dsToggle && dsBody) {
+    dsToggle.onclick = () => {
+      const open = dsBody.style.display !== 'none';
+      dsBody.style.display = open ? 'none' : 'block';
+      dsArrow.textContent = open ? '▼ 展开' : '▲ 收起';
+    };
+  }
   try { renderSectors(); } catch(e) {}
   try { renderFeeling(); } catch(e) {}
   try { renderBoard(); } catch(e) {}
@@ -693,7 +714,9 @@ function renderBrief(data) {
     externalScore * weights.external
   );
 
-  // ═══ 输出判定 ═══
+  // ═══ 输出判定 — 优先使用moodCycle的冰点数据 ═══
+  const mood = DAILY_REPORT.moodCycle || {};
+  const isIce = DAILY_REPORT.isIcePoint || (mood.score !== undefined && mood.score < 3.5);
   let direction, dirColor, position, advice, riskFocus, watchItems;
   if (totalScore >= 7) {
     direction = '🟢 进攻';
@@ -752,7 +775,7 @@ function renderBrief(data) {
 
   const h = '<div style="margin-bottom:10px">'
     +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'
-    +'<span style="font-size:22px;font-weight:700;color:'+dirColor+'">'+direction+'</span>'
+    +'<span style="font-size:22px;font-weight:700;color:'+dirColor+'">'+(isIce?'❄️ '+direction:direction)+'</span>'
     +'<span style="font-size:24px;font-weight:700;color:'+barColor+'">'+totalScore.toFixed(1)+'</span>'
     +'</div>'
     +'<div style="height:6px;background:#e5ddd5;border-radius:3px;overflow:hidden">'
@@ -773,7 +796,12 @@ function renderBrief(data) {
     +'<div class="brief-block"><div class="blabel">📐 评分明细</div>'
     +'<div style="margin-top:4px">'+dimHtml+'</div></div>'
 
-    +'</div>';
+    +'</div>'
+    // 冰点期额外显示情绪因子
+    +(isIce && mood.factors ? '<div style="margin-top:10px;padding:8px 12px;background:var(--red-bg);border-radius:6px;border:1px solid rgba(220,38,38,0.12)"><div style="font-size:10px;font-weight:600;color:var(--red);margin-bottom:5px">\u2744\ufe0f 情绪周期因子</div>'+(()=>{
+      let fh=''; const fk=Object.keys(mood.factors); for(const k of fk.slice(0,5)){const v=mood.factors[k];const fc=v>=6?'var(--red)':v>=4?'var(--gold)':'var(--green)';fh+='<div style="display:flex;align-items:center;gap:5px;font-size:10px;padding:1px 0"><span style="min-width:58px;color:var(--text-muted)">'+k+'</span><span style="flex:1;height:3px;background:rgba(220,38,38,0.1);border-radius:2px;overflow:hidden"><span style="display:block;height:100%;width:'+((v/10)*100)+'%;background:'+fc+';border-radius:2px"></span></span><span style="font-weight:600;color:'+fc+'">'+v.toFixed(1)+'</span></div>';} return fh;
+    })()+'</div>':'')
+  ;
   document.getElementById('briefContent').innerHTML = h;
 }
 
