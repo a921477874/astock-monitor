@@ -855,13 +855,13 @@ function renderStrategy() {
   const ri = r.risk || '控制仓位等待企稳';
   const strat = r.strategy || '';
   let timeTag = '';
-  let stratBody = strat;
   if (strat.startsWith('⏰')) {
     const bang = strat.indexOf('|');
     if (bang > 0) {
       timeTag = strat.substring(0, bang).replace('⏰ ','').trim();
-      stratBody = strat.substring(bang + 1).trim();
     }
+  } else if (r.updatedAt) {
+    timeTag = r.updatedAt;
   }
   let h = '<div class="strategy-wrap">';
   if (timeTag) {
