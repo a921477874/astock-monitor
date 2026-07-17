@@ -438,18 +438,18 @@ async function loadData() {
   document.getElementById('reportDate').textContent = now.toISOString().slice(0,10);
   document.getElementById('reportTime').textContent = now.toTimeString().slice(0,5);
 
-  // 先渲染所有静态数据（不依赖异步fetch，避免CORS阻塞导致白屏）
-  renderClosingPicks();
-  renderReview();
-  renderReviewPicks();
-  renderDailyReport();
-  renderHistory();
-  renderBacktest();
-  renderSectors();
-  renderFeeling();
-  renderBoard();
-  renderStrategy();
-  renderSignals();
+  // 先渲染所有静态数据（每个包裹try-catch，单个失败不影响其他）
+  try { renderClosingPicks(); } catch(e) { console.error('closingPicks',e); }
+  try { renderReview(); } catch(e) { console.error('review',e); }
+  try { renderReviewPicks(); } catch(e) { console.error('reviewPicks',e); }
+  try { renderDailyReport(); } catch(e) { console.error('dailyReport',e); }
+  try { renderHistory(); } catch(e) { console.error('history',e); }
+  try { renderBacktest(); } catch(e) { console.error('backtest',e); }
+  try { renderSectors(); } catch(e) { console.error('sectors',e); }
+  try { renderFeeling(); } catch(e) { console.error('feeling',e); }
+  try { renderBoard(); } catch(e) { console.error('board',e); }
+  try { renderStrategy(); } catch(e) { console.error('strategy',e); }
+  try { renderSignals(); } catch(e) { console.error('signals',e); }
 
   // 只取指数行情（异步，可能被CORS拦截）
   let data;
