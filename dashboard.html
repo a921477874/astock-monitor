@@ -1158,6 +1158,17 @@ function renderReviewPicks() {
   const stats = rp.stats || {};
   const riskColors = {'🔴 高风险':'var(--green)','🟡 中等':'var(--gold)','🟢 低风险':'var(--red)'};
 
+  // 评分有效性摘要
+  let scoreValidityHtml = '';
+  if (stats.score_valid && stats.score_valid !== '待积累') {
+    const svColor = stats.score_valid === '有效' ? 'var(--red)' : 'var(--green)';
+    const svIcon = stats.score_valid === '有效' ? '✅' : '⚠️';
+    scoreValidityHtml = '<div style="margin-top:8px;padding:6px 10px;background:var(--bg-alt);border-radius:4px;font-size:11px;display:flex;align-items:center;gap:6px;border:1px solid var(--border)">'
+      + `<span>${svIcon}</span>`
+      + `<span>评分<span style="font-weight:600;color:${svColor}">${stats.score_valid}</span>`
+      + `（高分组比低分组多 <span style="font-weight:600;color:${svColor}">${stats.score_delta > 0 ? '+':''}${(stats.score_delta || 0).toFixed(2)}%</span>）</span></div>`;
+  }
+
   // 统计摘要
   let h = '<div class="history-summary">'
     +'<div class="history-stat"><div class="hnum" style="color:var(--blue)">'+stats.total_days+'</div><div class="hlabel">复盘天数</div></div>'
@@ -1166,7 +1177,8 @@ function renderReviewPicks() {
     +'<div class="history-stat"><div class="hnum" style="color:var(--gold)">'+stats.flat+'</div><div class="hlabel">平盘</div></div>'
     +'<div class="history-stat"><div class="hnum" style="color:var(--green)">'+stats.down+'</div><div class="hlabel">下跌</div></div>'
     +'<div class="history-stat"><div class="hnum" style="color:var(--gold)">'+(stats.win_rate||'--')+'%</div><div class="hlabel">胜率</div></div>'
-    +'</div>';
+    +'</div>'
+    + scoreValidityHtml;
 
   // 按风险等级胜率
   const rs = stats.risk_stats || {};
@@ -1185,25 +1197,29 @@ function renderReviewPicks() {
     h += '</div>';
   }
 
-  // 逐日明细
+  // 逐日明细 — 每行增加教训/环境标记
   h += '<table class="history-table"><thead><tr>'
-    +'<th>日期</th><th>股票</th><th>推荐价</th><th>次日涨跌</th><th>评分</th><th>风险</th><th>判定</th></tr></thead><tbody>';
+    +'<th>日期</th><th>股票</th><th>推荐价</th><th>次日涨跌</th><th>评分</th><th>风险</th><th>判定</th><th>📝</th></tr></thead><tbody>';
   for (const rec of rp.records) {
     const dateLabel = rec.date.slice(5);
+    const isCrash = rec.is_crash_day;
+    const lesson = rec.lesson || '';
     const picks = rec.picks || [];
     let first = true;
     for (const p of picks) {
       const pc = cls(p.today_change);
-      const vc = p.verdict === '✅ 涨' ? 'var(--red)' : p.verdict === '❌ 跌' ? 'var(--green)' : 'var(--text-dim)';
+      const vc = p.verdict === '✅ 涨' || p.verdict === '✅ 抗跌' ? 'var(--red)' : p.verdict === '❌ 跌' ? 'var(--green)' : 'var(--text-dim)';
       const rc = riskColors[p.risk] || 'var(--text-dim)';
       h += '<tr>'
-        +(first ? '<td rowspan="'+picks.length+'" style="font-weight:600">'+dateLabel+'</td>' : '')
+        +(first ? '<td rowspan="'+picks.length+'" style="font-weight:600;'+(isCrash?'color:var(--red)':'')+'">'
+          + dateLabel + (isCrash?' ❄️':'') + '</td>' : '')
         +'<td><span style="font-weight:500">'+p.name+'</span> <span style="color:var(--text-dim);font-size:10px">'+p.code+'</span></td>'
         +'<td style="font-family:JetBrains Mono,monospace">'+fmt(p.rec_price)+'</td>'
         +'<td class="'+pc+'">'+(p.today_change>0?'+':'')+p.today_change.toFixed(2)+'%</td>'
         +'<td>⭐'+p.score.toFixed(1)+'</td>'
         +'<td style="font-size:10px;color:'+rc+';font-weight:600">'+p.risk+'</td>'
         +'<td style="color:'+vc+';font-weight:600;font-size:12px">'+p.verdict+'</td>'
+        +(first ? '<td rowspan="'+picks.length+'" style="font-size:10px;color:var(--text-dim);max-width:120px;line-height:1.4">'+(lesson||'')+'</td>' : '')
         +'</tr>';
       first = false;
     }
@@ -1277,14 +1293,15 @@ function renderDailyReport() {
 }
 function renderReview() {
   const r = DAILY_REPORT.review || { yesterday: '--', stats: '暂无数据', note: '等待更新' };
+  const isIce = DAILY_REPORT.isIcePoint || false;
   const stocks = r.stocks || [];
-  let h = '<div class="review-header">'+r.yesterday+' · <strong style="color:var(--gold)">'+r.stats+'</strong></div><div class="review-grid">';
+  let h = '<div class="review-header">'+(isIce?'\u2744\ufe0f ':'')+r.yesterday+' \u00b7 <strong style="color:var(--gold)">'+r.stats+'</strong></div><div class="review-grid">';
   for (const st of stocks) {
-    const verdict = st.change > 1 ? '✅ 上涨' : st.change < -1 ? '❌ 下跌' : '➖ 平盘';
+    const verdict = st.change > 1 ? '\u2705 \u4e0a\u6da8' : st.change < -1 ? '\u274c \u4e0b\u8dcc' : '\u2796 \u5e73\u76d8';
     h += '<div class="review-chip"><div class="rname">'+st.name+'</div><div class="rchange '+cls(st.change)+'">'+sign(st.change)+st.change.toFixed(2)+'%</div><div class="rverdict">'+verdict+'</div></div>';
   }
-  if (stocks.length === 0) h = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px">暂无回顾数据</div>';
-  else h += '</div><div class="review-note">💬 '+r.note+'</div>';
+  if (stocks.length === 0) h = '<div style="padding:20px;text-align:center;color:var(--text-dim);font-size:12px;line-height:1.7">'+(isIce?'\u2744\ufe0f \u51b0\u70b9\u671f\u6682\u65e0\u8ffd\u8e2a\u6570\u636e':'\u6682\u65e0\u56de\u987e\u6570\u636e')+'</div>';
+  else h += '</div><div class="review-note">\U0001f4ac '+r.note+'</div>';
   document.getElementById('reviewContent').innerHTML = h;
 }
 

@@ -224,16 +224,32 @@ def review_yesterday_picks():
         # 判定是否在买入区间内
         in_zone = buy_low <= real['price'] <= buy_high if buy_low > 0 and buy_high > 0 else 'N/A'
         
-        # 判定胜负
-        if abs(real_change_pct) < 0.3:
-            verdict = '➖ 平'
-            total_flat += 1
-        elif real_change_pct > 0:
-            verdict = '✅ 涨'
-            total_up += 1
+        # 判定大盘环境是否为冰点/大跌
+        sh_chg = indices.get('sh', {}).get('change_pct', 0)
+        is_crash_day = sh_chg <= -2
+
+        # 判定胜负（大跌日放宽标准：跑赢大盘算赢）
+        if is_crash_day:
+            # 大跌日：跌幅小于大盘就算表现好
+            if real_change_pct > sh_chg + 1:
+                verdict = '✅ 抗跌'
+                total_up += 1
+            elif real_change_pct >= sh_chg - 0.5:
+                verdict = '➖ 平'
+                total_flat += 1
+            else:
+                verdict = '❌ 跌'
+                total_down += 1
         else:
-            verdict = '❌ 跌'
-            total_down += 1
+            if abs(real_change_pct) < 0.3:
+                verdict = '➖ 平'
+                total_flat += 1
+            elif real_change_pct > 0:
+                verdict = '✅ 涨'
+                total_up += 1
+            else:
+                verdict = '❌ 跌'
+                total_down += 1
         
         total_score += score
         total_pnl += real_change_pct
@@ -265,7 +281,11 @@ def review_yesterday_picks():
             'touched_stop': touched_stop == '⚠️ 是',
             'verdict': verdict,
             'high': real['high'],
-            'low': real['low']
+            'low': real['low'],
+            'sector': pick.get('sector', ''),
+            'reason': pick.get('reason', '')[:60],
+            'buy_low': buy_low,
+            'buy_high': buy_high,
         })
     
     if valid_picks == 0:
@@ -299,11 +319,34 @@ def review_yesterday_picks():
             delta = top_avg - bot_avg
             print(f"    差异: {delta:+.2f}% {'✅ 评分有效' if delta > 0 else '⚠️ 评分需修正' if delta < 0 else '➖ 无差异'}")
     
-    # 构建复盘记录
+    # 构建复盘记录 — 包含环境标记和教训
+    sh_chg = indices.get('sh', {}).get('change_pct', 0)
+    is_crash_day = sh_chg <= -2
+
+    # 自动生成当天教训
+    lessons = []
+    if is_crash_day:
+        lessons.append("大盘暴跌日，防守为主，跑赢大盘就是胜利")
+    if valid_picks >= 3:
+        high_picks = [p for p in review_records if p.get('score', 0) >= 7.5]
+        low_picks = [p for p in review_records if p.get('score', 0) < 6]
+        if high_picks and low_picks:
+            h_avg = sum(p['pnl_from_rec'] for p in high_picks) / len(high_picks)
+            l_avg = sum(p['pnl_from_rec'] for p in low_picks) / len(low_picks)
+            if h_avg > l_avg + 1:
+                lessons.append(f"评分有效：高分票平均{h_avg:+.2f}% vs 低分票{l_avg:+.2f}%")
+            elif l_avg > h_avg + 1:
+                lessons.append(f"⚠️ 评分倒挂：低分票反而比高分票表现好{l_avg - h_avg:+.2f}%，需调整评分权重")
+    if total_down > total_up:
+        lessons.append("下跌多于上涨，选股偏激进，下期提高阈值")
+    elif total_up >= total_down and avg_pnl > 0:
+        lessons.append("选股有效，保持当前策略")
+    lesson = "；".join(lessons) if lessons else "继续积累数据"
+
     record = {
         'date': pick_date,
         'review_date': today,
-        'market_change': indices.get('sh', {}).get('change_pct', 0),
+        'market_change': sh_chg,
         'total': valid_picks,
         'up': total_up,
         'flat': total_flat,
@@ -311,7 +354,9 @@ def review_yesterday_picks():
         'win_rate': win_rate,
         'avg_pnl': avg_pnl,
         'avg_score': round(total_score / valid_picks, 1),
-        'picks': review_records
+        'picks': review_records,
+        'is_crash_day': is_crash_day,
+        'lesson': lesson,
     }
     
     return record
@@ -378,6 +423,8 @@ def aggregate_stats(records):
         'high_score_win_rate': hs_wr,
         'mid_score_win_rate': ms_wr,
         'low_score_win_rate': ls_wr,
+        'score_valid': '有效' if hs_avg and ls_avg and hs_avg > ls_avg else ('倒挂' if hs_avg and ls_avg and hs_avg < ls_avg else '待积累'),
+        'score_delta': round(hs_avg - ls_avg, 2) if hs_avg is not None and ls_avg is not None else 0,
     }
     
     return stats
