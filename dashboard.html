@@ -808,14 +808,17 @@ function renderBrief(data) {
 }
 
 function renderPortfolio(data) {
+  // 冰点期优先显示冰点提示（不管PICK_CODES有没有数据）
+  const isIce = DAILY_REPORT.isIcePoint || false;
+  if (isIce) {
+    const mood = DAILY_REPORT.moodCycle || {};
+    const s = mood.score !== undefined ? mood.score.toFixed(1) : '--';
+    document.getElementById('portfolioContent').innerHTML =
+      '<div class="ice-block"><div class="icon">❄️</div><div class="main">冰点期暂停追踪</div><div class="body">情绪评分 ' + s + '，冰点期暂停追踪新标的<br>等情绪评分回升到3.5以上后恢复</div></div>';
+    return;
+  }
   if (!PICK_CODES || PICK_CODES.length === 0) {
-    const isIce = DAILY_REPORT.isIcePoint || false;
-    if (isIce) {
-      document.getElementById('portfolioContent').innerHTML =
-        '<div class="ice-block"><div class="icon">❄️</div><div class="main">冰点期暂停追踪</div><div class="body">冰点情绪评分低，暂停追踪新标的<br>等情绪评分回升后恢复</div></div>';
-    } else {
-      document.getElementById('portfolioContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>';
-    }
+    document.getElementById('portfolioContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>';
     return;
   }
   let h = '';
