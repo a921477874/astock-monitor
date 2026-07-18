@@ -112,11 +112,20 @@ body {
   .span-6 { grid-column: span 12; }
   .span-4 { grid-column: span 6; }
 }
+@media (max-width: 768px) {
+  .grid { gap: 10px; }
+  .card { padding: 14px; }
+  .report-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 640px) {
   .span-4 { grid-column: span 12; }
   .span-3 { grid-column: span 12; }
+  .span-6 { grid-column: span 12; }
   body { padding: 12px; }
   .header-right { flex-wrap: wrap; }
+  .brief-grid { grid-template-columns: 1fr; }
+  .report-grid { grid-template-columns: 1fr; }
+  .picks-grid { grid-template-columns: 1fr 1fr; }
 }
 /* ─── CARD ─── */
 .card {
@@ -1130,8 +1139,9 @@ function renderStrategy() {
           {code:'512010',name:'医药ETF',note:'🥈 超跌修复',pct:'20%'},
           {code:'510300',name:'沪深300ETF',note:'🥉 均衡配置',pct:'30%'}]);
 
-  // 两列布局
-  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">'
+    // 两列布局（手机端自动变一列）
+    const isMobile = window.innerWidth < 640;
+  h += '<div style="display:grid;grid-template-columns:' + (isMobile ? '1fr' : '1fr 1fr') + ';gap:10px;margin-top:4px">'
     // 左列：四周期
     + '<div style="padding:10px 12px;background:var(--bg-alt);border-radius:var(--radius-sm);border:1px solid var(--border)">'
     + '<div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">🎯 四周期定位</div>'
