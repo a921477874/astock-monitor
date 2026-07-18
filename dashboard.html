@@ -810,8 +810,8 @@ function renderBrief(data) {
 function renderPortfolio(data) {
   // 冰点期优先显示冰点提示（不管PICK_CODES有没有数据）
   const isIce = DAILY_REPORT.isIcePoint || false;
-  if (isIce) {
-    const mood = DAILY_REPORT.moodCycle || {};
+  const mood = DAILY_REPORT.moodCycle || {};
+  if (isIce || (mood.score !== undefined && mood.score < 3.5)) {
     const s = mood.score !== undefined ? mood.score.toFixed(1) : '--';
     document.getElementById('portfolioContent').innerHTML =
       '<div class="ice-block"><div class="icon">❄️</div><div class="main">冰点期暂停追踪</div><div class="body">情绪评分 ' + s + '，冰点期暂停追踪新标的<br>等情绪评分回升到3.5以上后恢复</div></div>';
@@ -855,14 +855,17 @@ function renderPortfolio(data) {
 }
 
 function renderPicks(data) {
+  // 冰点期优先显示
+  const isIce = DAILY_REPORT.isIcePoint || false;
+  const mood = DAILY_REPORT.moodCycle || {};
+  if (isIce || (mood.score !== undefined && mood.score < 3.5)) {
+    const s = mood.score !== undefined ? mood.score.toFixed(1) : '--';
+    document.getElementById('picksContent').innerHTML =
+      '<div class="ice-block"><div class="icon">❄️</div><div class="main">冰点期暂停推荐</div><div class="body">情绪评分 ' + s + '，冰点期不推荐新票<br>观望等待，评分回升后恢复推荐</div></div>';
+    return;
+  }
   if (!PICK_CODES || PICK_CODES.length === 0) {
-    const isIce = DAILY_REPORT.isIcePoint || false;
-    if (isIce) {
-      document.getElementById('picksContent').innerHTML =
-        '<div class="ice-block"><div class="icon">❄️</div><div class="main">冰点期暂停推荐</div><div class="body">市场情绪评分低，不推荐新票<br>建议观望，等评分回升再操作</div></div>';
-    } else {
-      document.getElementById('picksContent').innerHTML = '<div class="loading">⏳ 智能评分排序中...</div>';
-    }
+    document.getElementById('picksContent').innerHTML = '<div class="loading">⏳ 智能评分排序中...</div>';
     return;
   }
   const labels = ['💎 首推', '🥇 次选', '🥈 稳健', '🥉 成长', '📌 观察', '📌 关注', '📌 跟踪', '📌 备用'];
