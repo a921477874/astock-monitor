@@ -1,21 +1,21 @@
 {
-  "updated_at": "2026-07-17 12:23",
+  "updated_at": "2026-07-17 17:17",
   "industries": {
     "半导体": {
-      "score": 5.0,
-      "news_count": 2,
-      "sentiment": "中性",
+      "score": 3.7,
+      "news_count": 1,
+      "sentiment": "利空",
       "avg_change": 0
     },
     "AI/算力": {
-      "score": 5.3,
-      "news_count": 2,
-      "sentiment": "利好",
+      "score": 4.7,
+      "news_count": 3,
+      "sentiment": "利空",
       "avg_change": 0
     },
     "新能源汽车": {
       "score": 5.0,
-      "news_count": 0,
+      "news_count": 1,
       "sentiment": "中性",
       "avg_change": 0
     },
@@ -26,14 +26,14 @@
       "avg_change": 0
     },
     "医药/医疗": {
-      "score": 3.8,
-      "news_count": 2,
-      "sentiment": "利好",
-      "avg_change": -6.27
+      "score": 6.5,
+      "news_count": 1,
+      "sentiment": "中性",
+      "avg_change": 2.24
     },
     "金融/券商": {
       "score": 5.0,
-      "news_count": 0,
+      "news_count": 1,
       "sentiment": "中性",
       "avg_change": 0
     },
@@ -77,26 +77,39 @@
       "score": 6.5,
       "news_count": 0,
       "sentiment": "中性",
-      "avg_change": 3.4
+      "avg_change": 2.95
     },
     "电力": {
       "score": 6.5,
-      "news_count": 1,
-      "sentiment": "中性",
-      "avg_change": 8.02
-    },
-    "化工": {
-      "score": 6.5,
       "news_count": 0,
       "sentiment": "中性",
-      "avg_change": 10.06
+      "avg_change": 3.01
+    },
+    "化工": {
+      "score": 5.0,
+      "news_count": 0,
+      "sentiment": "中性",
+      "avg_change": 0
     },
     "机械设备": {
       "score": 6.5,
-      "news_count": 1,
+      "news_count": 2,
       "sentiment": "中性",
-      "avg_change": 2.84
+      "avg_change": 4.38
     }
   },
-  "news_count": 20
+  "news_count": 20,
+  "macro": {
+    "ipos": {
+      "长鑫存储": {
+        "sector": "半导体",
+        "est_fund": 500,
+        "status": "注册生效/待发行",
+        "mentioned": false,
+        "risk": "大IPO抽血(500亿), 半导体板块承压"
+      }
+    },
+    "policies": {},
+    "warnings": []
+  }
 }

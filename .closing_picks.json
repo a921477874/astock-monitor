@@ -1,7 +1,10 @@
 {
-  "date": "2026-07-17",
-  "generated_at": "2026-07-17 12:23",
-  "version": "v4.0",
+  "date": "2026-07-18",
+  "generated_at": "2026-07-18 14:35",
+  "version": "v4.5",
   "total_scanned": 0,
-  "top3": []
+  "top3": [],
+  "mood_score": 2.4,
+  "is_ice_point": true,
+  "message": "冰点期(评分2.4)，暂停推荐。选股阈值提至≥8.0分"
 }
