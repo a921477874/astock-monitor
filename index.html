@@ -1081,42 +1081,37 @@ function renderStrategy() {
     timeTag = r.updatedAt;
   }
   let h = '<div class="strategy-wrap">';
-  // 冰点期banner — 用CSS类
+  // 冰点期banner
   if (isIce) {
     const s = mood.score !== undefined ? mood.score.toFixed(1) : '--';
-    h += '<div style="margin-bottom:10px;padding:10px 14px;background:var(--red-bg);border-radius:var(--radius-sm);display:flex;align-items:center;gap:10px;width:100%;border:1px solid rgba(220,38,38,0.15)">'
+    h += '<div style="margin-bottom:12px;padding:10px 14px;background:var(--red-bg);border-radius:var(--radius-sm);display:flex;align-items:center;gap:10px;border:1px solid rgba(220,38,38,0.15)">'
       + '<span style="font-size:22px">❄️</span>'
-      + '<div><span style="font-weight:600;font-size:12px;color:var(--red)">冰点期 · 大盘评分偏低 (' + s + ')</span>'
-      + '<div style="font-size:11px;color:var(--text-dim)">暂停推荐新票，等情绪修复后再恢复出票</div></div></div>';
+      + '<div><span style="font-weight:600;font-size:13px;color:var(--red)">冰点期 · 大盘评分偏低 (' + s + ')</span>'
+      + '<div style="font-size:11px;color:var(--text-dim);margin-top:2px">暂停推荐新票，等情绪修复后再恢复出票</div></div></div>';
   }
-  if (timeTag) {
-    h += '<div style="font-size:10px;color:var(--gold);margin-bottom:6px;padding:3px 8px;background:var(--gold-bg);border-radius:4px;display:inline-block">⏰ 基于 ' + timeTag + ' 数据</div>';
-  }
-  h += '<div class="strategy-block"><div class="slabel">建议仓位</div><div class="svalue gold" style="font-size:18px">'+pos+'</div></div>'
-    +'<div class="strategy-block"><div class="slabel">操作建议</div><div class="svalue" style="font-size:13px;font-weight:400;line-height:1.5">'+adv+'</div></div>'
-    +'<div class="strategy-block"><div class="slabel">关注焦点</div><div class="svalue cyan" style="font-size:13px;font-weight:400;line-height:1.5">'+foc+'</div></div>'
-    +'<div class="strategy-block"><div class="slabel">风险提示</div><div class="svalue red" style="font-size:13px;font-weight:400;line-height:1.5">'+ri+'</div></div></div>';
 
-  // 四周期定位卡片（新增2026-07-18）
+  // 基础策略卡片（精简）
+  h += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:12px 14px;background:var(--bg-alt);border-radius:var(--radius-sm);border:1px solid var(--border)">'
+    + '<div style="text-align:center;min-width:64px"><div style="font-size:10px;color:var(--text-muted)">建议仓位</div><div class="svalue gold" style="font-size:22px;font-weight:700">'+pos+'</div></div>'
+    + '<div style="flex:1;border-left:1px solid var(--border);padding-left:12px">'
+    + '<div style="font-size:12px;font-weight:500;line-height:1.5">'+adv+'</div>'
+    + '<div style="font-size:11px;color:var(--text-dim);margin-top:4px">👀 '+foc+'</div>'
+    + '<div style="font-size:11px;color:var(--green);margin-top:2px">⚠️ '+ri+'</div></div>'
+    + (timeTag ? '<div style="font-size:9px;color:var(--gold);padding:3px 6px;background:var(--gold-bg);border-radius:4px;white-space:nowrap;align-self:flex-start">⏰ '+timeTag+'</div>' : '')
+    + '</div>';
+
+  // 四周期 + ETF 两列布局
+  const isIceCycle = (mood.score !== undefined && mood.score < 3.5) || r.isIcePoint;
+  
+  // 四周期数据
   const cycles = [
     { label: '🏛️ 宏观', phase: '衰退→复苏', color: 'var(--gold)', note: '宽松周期' },
     { label: '📈 市场', phase: '❄️ 冰点', color: 'var(--green)', note: '评分'+((mood.score!==undefined)?mood.score.toFixed(1):'--') },
     { label: '🏭 板块', phase: '防御阶段', color: 'var(--cyan)', note: '高股息抗跌' },
     { label: '📉 个股', phase: '洗盘阶段', color: 'var(--green)', note: '等企稳信号' },
   ];
-  let ch = '<div style="margin-top:12px;border-top:1px solid var(--border);padding-top:10px">'
-    + '<div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">🎯 四周期定位 <span class="tag tag-blue" style="font-size:9px">宏观→微观</span></div>'
-    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
-  for (const c of cycles) {
-    ch += '<div style="padding:6px 8px;background:var(--bg-alt);border-radius:6px;border:1px solid var(--border)">'
-      + '<div style="font-size:10px;color:var(--text-muted)">'+c.label+'</div>'
-      + '<div style="font-size:13px;font-weight:700;color:'+c.color+'">'+c.phase+'</div>'
-      + '<div style="font-size:9px;color:var(--text-dim)">'+c.note+'</div></div>';
-  }
-  ch += '</div>';
-
-  // 板块ETF参考（根据当前周期推荐）
-  const isIceCycle = (mood.score !== undefined && mood.score < 3.5) || r.isIcePoint;
+  
+  // ETF数据
   const etfs = isIceCycle
     ? [{code:'512890',name:'红利低波ETF',note:'🥇 最佳冰点防御',pct:'60%'},
        {code:'510300',name:'沪深300ETF',note:'🥈 宽基托底',pct:'30%'},
@@ -1128,20 +1123,33 @@ function renderStrategy() {
        : [{code:'159928',name:'消费ETF',note:'🥇 首反弹',pct:'30%'},
           {code:'512010',name:'医药ETF',note:'🥈 超跌修复',pct:'20%'},
           {code:'510300',name:'沪深300ETF',note:'🥉 均衡配置',pct:'30%'}]);
-  ch += '<div style="margin-top:8px;padding:8px 10px;background:#f0faf0;border-radius:6px;border:1px solid rgba(22,163,74,0.12)">'
-    + '<div style="font-size:10px;color:var(--text-dim);margin-bottom:5px">📦 板块ETF参考 <span class="tag tag-green" style="font-size:8px">分散风险</span></div>'
-    + '<div style="display:flex;gap:6px;flex-wrap:wrap">';
+
+  // 两列布局
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">'
+    // 左列：四周期
+    + '<div style="padding:10px 12px;background:var(--bg-alt);border-radius:var(--radius-sm);border:1px solid var(--border)">'
+    + '<div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">🎯 四周期定位</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">';
+  for (const c of cycles) {
+    h += '<div style="padding:5px 6px;background:var(--bg-card);border-radius:5px;border:1px solid var(--border)">'
+      + '<div style="font-size:9px;color:var(--text-muted)">'+c.label+'</div>'
+      + '<div style="font-size:12px;font-weight:700;color:'+c.color+'">'+c.phase+'</div>'
+      + '<div style="font-size:8px;color:var(--text-dim)">'+c.note+'</div></div>';
+  }
+  h += '</div></div>'
+    // 右列：板块ETF
+    + '<div style="padding:10px 12px;background:#f0faf0;border-radius:var(--radius-sm);border:1px solid rgba(22,163,74,0.15)">'
+    + '<div style="font-size:10px;color:var(--text-dim);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px">📦 板块ETF参考</div>'
+    + '<div style="display:flex;flex-direction:column;gap:5px">';
   for (const etf of etfs) {
     const ec = isIceCycle ? '#0891b2' : mood.score >= 5 ? '#dc2626' : '#b8860b';
-    ch += '<div style="flex:1;min-width:80px;padding:5px 8px;background:var(--bg-card);border-radius:5px;text-align:center;border:1px solid var(--border)">'
-      + '<div style="font-size:12px;font-weight:600;color:'+ec+'">'+etf.name+'</div>'
-      + '<div style="font-size:9px;color:var(--text-muted)">'+etf.code+'</div>'
-      + '<div style="font-size:9px;color:'+ec+';font-weight:600">'+(etf.pct||'')+'</div>'
-      + '<div style="font-size:8px;color:var(--text-dim)">'+etf.note+'</div></div>';
+    h += '<div style="display:flex;align-items:center;gap:6px;padding:5px 8px;background:var(--bg-card);border-radius:5px;border:1px solid var(--border)">'
+      + '<div style="flex:1"><div style="font-size:11px;font-weight:600;color:'+ec+'">'+etf.name+'</div>'
+      + '<div style="font-size:8px;color:var(--text-muted)">'+etf.code+'</div></div>'
+      + '<div style="font-size:11px;font-weight:700;color:'+ec+'">'+(etf.pct||'')+'</div>'
+      + '<div style="font-size:8px;color:var(--text-dim);max-width:60px;text-align:right">'+etf.note+'</div></div>';
   }
-  ch += '</div></div>'
-    + '</div>';
-  h += ch;
+  h += '</div></div></div>';
 
   document.getElementById('strategyContent').innerHTML = h;
 }
