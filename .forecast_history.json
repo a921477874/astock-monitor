@@ -1,6 +1,6 @@
 {
-  "date": "2026-07-17",
-  "generated_at": "2026-07-17 09:48",
+  "date": "2026-07-19",
+  "generated_at": "2026-07-19 14:05",
   "prediction": {
     "open_pred": "小幅低开 ↘",
     "day_pred": "震荡偏弱，注意风险控制",
@@ -8,12 +8,12 @@
     "strategy": "降低仓位（3-4成），防御配置为主，关注高股息品种"
   },
   "us_market": {
-    "nasdaq": -1.47,
-    "dow": -0.2,
-    "sp500": -0.51
+    "nasdaq": -1.4,
+    "dow": -0.77,
+    "sp500": -1.01
   },
   "global_market": {
-    "hsi": -79
+    "hsi": null
   },
-  "total_score": -0.7
+  "total_score": -0.85
 }
