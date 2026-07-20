@@ -1,860 +1,835 @@
 {
-  "updated_at": "2026-07-16 21:36",
+  "updated_at": "2026-07-20 15:05",
   "sector_heat": {
     "半导体": {
-      "heat_score": 6.0,
-      "total_flow": 9.44,
-      "avg_change": -0.9,
+      "heat_score": 3.5,
+      "total_flow": -0.69,
+      "avg_change": -2.46,
       "matched_count": 1
     },
     "AI/算力": {
-      "heat_score": 9.5,
-      "total_flow": 87.26,
-      "avg_change": 0.94,
-      "matched_count": 17
+      "heat_score": 7.5,
+      "total_flow": 26.78,
+      "avg_change": -0.57,
+      "matched_count": 7
     },
     "新能源汽车": {
-      "heat_score": 7.5,
-      "total_flow": 18.08,
-      "avg_change": 1.28,
-      "matched_count": 5
+      "heat_score": 5.0,
+      "total_flow": -2.72,
+      "avg_change": 1.91,
+      "matched_count": 4
     },
     "消费/白酒": {
-      "heat_score": 6.5,
-      "total_flow": 8.27,
-      "avg_change": 0.97,
-      "matched_count": 7
+      "heat_score": 7.5,
+      "total_flow": 27.77,
+      "avg_change": 0.82,
+      "matched_count": 8
     },
     "医药/医疗": {
       "heat_score": 2.5,
-      "total_flow": -86.06,
-      "avg_change": 1.83,
-      "matched_count": 26
+      "total_flow": -114.49,
+      "avg_change": 0.59,
+      "matched_count": 11
     },
     "金融/券商": {
+      "heat_score": 3.5,
+      "total_flow": -34.42,
+      "avg_change": 1.8,
+      "matched_count": 17
+    },
+    "有色金属": {
+      "heat_score": 6.5,
+      "total_flow": 8.21,
+      "avg_change": -0.09,
+      "matched_count": 4
+    },
+    "家电": {
       "heat_score": 4.5,
       "total_flow": 0,
       "avg_change": 0,
       "matched_count": 0
     },
-    "有色金属": {
-      "heat_score": 6.0,
-      "total_flow": 5.9,
-      "avg_change": -0.12,
-      "matched_count": 2
-    },
-    "家电": {
-      "heat_score": 7.0,
-      "total_flow": 0.95,
-      "avg_change": 2.07,
-      "matched_count": 5
-    },
     "军工": {
-      "heat_score": 5.5,
-      "total_flow": 0.99,
-      "avg_change": -0.43,
+      "heat_score": 4.5,
+      "total_flow": -0.65,
+      "avg_change": 0.8,
       "matched_count": 2
     },
     "光伏": {
+      "heat_score": 6.0,
+      "total_flow": 0.28,
+      "avg_change": 0.92,
+      "matched_count": 3
+    },
+    "传媒/游戏": {
       "heat_score": 4.5,
       "total_flow": 0,
       "avg_change": 0,
       "matched_count": 0
     },
-    "传媒/游戏": {
-      "heat_score": 9.5,
-      "total_flow": 45.05,
-      "avg_change": 2.71,
-      "matched_count": 11
-    },
     "房地产": {
-      "heat_score": 7.5,
-      "total_flow": 17.18,
-      "avg_change": 0.76,
-      "matched_count": 5
+      "heat_score": 5.5,
+      "total_flow": 0.35,
+      "avg_change": 0.39,
+      "matched_count": 2
     },
     "通信": {
       "heat_score": 5.5,
-      "total_flow": 3.56,
-      "avg_change": 0.17,
-      "matched_count": 2
+      "total_flow": 0.06,
+      "avg_change": -1.82,
+      "matched_count": 1
     }
   },
   "raw_sectors": {
-    "计算机": {
-      "change_pct": 0.63,
-      "flow": 20.85,
-      "flow_ratio": 1.47
+    "电力": {
+      "change_pct": 4.71,
+      "flow": 31.13,
+      "flow_ratio": 4.0
+    },
+    "公用事业": {
+      "change_pct": 3.98,
+      "flow": 29.7,
+      "flow_ratio": 3.51
+    },
+    "火力发电": {
+      "change_pct": 6.46,
+      "flow": 22.65,
+      "flow_ratio": 6.71
     },
     "IT服务Ⅲ": {
-      "change_pct": 0.95,
-      "flow": 14.51,
-      "flow_ratio": 2.65
+      "change_pct": -0.85,
+      "flow": 17.18,
+      "flow_ratio": 2.77
     },
     "IT服务Ⅱ": {
-      "change_pct": 0.95,
-      "flow": 14.51,
-      "flow_ratio": 2.65
+      "change_pct": -0.85,
+      "flow": 17.18,
+      "flow_ratio": 2.77
     },
-    "印制电路板": {
-      "change_pct": -0.9,
-      "flow": 9.44,
-      "flow_ratio": 0.84
-    },
-    "传媒": {
-      "change_pct": 2.26,
-      "flow": 8.3,
-      "flow_ratio": 1.48
-    },
-    "软件开发": {
-      "change_pct": 0.39,
-      "flow": 7.28,
-      "flow_ratio": 1.69
-    },
-    "汽车": {
-      "change_pct": 0.14,
-      "flow": 7.12,
-      "flow_ratio": 1.14
-    },
-    "影视院线": {
-      "change_pct": 5.54,
-      "flow": 6.32,
-      "flow_ratio": 7.26
-    },
-    "广告营销": {
-      "change_pct": 2.88,
-      "flow": 6.28,
-      "flow_ratio": 4.14
-    },
-    "营销代理": {
-      "change_pct": 2.83,
-      "flow": 6.11,
-      "flow_ratio": 4.35
-    },
-    "房地产开发": {
-      "change_pct": 0.55,
-      "flow": 5.81,
-      "flow_ratio": 3.42
-    },
-    "房地产": {
-      "change_pct": 0.51,
-      "flow": 5.71,
-      "flow_ratio": 3.15
-    },
-    "铜": {
-      "change_pct": 0.13,
-      "flow": 5.55,
-      "flow_ratio": 2.42
-    },
-    "乘用车": {
-      "change_pct": 1.85,
-      "flow": 5.07,
-      "flow_ratio": 5.13
-    },
-    "电动乘用车": {
-      "change_pct": 2.01,
-      "flow": 4.82,
-      "flow_ratio": 6.19
-    },
-    "垂直应用软件": {
-      "change_pct": 0.54,
-      "flow": 4.68,
-      "flow_ratio": 1.6
-    },
-    "住宅开发": {
-      "change_pct": 0.4,
-      "flow": 4.48,
-      "flow_ratio": 3.25
-    },
-    "医院": {
-      "change_pct": 3.54,
-      "flow": 4.0,
-      "flow_ratio": 6.96
-    },
-    "影视动漫制作": {
-      "change_pct": 5.29,
-      "flow": 3.85,
-      "flow_ratio": 5.86
-    },
-    "纺织服饰": {
-      "change_pct": 0.41,
-      "flow": 3.03,
-      "flow_ratio": 2.79
-    },
-    "中药Ⅲ": {
-      "change_pct": 1.54,
-      "flow": 2.94,
-      "flow_ratio": 1.17
-    },
-    "中药Ⅱ": {
-      "change_pct": 1.54,
-      "flow": 2.94,
-      "flow_ratio": 1.17
-    },
-    "食品饮料": {
-      "change_pct": 0.84,
-      "flow": 2.77,
-      "flow_ratio": 0.76
-    },
-    "数字媒体": {
-      "change_pct": 1.55,
-      "flow": 2.76,
-      "flow_ratio": 2.62
-    },
-    "横向通用软件": {
-      "change_pct": -0.04,
-      "flow": 2.6,
-      "flow_ratio": 1.87
-    },
-    "院线": {
-      "change_pct": 6.42,
-      "flow": 2.47,
-      "flow_ratio": 11.57
-    },
-    "汽车零部件": {
-      "change_pct": 0.06,
-      "flow": 2.32,
-      "flow_ratio": 0.51
+    "石油石化": {
+      "change_pct": 3.35,
+      "flow": 14.79,
+      "flow_ratio": 5.26
     },
     "白酒Ⅲ": {
-      "change_pct": 1.47,
-      "flow": 2.2,
-      "flow_ratio": 1.24
+      "change_pct": 3.88,
+      "flow": 10.4,
+      "flow_ratio": 3.65
     },
     "白酒Ⅱ": {
-      "change_pct": 1.47,
-      "flow": 2.2,
-      "flow_ratio": 1.24
+      "change_pct": 3.88,
+      "flow": 10.4,
+      "flow_ratio": 3.65
     },
-    "原料药": {
-      "change_pct": 1.64,
-      "flow": 2.15,
-      "flow_ratio": 1.2
+    "保险Ⅲ": {
+      "change_pct": 4.51,
+      "flow": 8.92,
+      "flow_ratio": 4.97
     },
-    "商贸零售": {
-      "change_pct": 1.09,
-      "flow": 2.0,
-      "flow_ratio": 1.06
+    "保险Ⅱ": {
+      "change_pct": 4.51,
+      "flow": 8.92,
+      "flow_ratio": 4.97
     },
-    "电商服务": {
-      "change_pct": 3.06,
-      "flow": 1.99,
-      "flow_ratio": 9.75
+    "铝": {
+      "change_pct": -0.43,
+      "flow": 8.34,
+      "flow_ratio": 4.02
     },
-    "互联网电商": {
-      "change_pct": 1.23,
-      "flow": 1.98,
-      "flow_ratio": 4.47
-    },
-    "通信工程及服务": {
-      "change_pct": 1.01,
-      "flow": 1.97,
-      "flow_ratio": 4.49
-    },
-    "汽车电子电气系统": {
-      "change_pct": 0.04,
-      "flow": 1.92,
-      "flow_ratio": 2.33
-    },
-    "服装家纺": {
-      "change_pct": 0.27,
-      "flow": 1.88,
-      "flow_ratio": 3.59
-    },
-    "美容护理": {
-      "change_pct": 1.07,
-      "flow": 1.87,
-      "flow_ratio": 3.49
-    },
-    "专业连锁Ⅲ": {
-      "change_pct": 4.64,
-      "flow": 1.82,
-      "flow_ratio": 9.9
-    },
-    "专业连锁Ⅱ": {
-      "change_pct": 4.64,
-      "flow": 1.82,
-      "flow_ratio": 9.9
-    },
-    "体外诊断": {
-      "change_pct": 1.67,
-      "flow": 1.73,
-      "flow_ratio": 1.9
-    },
-    "通信终端及配件": {
-      "change_pct": -0.66,
-      "flow": 1.59,
-      "flow_ratio": 1.07
-    },
-    "棉纺": {
-      "change_pct": 0.56,
-      "flow": 1.57,
-      "flow_ratio": 11.47
-    },
-    "底盘与发动机系统": {
-      "change_pct": 0.06,
-      "flow": 1.52,
-      "flow_ratio": 0.72
-    },
-    "医美耗材": {
-      "change_pct": 4.96,
-      "flow": 1.51,
-      "flow_ratio": 8.79
-    },
-    "医疗美容": {
-      "change_pct": 3.4,
-      "flow": 1.49,
-      "flow_ratio": 8.63
-    },
-    "门户网站": {
-      "change_pct": 1.2,
-      "flow": 1.44,
-      "flow_ratio": 2.12
-    },
-    "软饮料": {
-      "change_pct": -0.65,
-      "flow": 1.42,
-      "flow_ratio": 6.39
-    },
-    "鞋帽及其他": {
-      "change_pct": 1.65,
-      "flow": 1.38,
-      "flow_ratio": 11.0
-    },
-    "纺织制造": {
-      "change_pct": 0.3,
-      "flow": 1.36,
-      "flow_ratio": 3.3
-    },
-    "商业地产": {
-      "change_pct": 0.76,
-      "flow": 1.2,
-      "flow_ratio": 7.13
-    },
-    "配电设备": {
-      "change_pct": -0.24,
-      "flow": 1.15,
-      "flow_ratio": 2.94
-    },
-    "商用车": {
-      "change_pct": 0.32,
-      "flow": 1.12,
-      "flow_ratio": 2.66
-    },
-    "涂料油墨": {
-      "change_pct": -0.74,
-      "flow": 1.09,
-      "flow_ratio": 3.05
-    },
-    "公交": {
-      "change_pct": 2.16,
-      "flow": 1.08,
-      "flow_ratio": 17.85
-    },
-    "生猪养殖": {
-      "change_pct": 2.07,
-      "flow": 0.97,
-      "flow_ratio": 1.24
-    },
-    "仪器仪表": {
-      "change_pct": -1.95,
-      "flow": 0.96,
-      "flow_ratio": 0.55
-    },
-    "商用载货车": {
-      "change_pct": -0.19,
-      "flow": 0.93,
-      "flow_ratio": 3.12
-    },
-    "食品及饲料添加剂": {
-      "change_pct": 0.52,
-      "flow": 0.92,
-      "flow_ratio": 2.62
-    },
-    "其他医疗服务": {
-      "change_pct": 4.43,
-      "flow": 0.88,
-      "flow_ratio": 7.55
-    },
-    "电机Ⅲ": {
-      "change_pct": -0.14,
-      "flow": 0.83,
-      "flow_ratio": 1.93
-    },
-    "电机Ⅱ": {
-      "change_pct": -0.14,
-      "flow": 0.83,
-      "flow_ratio": 1.93
-    },
-    "文字媒体": {
-      "change_pct": 3.33,
-      "flow": 0.83,
-      "flow_ratio": 5.53
-    },
-    "品牌消费电子": {
-      "change_pct": 2.76,
-      "flow": 0.8,
-      "flow_ratio": 1.28
-    },
-    "食品加工": {
-      "change_pct": 1.16,
-      "flow": 0.79,
-      "flow_ratio": 2.01
-    },
-    "运动服装": {
-      "change_pct": 0.19,
-      "flow": 0.79,
-      "flow_ratio": 8.97
-    },
-    "饲料": {
-      "change_pct": 1.08,
-      "flow": 0.76,
-      "flow_ratio": 2.27
-    },
-    "肉制品": {
-      "change_pct": 2.38,
-      "flow": 0.74,
-      "flow_ratio": 3.64
-    },
-    "航空机场": {
-      "change_pct": -0.18,
-      "flow": 0.65,
-      "flow_ratio": 2.0
-    },
-    "其他建材Ⅲ": {
-      "change_pct": 0.45,
-      "flow": 0.6,
-      "flow_ratio": 2.99
+    "炼化及贸易": {
+      "change_pct": 1.26,
+      "flow": 7.8,
+      "flow_ratio": 5.11
     },
     "炼油化工": {
-      "change_pct": -1.14,
-      "flow": 0.59,
-      "flow_ratio": 0.99
+      "change_pct": 2.84,
+      "flow": 7.19,
+      "flow_ratio": 6.23
     },
-    "养殖业": {
-      "change_pct": 1.49,
-      "flow": 0.58,
-      "flow_ratio": 0.62
+    "工业金属": {
+      "change_pct": -0.86,
+      "flow": 6.73,
+      "flow_ratio": 1.37
     },
-    "水产饲料": {
-      "change_pct": 0.36,
-      "flow": 0.56,
-      "flow_ratio": 5.76
+    "煤炭": {
+      "change_pct": 5.04,
+      "flow": 6.57,
+      "flow_ratio": 3.85
     },
-    "商业物业经营": {
-      "change_pct": 0.34,
-      "flow": 0.5,
-      "flow_ratio": 1.85
+    "煤炭开采": {
+      "change_pct": 5.42,
+      "flow": 6.47,
+      "flow_ratio": 4.04
     },
-    "其他汽车零部件": {
-      "change_pct": 0.06,
-      "flow": 0.48,
-      "flow_ratio": 0.63
+    "计算机": {
+      "change_pct": -1.02,
+      "flow": 6.45,
+      "flow_ratio": 0.39
     },
-    "其他橡胶制品": {
-      "change_pct": 0.32,
-      "flow": 0.46,
-      "flow_ratio": 4.54
+    "国有大型银行Ⅲ": {
+      "change_pct": 2.53,
+      "flow": 5.19,
+      "flow_ratio": 3.04
     },
-    "诊断服务": {
-      "change_pct": 1.39,
-      "flow": 0.42,
-      "flow_ratio": 1.68
+    "动力煤": {
+      "change_pct": 5.3,
+      "flow": 5.08,
+      "flow_ratio": 4.07
     },
-    "电工仪器仪表": {
-      "change_pct": -0.28,
-      "flow": 0.4,
-      "flow_ratio": 1.2
+    "化学原料": {
+      "change_pct": -0.24,
+      "flow": 4.64,
+      "flow_ratio": 2.21
     },
-    "饮料乳品": {
-      "change_pct": 1.12,
-      "flow": 0.38,
-      "flow_ratio": 0.69
+    "油服工程": {
+      "change_pct": 6.71,
+      "flow": 4.41,
+      "flow_ratio": 5.55
     },
-    "园林工程": {
-      "change_pct": 1.97,
-      "flow": 0.37,
+    "聚氨酯": {
+      "change_pct": -1.92,
+      "flow": 4.28,
+      "flow_ratio": 7.78
+    },
+    "其他化学原料": {
+      "change_pct": -0.56,
+      "flow": 3.89,
+      "flow_ratio": 7.74
+    },
+    "股份制银行Ⅲ": {
+      "change_pct": 2.3,
+      "flow": 3.85,
+      "flow_ratio": 2.42
+    },
+    "银行": {
+      "change_pct": 2.02,
+      "flow": 3.67,
+      "flow_ratio": 0.8
+    },
+    "银行Ⅱ": {
+      "change_pct": 2.02,
+      "flow": 3.67,
+      "flow_ratio": 0.8
+    },
+    "基建市政工程": {
+      "change_pct": -0.32,
+      "flow": 2.78,
+      "flow_ratio": 4.38
+    },
+    "油气开采Ⅲ": {
+      "change_pct": 6.51,
+      "flow": 2.58,
+      "flow_ratio": 5.25
+    },
+    "油气开采Ⅱ": {
+      "change_pct": 6.51,
+      "flow": 2.58,
+      "flow_ratio": 5.25
+    },
+    "水力发电": {
+      "change_pct": 5.21,
+      "flow": 2.56,
+      "flow_ratio": 1.84
+    },
+    "油田服务": {
+      "change_pct": 5.47,
+      "flow": 2.5,
+      "flow_ratio": 7.43
+    },
+    "电能综合服务": {
+      "change_pct": 6.45,
+      "flow": 2.46,
+      "flow_ratio": 3.57
+    },
+    "煤化工": {
+      "change_pct": 3.9,
+      "flow": 2.45,
+      "flow_ratio": 3.84
+    },
+    "食品饮料": {
+      "change_pct": -0.69,
+      "flow": 2.41,
+      "flow_ratio": 0.47
+    },
+    "旅游零售Ⅲ": {
+      "change_pct": 2.35,
+      "flow": 2.38,
+      "flow_ratio": 8.37
+    },
+    "旅游零售Ⅱ": {
+      "change_pct": 2.35,
+      "flow": 2.38,
+      "flow_ratio": 8.37
+    },
+    "基础建设": {
+      "change_pct": -2.08,
+      "flow": 2.37,
       "flow_ratio": 3.01
     },
-    "粘胶": {
-      "change_pct": 2.68,
-      "flow": 0.35,
-      "flow_ratio": 5.1
+    "油气及炼化工程": {
+      "change_pct": 8.37,
+      "flow": 1.91,
+      "flow_ratio": 4.17
     },
-    "航空运输": {
-      "change_pct": -0.68,
-      "flow": 0.34,
-      "flow_ratio": 1.46
+    "普钢": {
+      "change_pct": 1.15,
+      "flow": 1.88,
+      "flow_ratio": 3.28
     },
-    "血液制品": {
-      "change_pct": 3.31,
-      "flow": 0.33,
+    "纺织化学制品": {
+      "change_pct": -1.69,
+      "flow": 1.82,
+      "flow_ratio": 4.57
+    },
+    "板材": {
+      "change_pct": 1.5,
+      "flow": 1.8,
+      "flow_ratio": 3.44
+    },
+    "风力发电": {
+      "change_pct": 4.65,
+      "flow": 1.67,
+      "flow_ratio": 1.76
+    },
+    "光伏发电": {
+      "change_pct": 3.23,
+      "flow": 1.59,
+      "flow_ratio": 2.82
+    },
+    "商业物业经营": {
+      "change_pct": -0.27,
+      "flow": 1.58,
+      "flow_ratio": 5.18
+    },
+    "铜": {
+      "change_pct": -0.9,
+      "flow": 1.41,
+      "flow_ratio": 0.61
+    },
+    "焦煤": {
+      "change_pct": 5.61,
+      "flow": 1.39,
+      "flow_ratio": 3.91
+    },
+    "能源及重型设备": {
+      "change_pct": -2.72,
+      "flow": 1.31,
+      "flow_ratio": 1.0
+    },
+    "文字媒体": {
+      "change_pct": 4.74,
+      "flow": 1.14,
+      "flow_ratio": 7.89
+    },
+    "电信运营商": {
+      "change_pct": 3.23,
+      "flow": 0.96,
+      "flow_ratio": 1.94
+    },
+    "一般零售": {
+      "change_pct": -1.36,
+      "flow": 0.95,
+      "flow_ratio": 1.0
+    },
+    "涂料油墨": {
+      "change_pct": -4.19,
+      "flow": 0.85,
       "flow_ratio": 1.96
     },
-    "机场": {
-      "change_pct": 0.73,
-      "flow": 0.32,
-      "flow_ratio": 3.36
-    },
-    "百货": {
-      "change_pct": 1.38,
-      "flow": 0.31,
-      "flow_ratio": 1.1
-    },
-    "品牌化妆品": {
-      "change_pct": 0.26,
-      "flow": 0.3,
-      "flow_ratio": 1.56
-    },
-    "调味发酵品Ⅲ": {
-      "change_pct": 0.03,
-      "flow": 0.29,
-      "flow_ratio": 0.65
-    },
-    "调味发酵品Ⅱ": {
-      "change_pct": 0.03,
-      "flow": 0.29,
-      "flow_ratio": 0.65
-    },
-    "水务及水治理": {
-      "change_pct": 0.33,
-      "flow": 0.28,
-      "flow_ratio": 0.55
-    },
-    "其他计算机设备": {
-      "change_pct": 0.9,
-      "flow": 0.28,
-      "flow_ratio": 0.07
-    },
-    "林业Ⅲ": {
-      "change_pct": 0.91,
-      "flow": 0.27,
-      "flow_ratio": 5.52
-    },
-    "林业Ⅱ": {
-      "change_pct": 0.91,
-      "flow": 0.27,
-      "flow_ratio": 5.52
-    },
-    "装修建材": {
-      "change_pct": -0.46,
-      "flow": 0.27,
-      "flow_ratio": 0.64
-    },
-    "其他数字媒体": {
-      "change_pct": 0.44,
-      "flow": 0.26,
-      "flow_ratio": 1.88
+    "商贸零售": {
+      "change_pct": -1.4,
+      "flow": 0.84,
+      "flow_ratio": 0.43
     },
     "综合乘用车": {
-      "change_pct": 1.77,
-      "flow": 0.25,
-      "flow_ratio": 1.21
-    },
-    "化妆品": {
-      "change_pct": 0.27,
-      "flow": 0.23,
-      "flow_ratio": 0.92
-    },
-    "教育运营及其他": {
-      "change_pct": 2.79,
-      "flow": 0.2,
-      "flow_ratio": 8.68
-    },
-    "预加工食品": {
-      "change_pct": 0.77,
-      "flow": 0.19,
-      "flow_ratio": 1.61
-    },
-    "商用载客车": {
-      "change_pct": 1.24,
-      "flow": 0.19,
-      "flow_ratio": 1.53
-    },
-    "视频媒体": {
-      "change_pct": 3.64,
-      "flow": 0.18,
-      "flow_ratio": 4.14
-    },
-    "印染": {
-      "change_pct": 0.23,
-      "flow": 0.18,
-      "flow_ratio": 2.3
-    },
-    "广告媒体": {
-      "change_pct": 3.26,
-      "flow": 0.17,
-      "flow_ratio": 1.48
-    },
-    "纺织鞋类制造": {
-      "change_pct": 2.93,
-      "flow": -0.01,
-      "flow_ratio": -0.92
-    },
-    "个护小家电": {
-      "change_pct": 2.83,
-      "flow": 0.04,
-      "flow_ratio": 1.61
-    },
-    "其他黑色家电": {
-      "change_pct": 2.5,
-      "flow": 0.17,
-      "flow_ratio": 1.67
-    },
-    "体育Ⅲ": {
-      "change_pct": 2.23,
-      "flow": 0.11,
-      "flow_ratio": 3.64
-    },
-    "体育Ⅱ": {
-      "change_pct": 2.23,
-      "flow": 0.11,
-      "flow_ratio": 3.64
-    },
-    "医疗服务": {
-      "change_pct": 2.22,
-      "flow": -10.65,
-      "flow_ratio": -1.96
-    },
-    "餐饮": {
-      "change_pct": 2.21,
-      "flow": 0.08,
-      "flow_ratio": 4.37
-    },
-    "洗护用品": {
-      "change_pct": 2.17,
-      "flow": -0.01,
-      "flow_ratio": -0.49
-    },
-    "旅游综合": {
-      "change_pct": 2.06,
-      "flow": -0.06,
-      "flow_ratio": -0.7
-    },
-    "人工景区": {
-      "change_pct": 2.03,
-      "flow": -0.3,
-      "flow_ratio": -4.34
-    },
-    "电视广播Ⅲ": {
-      "change_pct": 2.0,
-      "flow": -0.17,
-      "flow_ratio": -0.92
-    },
-    "电视广播Ⅱ": {
-      "change_pct": 2.0,
-      "flow": -0.17,
-      "flow_ratio": -0.92
-    },
-    "房产租赁经纪": {
-      "change_pct": 1.99,
-      "flow": -0.0,
-      "flow_ratio": -0.1
-    },
-    "印刷": {
-      "change_pct": 1.94,
-      "flow": 0.11,
-      "flow_ratio": 5.19
-    },
-    "厨房电器": {
-      "change_pct": 1.88,
-      "flow": 0.16,
-      "flow_ratio": 3.16
+      "change_pct": 2.45,
+      "flow": 0.73,
+      "flow_ratio": 3.08
     },
     "乳品": {
-      "change_pct": 1.87,
-      "flow": -1.04,
-      "flow_ratio": -3.14
+      "change_pct": -1.31,
+      "flow": 0.62,
+      "flow_ratio": 1.28
     },
-    "学历教育": {
-      "change_pct": 1.84,
-      "flow": -0.07,
-      "flow_ratio": -3.41
+    "其他石化": {
+      "change_pct": 0.55,
+      "flow": 0.57,
+      "flow_ratio": 2.25
     },
-    "租赁": {
-      "change_pct": 1.82,
-      "flow": -0.17,
-      "flow_ratio": -1.68
+    "其他酒类": {
+      "change_pct": 0.72,
+      "flow": 0.52,
+      "flow_ratio": 4.29
     },
-    "房屋建设Ⅲ": {
-      "change_pct": 1.79,
-      "flow": -1.77,
-      "flow_ratio": -5.81
+    "复合肥": {
+      "change_pct": 0.46,
+      "flow": 0.51,
+      "flow_ratio": 3.21
     },
-    "房屋建设Ⅱ": {
-      "change_pct": 1.79,
-      "flow": -1.77,
-      "flow_ratio": -5.81
+    "超市": {
+      "change_pct": -0.1,
+      "flow": 0.48,
+      "flow_ratio": 1.88
     },
-    "酒店餐饮": {
-      "change_pct": 1.77,
-      "flow": -0.07,
-      "flow_ratio": -0.8
+    "航运": {
+      "change_pct": 0.46,
+      "flow": 0.47,
+      "flow_ratio": 0.54
     },
-    "旅游及景区": {
-      "change_pct": 1.74,
-      "flow": -0.28,
-      "flow_ratio": -0.98
-    },
-    "畜禽饲料": {
-      "change_pct": 1.7,
-      "flow": 0.14,
-      "flow_ratio": 0.94
-    },
-    "文化用品": {
-      "change_pct": 1.69,
-      "flow": -0.05,
-      "flow_ratio": -0.9
-    },
-    "大众出版": {
-      "change_pct": 1.68,
-      "flow": -0.33,
-      "flow_ratio": -2.21
-    },
-    "医药流通": {
-      "change_pct": 1.67,
-      "flow": 0.1,
-      "flow_ratio": 0.17
-    },
-    "出版": {
-      "change_pct": 1.6,
-      "flow": -0.33,
-      "flow_ratio": -1.36
-    },
-    "房地产综合服务": {
-      "change_pct": 1.58,
-      "flow": -0.02,
-      "flow_ratio": -5.0
-    },
-    "医药商业": {
-      "change_pct": 1.52,
-      "flow": -0.05,
-      "flow_ratio": -0.07
-    },
-    "人力资源服务": {
-      "change_pct": 1.49,
-      "flow": -0.06,
-      "flow_ratio": -3.53
-    },
-    "酒店": {
-      "change_pct": 1.48,
-      "flow": -0.15,
-      "flow_ratio": -2.2
-    },
-    "钟表珠宝": {
-      "change_pct": 1.48,
-      "flow": -0.15,
-      "flow_ratio": -1.0
-    },
-    "教育出版": {
-      "change_pct": 1.46,
-      "flow": -0.0,
-      "flow_ratio": -0.04
-    },
-    "医疗设备": {
-      "change_pct": 1.43,
-      "flow": -0.35,
-      "flow_ratio": -0.31
-    },
-    "自然景区": {
-      "change_pct": 1.41,
-      "flow": 0.08,
-      "flow_ratio": 0.62
-    },
-    "水产养殖": {
-      "change_pct": 1.38,
-      "flow": 0.02,
-      "flow_ratio": 0.32
-    },
-    "厨卫电器": {
-      "change_pct": 1.37,
-      "flow": 0.13,
-      "flow_ratio": 2.03
-    },
-    "医疗研发外包": {
-      "change_pct": 1.29,
-      "flow": -15.95,
-      "flow_ratio": -3.56
-    },
-    "其他养殖": {
-      "change_pct": 1.28,
-      "flow": -0.07,
-      "flow_ratio": -6.14
+    "商用载客车": {
+      "change_pct": 1.71,
+      "flow": 0.38,
+      "flow_ratio": 3.19
     },
     "会展服务": {
-      "change_pct": 1.25,
-      "flow": -0.01,
-      "flow_ratio": -0.33
+      "change_pct": -1.54,
+      "flow": 0.38,
+      "flow_ratio": 5.28
     },
-    "图片媒体": {
-      "change_pct": 1.22,
+    "工程机械整机": {
+      "change_pct": 0.18,
+      "flow": 0.36,
+      "flow_ratio": 0.44
+    },
+    "水泥制造": {
+      "change_pct": -1.29,
+      "flow": 0.35,
+      "flow_ratio": 1.17
+    },
+    "轨交设备Ⅲ": {
+      "change_pct": -2.25,
+      "flow": 0.32,
+      "flow_ratio": 0.51
+    },
+    "轨交设备Ⅱ": {
+      "change_pct": -2.25,
+      "flow": 0.32,
+      "flow_ratio": 0.51
+    },
+    "钼": {
+      "change_pct": 1.03,
+      "flow": 0.3,
+      "flow_ratio": 1.1
+    },
+    "水产饲料": {
+      "change_pct": -1.67,
+      "flow": 0.29,
+      "flow_ratio": 3.23
+    },
+    "化学工程": {
+      "change_pct": -1.52,
+      "flow": 0.27,
+      "flow_ratio": 2.41
+    },
+    "核力发电": {
+      "change_pct": 2.84,
+      "flow": 0.27,
+      "flow_ratio": 1.07
+    },
+    "水泥": {
+      "change_pct": -1.77,
+      "flow": 0.24,
+      "flow_ratio": 0.67
+    },
+    "商业地产": {
+      "change_pct": -0.84,
+      "flow": 0.24,
+      "flow_ratio": 1.37
+    },
+    "氨纶": {
+      "change_pct": 1.59,
+      "flow": 0.22,
+      "flow_ratio": 3.76
+    },
+    "电网自动化设备": {
+      "change_pct": -0.6,
+      "flow": 0.18,
+      "flow_ratio": 0.15
+    },
+    "端到端供应链服务": {
+      "change_pct": -4.24,
+      "flow": 0.16,
+      "flow_ratio": 2.32
+    },
+    "饲料": {
+      "change_pct": -0.8,
+      "flow": 0.14,
+      "flow_ratio": 0.49
+    },
+    "磷肥及磷化工": {
+      "change_pct": -0.96,
+      "flow": 0.14,
+      "flow_ratio": 0.31
+    },
+    "化妆品制造及其他": {
+      "change_pct": -1.24,
+      "flow": 0.13,
+      "flow_ratio": 2.1
+    },
+    "视频媒体": {
+      "change_pct": 2.51,
+      "flow": 0.12,
+      "flow_ratio": 3.17
+    },
+    "瓷砖地板": {
+      "change_pct": -4.19,
+      "flow": 0.11,
+      "flow_ratio": 0.73
+    },
+    "饮料乳品": {
+      "change_pct": -1.15,
+      "flow": 0.11,
+      "flow_ratio": 0.17
+    },
+    "其他专业服务": {
+      "change_pct": -1.94,
+      "flow": 0.11,
+      "flow_ratio": 2.67
+    },
+    "房地产综合服务": {
+      "change_pct": 1.61,
+      "flow": 0.11,
+      "flow_ratio": 13.82
+    },
+    "涤纶": {
+      "change_pct": -0.79,
+      "flow": 0.1,
+      "flow_ratio": 1.03
+    },
+    "焦炭Ⅲ": {
+      "change_pct": 3.6,
+      "flow": 0.1,
+      "flow_ratio": 0.96
+    },
+    "焦炭Ⅱ": {
+      "change_pct": 3.6,
+      "flow": 0.1,
+      "flow_ratio": 0.96
+    },
+    "钛白粉": {
+      "change_pct": 0.26,
+      "flow": 0.08,
+      "flow_ratio": 0.85
+    },
+    "宠物食品": {
+      "change_pct": 0.96,
+      "flow": 0.08,
+      "flow_ratio": 0.99
+    },
+    "水产养殖": {
+      "change_pct": -0.1,
+      "flow": 0.07,
+      "flow_ratio": 1.77
+    },
+    "洗护用品": {
+      "change_pct": -0.11,
       "flow": 0.06,
-      "flow_ratio": 1.26
+      "flow_ratio": 2.81
     },
-    "啤酒": {
-      "change_pct": 1.22,
-      "flow": -0.32,
-      "flow_ratio": -2.38
-    },
-    "个护用品": {
-      "change_pct": 1.21,
-      "flow": 0.15,
-      "flow_ratio": 1.33
-    },
-    "文娱用品": {
-      "change_pct": 1.18,
-      "flow": -0.3,
-      "flow_ratio": -1.47
-    },
-    "医药生物": {
-      "change_pct": 1.15,
-      "flow": -20.04,
-      "flow_ratio": -0.91
-    },
-    "饰品": {
-      "change_pct": 1.14,
-      "flow": -0.2,
-      "flow_ratio": -1.32
-    },
-    "其他家电Ⅲ": {
-      "change_pct": 1.13,
-      "flow": -0.03,
-      "flow_ratio": -2.87
-    },
-    "其他家电Ⅱ": {
-      "change_pct": 1.13,
-      "flow": -0.03,
-      "flow_ratio": -2.87
+    "钢铁管材": {
+      "change_pct": 0.15,
+      "flow": 0.06,
+      "flow_ratio": 1.69
     },
     "渔业": {
-      "change_pct": 1.13,
-      "flow": 0.02,
-      "flow_ratio": 0.29
+      "change_pct": -0.41,
+      "flow": 0.06,
+      "flow_ratio": 1.1
     },
-    "多业态零售": {
-      "change_pct": 1.08,
-      "flow": -0.6,
-      "flow_ratio": -4.58
+    "通信工程及服务": {
+      "change_pct": -1.82,
+      "flow": 0.06,
+      "flow_ratio": 0.11
+    },
+    "医院": {
+      "change_pct": -0.18,
+      "flow": 0.05,
+      "flow_ratio": 0.11
+    },
+    "油品石化贸易": {
+      "change_pct": 0.28,
+      "flow": 0.04,
+      "flow_ratio": 0.36
+    },
+    "纯碱": {
+      "change_pct": 1.29,
+      "flow": 0.03,
+      "flow_ratio": 0.24
+    },
+    "炭黑": {
+      "change_pct": -3.96,
+      "flow": 0.02,
+      "flow_ratio": 0.37
+    },
+    "长材": {
+      "change_pct": 0.02,
+      "flow": 0.02,
+      "flow_ratio": 1.56
+    },
+    "其他饰品": {
+      "change_pct": 0.71,
+      "flow": 0.02,
+      "flow_ratio": 1.91
+    },
+    "农业综合Ⅲ": {
+      "change_pct": -1.33,
+      "flow": 0.02,
+      "flow_ratio": 1.41
+    },
+    "农业综合Ⅱ": {
+      "change_pct": -1.33,
+      "flow": 0.02,
+      "flow_ratio": 1.41
+    },
+    "纺织鞋类制造": {
+      "change_pct": 5.78,
+      "flow": -0.19,
+      "flow_ratio": -7.35
+    },
+    "氮肥": {
+      "change_pct": 4.58,
+      "flow": -0.4,
+      "flow_ratio": -1.31
+    },
+    "风电整机": {
+      "change_pct": 2.42,
+      "flow": -2.1,
+      "flow_ratio": -6.04
+    },
+    "乘用车": {
+      "change_pct": 2.15,
+      "flow": -0.2,
+      "flow_ratio": -0.24
+    },
+    "钾肥": {
+      "change_pct": 2.13,
+      "flow": -0.63,
+      "flow_ratio": -1.33
+    },
+    "城商行Ⅲ": {
+      "change_pct": 2.06,
+      "flow": -3.08,
+      "flow_ratio": -3.06
+    },
+    "证券Ⅲ": {
+      "change_pct": 1.71,
+      "flow": -12.53,
+      "flow_ratio": -2.79
+    },
+    "证券Ⅱ": {
+      "change_pct": 1.71,
+      "flow": -12.53,
+      "flow_ratio": -2.79
+    },
+    "国际工程": {
+      "change_pct": 1.64,
+      "flow": -0.41,
+      "flow_ratio": -5.69
+    },
+    "光伏主材": {
+      "change_pct": 1.64,
+      "flow": -0.8,
+      "flow_ratio": -4.0
+    },
+    "冶钢辅料": {
+      "change_pct": 1.61,
+      "flow": -0.64,
+      "flow_ratio": -8.01
+    },
+    "金融控股": {
+      "change_pct": 1.6,
+      "flow": -1.04,
+      "flow_ratio": -3.81
+    },
+    "粮食种植": {
+      "change_pct": 1.59,
+      "flow": -0.1,
+      "flow_ratio": -2.3
+    },
+    "人力资源服务": {
+      "change_pct": 1.56,
+      "flow": 0.01,
+      "flow_ratio": 0.3
+    },
+    "电动乘用车": {
+      "change_pct": 1.54,
+      "flow": -0.93,
+      "flow_ratio": -1.57
+    },
+    "信托": {
+      "change_pct": 1.52,
+      "flow": -0.17,
+      "flow_ratio": -2.9
+    },
+    "其他能源发电": {
+      "change_pct": 1.49,
+      "flow": -0.08,
+      "flow_ratio": -6.79
+    },
+    "快递": {
+      "change_pct": 1.48,
+      "flow": -0.58,
+      "flow_ratio": -2.54
+    },
+    "热力服务": {
+      "change_pct": 1.48,
+      "flow": 0.01,
+      "flow_ratio": 0.02
+    },
+    "高速公路": {
+      "change_pct": 1.47,
+      "flow": -0.48,
+      "flow_ratio": -2.17
+    },
+    "商用车": {
+      "change_pct": 1.43,
+      "flow": -1.75,
+      "flow_ratio": -4.46
+    },
+    "农商行Ⅲ": {
+      "change_pct": 1.41,
+      "flow": -2.29,
+      "flow_ratio": -8.91
+    },
+    "非银金融": {
+      "change_pct": 1.35,
+      "flow": -7.23,
+      "flow_ratio": -1.04
+    },
+    "燃气Ⅲ": {
+      "change_pct": 1.33,
+      "flow": -1.43,
+      "flow_ratio": -2.13
+    },
+    "燃气Ⅱ": {
+      "change_pct": 1.33,
+      "flow": -1.43,
+      "flow_ratio": -2.13
+    },
+    "商用载货车": {
+      "change_pct": 1.27,
+      "flow": -2.13,
+      "flow_ratio": -7.78
+    },
+    "港口": {
+      "change_pct": 1.26,
+      "flow": -1.04,
+      "flow_ratio": -3.88
     },
     "线下药店": {
-      "change_pct": 1.06,
-      "flow": -0.15,
-      "flow_ratio": -0.84
+      "change_pct": 1.21,
+      "flow": -0.01,
+      "flow_ratio": -0.06
     },
-    "医疗器械": {
-      "change_pct": 1.04,
-      "flow": -0.42,
-      "flow_ratio": -0.15
+    "图片媒体": {
+      "change_pct": 1.17,
+      "flow": -0.21,
+      "flow_ratio": -5.23
     },
-    "产业地产": {
-      "change_pct": 1.04,
-      "flow": 0.13,
-      "flow_ratio": 0.84
+    "啤酒": {
+      "change_pct": 1.14,
+      "flow": -0.97,
+      "flow_ratio": -5.3
     },
-    "娱乐用品": {
-      "change_pct": 1.02,
-      "flow": -0.25,
-      "flow_ratio": -1.68
+    "机场": {
+      "change_pct": 1.13,
+      "flow": -0.3,
+      "flow_ratio": -2.95
+    },
+    "摩托车": {
+      "change_pct": 0.92,
+      "flow": -0.43,
+      "flow_ratio": -1.92
+    },
+    "铁路运输": {
+      "change_pct": 0.92,
+      "flow": -0.98,
+      "flow_ratio": -3.38
+    },
+    "医美耗材": {
+      "change_pct": 0.91,
+      "flow": -0.05,
+      "flow_ratio": -0.39
+    },
+    "非白酒": {
+      "change_pct": 0.89,
+      "flow": -0.45,
+      "flow_ratio": -1.48
+    },
+    "航空机场": {
+      "change_pct": 0.88,
+      "flow": -0.47,
+      "flow_ratio": -1.27
+    },
+    "诊断服务": {
+      "change_pct": 0.83,
+      "flow": -0.67,
+      "flow_ratio": -4.95
+    },
+    "期货": {
+      "change_pct": 0.83,
+      "flow": -0.03,
+      "flow_ratio": -0.52
+    },
+    "航运港口": {
+      "change_pct": 0.83,
+      "flow": -0.57,
+      "flow_ratio": -0.49
+    },
+    "黄金": {
+      "change_pct": 0.81,
+      "flow": -1.6,
+      "flow_ratio": -1.63
+    },
+    "综合电力设备商": {
+      "change_pct": 0.8,
+      "flow": -0.87,
+      "flow_ratio": -4.96
+    },
+    "航空运输": {
+      "change_pct": 0.73,
+      "flow": -0.18,
+      "flow_ratio": -0.65
+    },
+    "血液制品": {
+      "change_pct": 0.73,
+      "flow": -0.64,
+      "flow_ratio": -4.92
+    },
+    "其他生物制品": {
+      "change_pct": 0.73,
+      "flow": -6.0,
+      "flow_ratio": -5.13
+    },
+    "空调": {
+      "change_pct": 0.72,
+      "flow": -1.01,
+      "flow_ratio": -1.28
+    },
+    "教育出版": {
+      "change_pct": 0.65,
+      "flow": -0.33,
+      "flow_ratio": -3.12
+    },
+    "铁路公路": {
+      "change_pct": 0.63,
+      "flow": -1.63,
+      "flow_ratio": -2.85
+    },
+    "酒店": {
+      "change_pct": 0.44,
+      "flow": -0.18,
+      "flow_ratio": -2.15
+    },
+    "生物制品": {
+      "change_pct": 0.41,
+      "flow": -8.81,
+      "flow_ratio": -5.42
+    },
+    "航海装备Ⅲ": {
+      "change_pct": 0.4,
+      "flow": -2.01,
+      "flow_ratio": -2.9
     }
   }
 }

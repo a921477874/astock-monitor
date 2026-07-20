@@ -1,68 +1,68 @@
 {
-  "updated_at": "2026-07-17 12:23",
-  "stock_count": 93,
-  "limit_up_count": 41,
-  "limit_down_count": 20,
+  "updated_at": "2026-07-20 15:05",
+  "stock_count": 75,
+  "limit_up_count": 31,
+  "limit_down_count": 21,
   "top_net_buy": [
     {
-      "name": "澜起科技",
-      "code": "688008",
-      "change": "-16.44%",
-      "net_buy": "13.23亿"
+      "name": "太极实业",
+      "code": "600667",
+      "change": "-9.98%",
+      "net_buy": "4.80亿"
     },
     {
-      "name": "儒意电影",
-      "code": "002739",
-      "change": "10.02%",
-      "net_buy": "3.82亿"
+      "name": "共进股份",
+      "code": "603118",
+      "change": "10.01%",
+      "net_buy": "4.18亿"
     },
     {
-      "name": "长电科技",
-      "code": "600584",
-      "change": "-10.00%",
-      "net_buy": "3.62亿"
+      "name": "星网锐捷",
+      "code": "002396",
+      "change": "5.05%",
+      "net_buy": "2.71亿"
     },
     {
-      "name": "红板科技",
-      "code": "603459",
-      "change": "7.53%",
-      "net_buy": "2.23亿"
+      "name": "旭光电子",
+      "code": "600353",
+      "change": "-9.99%",
+      "net_buy": "1.90亿"
     },
     {
-      "name": "银信科技",
-      "code": "300231",
-      "change": "10.79%",
-      "net_buy": "1.80亿"
+      "name": "哈药股份",
+      "code": "600664",
+      "change": "7.89%",
+      "net_buy": "1.69亿"
     },
     {
-      "name": "宝钛转债",
-      "code": "110101",
-      "change": "35.05%",
-      "net_buy": "1.68亿"
+      "name": "九安医疗",
+      "code": "002432",
+      "change": "10.00%",
+      "net_buy": "1.18亿"
     },
     {
-      "name": "华天科技",
-      "code": "002185",
-      "change": "-10.00%",
-      "net_buy": "1.57亿"
+      "name": "鼎通科技",
+      "code": "688668",
+      "change": "-20.00%",
+      "net_buy": "8266.33万"
     },
     {
-      "name": "儒意电影",
-      "code": "002739",
-      "change": "10.02%",
-      "net_buy": "1.41亿"
+      "name": "中岩大地",
+      "code": "003001",
+      "change": "10.01%",
+      "net_buy": "7618.99万"
     },
     {
-      "name": "海思科",
-      "code": "002653",
-      "change": "6.83%",
-      "net_buy": "1.33亿"
+      "name": "米奥会展",
+      "code": "300795",
+      "change": "20.05%",
+      "net_buy": "6898.74万"
     },
     {
-      "name": "华工科技",
-      "code": "000988",
-      "change": "-10.00%",
-      "net_buy": "1.17亿"
+      "name": "米奥会展",
+      "code": "300795",
+      "change": "20.05%",
+      "net_buy": "6873.79万"
     }
   ]
 }

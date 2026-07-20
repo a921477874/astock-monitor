@@ -1,36 +1,36 @@
 {
-  "updated_at": "2026-07-17 12:22",
+  "updated_at": "2026-07-20 15:04",
   "global_data": {
     "道琼斯": {
-      "price": 52552.97,
-      "change_pct": -0.2
+      "price": 52146.42,
+      "change_pct": -0.77
     },
     "纳斯达克": {
-      "price": 25881.95,
-      "change_pct": -1.47
+      "price": 25520.24,
+      "change_pct": -1.4
     },
     "恒生指数": {
-      "price": 24514.29,
-      "change_pct": -1.98
+      "price": 25063.62,
+      "change_pct": 2.04
     },
     "恒生科技指数": {
-      "price": 4638.97,
-      "change_pct": -4.04
+      "price": 4744.29,
+      "change_pct": 2.62
     }
   },
   "analysis": {
-    "risk_level": 4,
-    "level_name": "🔴 高风险",
-    "open_prediction": "预计低开0.5~1.5%，防御为主",
-    "advice": "不开新仓，已有仓位注意止损",
+    "risk_level": -0.5,
+    "level_name": "🟢 低风险",
+    "open_prediction": "预计平开或小幅震荡",
+    "advice": "正常参与，关注开盘量能",
     "signals": [
-      "⚠️ 美股偏弱-0.8%，A股开盘可能受影响",
-      "🛑 恒生科技暴跌-4.0%，A股科技板块高度警惕",
-      "🔴 美港科技双杀！A股科技板块今日高度警惕"
+      "⚠️ 美股偏弱-0.9%，A股开盘可能受影响",
+      "✅ 恒生科技大涨+2.6%，A股科技有望跟涨",
+      "✅ 恒生指数上涨+2.0%，港股情绪偏暖"
     ],
-    "us_composite": -0.78,
-    "nasdaq": -1.47,
-    "hsi": -1.98,
-    "hk_tech": -4.04
+    "us_composite": -0.85,
+    "nasdaq": -1.4,
+    "hsi": 2.04,
+    "hk_tech": 2.62
   }
 }
