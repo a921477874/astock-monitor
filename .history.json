@@ -79,5 +79,14 @@
     "result": "✅ 对",
     "kcChange": 0.19,
     "cybChange": 0.42
+  },
+  {
+    "date": "2026-07-21",
+    "shPrice": 3819.66,
+    "shChange": 0.62,
+    "direction": "温和上行",
+    "result": "✅ 对",
+    "kcChange": 6.94,
+    "cybChange": 5.2
   }
 ]
