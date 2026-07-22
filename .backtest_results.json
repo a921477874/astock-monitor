@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-22 20:18",
+  "generated_at": "2026-07-22 20:32",
   "total_days": 1,
   "total_picks": 2,
-  "win_rate": 0.0,
-  "avg_pnl_per_pick": -7.33,
-  "total_return": -14.67,
-  "max_drawdown": 14.67,
+  "win_rate": 50.0,
+  "avg_pnl_per_pick": 1.16,
+  "total_return": 2.32,
+  "max_drawdown": 0,
   "sharpe_ratio": 0,
   "daily_records": [
     {
@@ -24,21 +24,21 @@
           "risk": "🟡 中等"
         },
         {
-          "name": "银龙股份",
-          "code": "603969",
-          "rec_price": 7.8,
-          "d1": -6.79,
-          "d3": -7.69,
-          "d5": -0.13,
-          "max_gain": -0.13,
-          "max_loss": -8.97,
-          "verdict": "❌ 跌",
-          "risk": "🔴 高风险"
+          "name": "古井贡酒",
+          "code": "000596",
+          "rec_price": 88.53,
+          "d1": 10.19,
+          "d3": 5.99,
+          "d5": 2.36,
+          "max_gain": 10.19,
+          "max_loss": -3.65,
+          "verdict": "✅ 涨",
+          "risk": "🟡 中等"
         }
       ],
-      "day_pnl": -14.67,
-      "up": 0,
-      "down": 2
+      "day_pnl": 2.32,
+      "up": 1,
+      "down": 1
     }
   ]
 }
