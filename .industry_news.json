@@ -1,16 +1,16 @@
 {
-  "updated_at": "2026-07-22 13:03",
+  "updated_at": "2026-07-22 15:40",
   "industries": {
     "半导体": {
       "score": 4.0,
-      "news_count": 0,
+      "news_count": 1,
       "sentiment": "中性",
       "avg_change": 0
     },
     "AI/算力": {
-      "score": 4.7,
-      "news_count": 1,
-      "sentiment": "利空",
+      "score": 5.3,
+      "news_count": 3,
+      "sentiment": "利好",
       "avg_change": 0
     },
     "新能源汽车": {
@@ -29,19 +29,19 @@
       "score": 6.5,
       "news_count": 1,
       "sentiment": "中性",
-      "avg_change": 2.84
+      "avg_change": 2.37
     },
     "金融/券商": {
-      "score": 5.6,
-      "news_count": 2,
-      "sentiment": "利好",
+      "score": 5.0,
+      "news_count": 1,
+      "sentiment": "中性",
       "avg_change": 0
     },
     "有色金属": {
-      "score": 6.5,
-      "news_count": 0,
+      "score": 5.0,
+      "news_count": 1,
       "sentiment": "中性",
-      "avg_change": 9.97
+      "avg_change": 0
     },
     "家电": {
       "score": 5.0,
@@ -51,7 +51,7 @@
     },
     "军工": {
       "score": 5.0,
-      "news_count": 1,
+      "news_count": 0,
       "sentiment": "中性",
       "avg_change": 0
     },
@@ -74,28 +74,28 @@
       "avg_change": 0
     },
     "通信": {
-      "score": 4.5,
+      "score": 3.5,
       "news_count": 0,
       "sentiment": "中性",
-      "avg_change": -1.2
+      "avg_change": -2.23
     },
     "电力": {
-      "score": 5.5,
+      "score": 6.5,
       "news_count": 0,
       "sentiment": "中性",
-      "avg_change": 1.8
+      "avg_change": 8.15
     },
     "化工": {
       "score": 6.5,
       "news_count": 0,
       "sentiment": "中性",
-      "avg_change": 9.1
+      "avg_change": 9.99
     },
     "机械设备": {
       "score": 3.5,
-      "news_count": 2,
+      "news_count": 1,
       "sentiment": "中性",
-      "avg_change": -9.04
+      "avg_change": -8.02
     }
   },
   "news_count": 20,
