@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>宝宝量化系统</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Microsoft YaHei", "Segoe UI", sans-serif;
+  background: #f5f0eb;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.app {
+  width: 520px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.header {
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  padding: 28px 30px;
+  color: white;
+}
+.header h1 { font-size: 24px; margin-bottom: 4px; }
+.header p { font-size: 13px; opacity: 0.8; }
+.body { padding: 20px 30px 30px; }
+.btn {
+  display: block;
+  width: 100%;
+  padding: 14px 0;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.btn:active { transform: translateY(0); }
+.btn-primary { background: #27ae60; color: white; }
+.btn-info { background: #2980b9; color: white; }
+.btn-purple { background: #8e44ad; color: white; }
+.btn-gray { background: #95a5a6; color: white; }
+.log {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: Consolas, monospace;
+  font-size: 13px;
+  padding: 14px;
+  border-radius: 10px;
+  height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  margin-top: 8px;
+  display: none;
+}
+.log.show { display: block; }
+.status {
+  text-align: center;
+  padding: 8px;
+  font-size: 13px;
+  color: #666;
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>🐣 宝宝量化系统</h1>
+    <p>本地数据平台 · 断网可用</p>
+  </div>
+  <div class="body">
+    <button class="btn btn-primary" onclick="run('update')">📦 更新 Dashboard</button>
+    <button class="btn btn-info" onclick="run('status')">📊 数据状态</button>
+    <button class="btn btn-purple" onclick="openWeb()">🌐 打开网页</button>
+    <button class="btn btn-gray" onclick="run('backfill')">📈 回补K线</button>
+    <div id="status" class="status">点击按钮开始</div>
+    <div id="log" class="log"></div>
+  </div>
+</div>
+<script>
+const logDiv = document.getElementById('log');
+const statusDiv = document.getElementById('status');
+
+function addLog(text) {
+  logDiv.classList.add('show');
+  logDiv.textContent += text + '\n';
+  logDiv.scrollTop = logDiv.scrollHeight;
+}
+
+function clearLog() {
+  logDiv.textContent = '';
+  logDiv.classList.remove('show');
+}
+
+function run(action) {
+  clearLog();
+  statusDiv.textContent = '⏳ 运行中...';
+  addLog('> 正在连接 WSL...\n');
+
+  const commands = {
+    update: 'wsl python3 /home/ran/.hermes/scripts/update_dashboard.py',
+    status: 'wsl python3 -c "import sys; sys.path.insert(0,\'/mnt/c/Users/Administrator/Desktop/A股报告\'); from db_manager import DB; import os; db=DB();st=db.stats(); print(f\'\\n  大盘指数: {st[\\\"index_daily\\\"][\\\"count\\\"]}条\'); print(f\'  个股日线: {st[\\\"stock_daily\\\"][\\\"count\\\"]}条\'); print(f\'  推荐记录: {st[\\\"picks_history\\\"][\\\"count\\\"]}条\'); print(f\'  DB大小: {os.path.getsize(db.db_path)/1024:.0f} KB\')"',
+    backfill: 'wsl python3 /mnt/c/Users/Administrator/Desktop/A股报告/backfill_history.py'
+  };
+
+  const cmd = commands[action];
+  if (!cmd) return;
+
+  // 用 ActiveX 调用 WSL
+  try {
+    var shell = new ActiveXObject("WScript.Shell");
+    var exec = shell.Exec(cmd);
+    var output = '';
+    while (exec.Status === 0) {
+      WScript.Sleep(100);
+    }
+    output = exec.StdOut.ReadAll();
+    var error = exec.StdErr.ReadAll();
+    addLog(output);
+    if (error) addLog('[错误] ' + error);
+    statusDiv.textContent = '✅ 完成';
+  } catch(e) {
+    addLog('❌ 无法调用WSL: ' + e.message);
+    addLog('\\n💡 请确保WSL已安装，或在终端手动运行:');
+    addLog('  python3 宝宝启动.py --status');
+    statusDiv.textContent = '❌ 失败';
+  }
+}
+
+function openWeb() {
+  var shell = new ActiveXObject("WScript.Shell");
+  shell.Run('C:\\Users\\Administrator\\Desktop\\A股报告\\dashboard.html');
+}
+</script>
+</body>
+</html>

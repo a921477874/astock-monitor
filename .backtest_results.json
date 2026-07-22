@@ -1,19 +1,44 @@
 {
-  "generated_at": "2026-07-16 14:22",
+  "generated_at": "2026-07-22 18:01",
   "total_days": 1,
-  "total_picks": 0,
-  "win_rate": 0,
-  "avg_pnl_per_pick": 0,
-  "total_return": 0,
-  "max_drawdown": 0,
+  "total_picks": 2,
+  "win_rate": 0.0,
+  "avg_pnl_per_pick": -7.33,
+  "total_return": -14.67,
+  "max_drawdown": 14.67,
   "sharpe_ratio": 0,
   "daily_records": [
     {
       "date": "2026-07-15",
-      "picks": [],
-      "day_pnl": 0,
+      "picks": [
+        {
+          "name": "南华生物",
+          "code": "000504",
+          "rec_price": 8.51,
+          "d1": -7.87,
+          "d3": -2.94,
+          "d5": 9.99,
+          "max_gain": 9.99,
+          "max_loss": -7.87,
+          "verdict": "❌ 跌",
+          "risk": "🟡 中等"
+        },
+        {
+          "name": "银龙股份",
+          "code": "603969",
+          "rec_price": 7.8,
+          "d1": -6.79,
+          "d3": -7.69,
+          "d5": -0.13,
+          "max_gain": -0.13,
+          "max_loss": -8.97,
+          "verdict": "❌ 跌",
+          "risk": "🔴 高风险"
+        }
+      ],
+      "day_pnl": -14.67,
       "up": 0,
-      "down": 0
+      "down": 2
     }
   ]
 }
