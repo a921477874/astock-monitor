@@ -358,6 +358,14 @@ body {
     <div id="picksContent" class="loading"><span>⏳ 加载中...</span></div>
   </div>
 
+  <!-- 盘中异动扫描（每20分钟更新） -->
+  <div class="card span-12" id="intraDayCard">
+    <div class="card-title"><span class="icon">🔴</span> 盘中异动扫描 <span class="tag tag-red" style="animation:pulse 2s infinite">实时</span>
+      <span id="intraDayTime" style="font-size:10px;color:var(--text-muted);font-weight:400;margin-left:8px"></span>
+    </div>
+    <div id="intraDayContent" class="loading"><span>⏳ 扫描中...</span></div>
+  </div>
+
   <!-- 盘前精选（23:59更新，明日关注） -->
   <div class="card span-12" id="closingCard">
     <div class="card-title"><span class="icon">🎯</span> 今日盘前精选 <span class="tag tag-gold">TOP3</span></div>
@@ -444,7 +452,8 @@ body {
 </div>
 
 <script>
-const DAILY_REPORT = {"date": "2026-07-22", "marketState": "混沌", "shPrice": 3883.58, "shChange": 0.5, "newsScore": 6, "honestResult": "✅ 盘中实时 · 窄幅震荡", "honestReflect": "每30分钟更新 | 上证+0.50% | 评分4.7", "updatedAt": "2026-07-22 18:06", "picks": [{"rank": 1, "name": "贤丰控股", "code": "002141", "sector": "综合", "price": 5.17, "change": 5.51, "zone": "5.01~5.22", "reason": "量价配合; 温和放量; 高PE", "score": 10, "risk": "", "stop_loss": 5.38, "take_profit": 5.53, "pick_date": "2026-07-22"}, {"rank": 2, "name": "哈药股份", "code": "600664", "sector": "医药", "price": 5.98, "change": 2.4, "zone": "5.80~6.04", "reason": "量价配合; 52周高位⚠️; 🔥游资净买1.9亿", "score": 10, "risk": "", "stop_loss": 5.74, "take_profit": 6.22, "pick_date": "2026-07-22"}, {"rank": 3, "name": "美诺华", "code": "603538", "sector": "综合", "price": 29.23, "change": 4.54, "zone": "28.35~29.52", "reason": "量价配合; 高PE; 上行空间大", "score": 10, "risk": "", "stop_loss": 31.58, "take_profit": 31.28, "pick_date": "2026-07-22"}], "strategy": "仓位2~3成。亏钱效应明显, 防守为主, 低吸不追涨。控制仓位等待企稳信号", "dimAnalysis": {"volume": 4.8, "volumeDetail": "上证+0.50%，成交额估算偏大，相对平静", "tech": 5.6, "techDetail": "上证+0.50%，结构评分3.6", "industry": 4.3, "industryDetail": "科创-2.26% vs 上证50+0.58%", "sectorCoherence": 7.1, "sectorCoherenceDetail": "个股涨跌分化度中等", "cross": 4.8, "crossDetail": "跨市场联动监控中", "mood": 5, "moodDetail": "📊 正常，情绪中性，结构性机会", "historyMatch": {"event": "雪球爆仓底", "date": "2024-02-05", "score": 10.0, "reason": "雪球集中敲入+量化DMA爆仓", "after_1w": 13.8, "after_1m": 17.6}}, "moodCycle": {"score": 4.7, "label": "🌧️ 低迷", "phase": "低迷", "advice": "亏钱效应明显, 防守为主, 低吸不追涨", "position": "2~3成", "pick_threshold": 7.5, "is_ice_point": false, "factors": {"涨跌家数": 2.5, "涨跌停比": 6.5, "强势弱势": 6.5, "大盘趋势": 5.5, "结构分化": 2.0, "均线趋势": 6.0, "量能健康": 6.5, "跨市场": 3.0}, "updated_at": "2026-07-22 15:39"}, "isIcePoint": false, "market": {"sh": {"price": 3883.58, "change": 0.5}, "sz": {"price": 14061.436, "change": -1.42}, "cyb": {"price": 3566.732, "change": -3.23}, "kc": {"price": 1860.0848, "change": -2.26}, "hs300": {"price": 4717.2442, "change": -0.46}, "sh50": {"price": 2991.0474, "change": 0.58}}, "feeling": {"score": 4.7, "label": "🌧️ 低迷", "detail": "亏钱效应明显, 防守为主, 低吸不追涨"}, "board": {"score": 5, "label": "📊 正常", "note": "情绪中性，结构性机会", "limitUp": 0, "limitDown": 0, "up5": 1, "down5": 0}, "north": {"flow": 12.5, "dir": "流出", "label": "今日估算"}, "sectors": [{"sector": "🏭 科创/科技", "view": "谨慎", "reason": "科创50-2.26%承压", "level": "回避"}, {"sector": "🏭 医药/医疗", "view": "看好", "reason": "防御属性+超跌反弹", "level": "支线"}], "trend": {"score": 3.4, "structScore": 3.6, "totalScore": 4.7}, "position": "2~3成", "advice": "亏钱效应明显, 防守为主, 低吸不追涨", "focus": "上证综合, 医药", "risk": "控制仓位等待企稳信号", "signals": ["📊 实时行情来自腾讯财经，每30分钟自动刷新", "🎯 追踪3只个股", "💰 评分4.7，建议仓位2~3成", "⚠️ 以上数据不构成投资建议"], "closingPicks": {"generated_at": "2026-07-22 15:40", "total_scanned": 26, "top3": [{"code": "002141", "name": "贤丰控股", "price": 5.17, "change": 5.51, "pe": 467.1, "mkt_cap": 53.4, "turnover": 33.38, "score": 10, "reason": "量价配合; 温和放量; 高PE", "buy_low": 5.01, "buy_high": 5.22, "stop_loss": 5.38, "take_profit": 5.53, "kline": {"ma5": 5.492, "ma20": 5.3265, "ma60": 4.220833333333332, "gap_ma5_20": 3.1071059795362763, "gap_ma20_60": 26.19545903257654, "vol_ratio_recent": 0.9231130702462464, "vol_shrink": false, "ma_stick": false, "warm_up": true, "breakout": false, "recent_chgs": [5.5102040816326445, -9.926470588235293, -9.933774834437079, 2.1996615905245327, 5.347593582887697], "small_up_days": 1}, "channel": "放量", "sector": "综合"}, {"code": "600664", "name": "哈药股份", "price": 5.98, "change": 2.4, "pe": 48.6, "mkt_cap": 150.6, "turnover": 25.36, "score": 10, "reason": "量价配合; 52周高位⚠️; 🔥游资净买1.9亿", "buy_low": 5.8, "buy_high": 6.04, "stop_loss": 5.74, "take_profit": 6.22, "kline": {"ma5": 5.4799999999999995, "ma20": 3.84, "ma60": 3.548666666666668, "gap_ma5_20": 42.70833333333333, "gap_ma20_60": 8.20965620890471, "vol_ratio_recent": 8.072364966793463, "vol_shrink": false, "ma_stick": false, "warm_up": false, "breakout": false, "recent_chgs": [2.3972602739726128, 9.981167608286258, -0.3752345215759937, 7.894736842105256, 10.022271714922052], "small_up_days": 1}, "channel": "放量", "sector": "医药"}, {"code": "603538", "name": "美诺华", "price": 29.23, "change": 4.54, "pe": 88.6, "mkt_cap": 98.5, "turnover": 24.63, "score": 10, "reason": "量价配合; 高PE; 上行空间大", "buy_low": 28.35, "buy_high": 29.52, "stop_loss": 31.58, "take_profit": 31.28, "kline": {"ma5": 32.226, "ma20": 29.597250000000003, "ma60": 32.65585000000001, "gap_ma5_20": 8.8817373235689, "gap_ma20_60": 9.36616257117792, "vol_ratio_recent": 2.1517612485302453, "vol_shrink": false, "ma_stick": false, "warm_up": false, "breakout": false, "recent_chgs": [4.54220314735336, -10.009655616350175, -9.994206257242185, -9.986962190352017, -1.6666666666666632], "small_up_days": 1}, "channel": "放量", "sector": "综合"}]}, "history": [{"date": "2026-07-10", "shPrice": 3878.12, "shChange": -0.34, "direction": "震荡整理", "result": "➖ 待验证", "kcChange": -1.12, "cybChange": -0.28}, {"date": "2026-07-13", "shPrice": 3913.8, "shChange": 0.92, "direction": "震荡反弹", "result": "✅ 对", "kcChange": 1.85, "cybChange": 1.62}, {"date": "2026-07-14", "shPrice": 3967.13, "shChange": 1.36, "direction": "稳健上行", "result": "✅ 对", "kcChange": 0.77, "cybChange": 3.43}, {"date": "2026-07-15", "shPrice": 3955.58, "shChange": -0.82, "direction": "窄幅震荡", "result": "➖ 待验证", "kcChange": -4.25, "cybChange": -1.56}, {"date": "2026-07-16", "shPrice": 3917.53, "shChange": -0.96, "direction": "承压调整", "result": "✅ 对", "kcChange": -2.36, "cybChange": -1.95}, {"date": "2026-07-17", "shPrice": 3865.32, "shChange": -0.44, "direction": "承压调整", "result": "✅ 对", "kcChange": -0.91, "cybChange": -1.36}, {"date": "2026-07-18", "shPrice": 3764.15, "shChange": -3.05, "direction": "承压调整", "result": "✅ 对", "kcChange": -7.12, "cybChange": -7.15}, {"date": "2026-07-19", "shPrice": 3764.15, "shChange": -3.05, "direction": "承压调整", "result": "✅ 对", "kcChange": -7.12, "cybChange": -7.15}, {"date": "2026-07-20", "shPrice": 3796.28, "shChange": 0.85, "direction": "温和上行", "result": "✅ 对", "kcChange": 0.19, "cybChange": 0.42}, {"date": "2026-07-21", "shPrice": 3819.66, "shChange": 0.62, "direction": "温和上行", "result": "✅ 对", "kcChange": 6.94, "cybChange": 5.2}, {"date": "2026-07-22", "shPrice": 3883.58, "shChange": 0.5, "direction": "窄幅震荡", "result": "✅ 对", "kcChange": 1.54, "cybChange": -0.13}], "pickReview": {"records": [{"date": "2026-07-20", "review_date": "2026-07-21", "market_change": 0.62, "total": 3, "up": 0, "flat": 0, "down": 3, "win_rate": 0.0, "avg_pnl": -3.84, "avg_score": 10.0, "picks": [{"rank": 1, "name": "中百集团", "code": "000759", "rec_price": 7.22, "rec_zone": "7.00~7.29", "in_zone": true, "today_price": 6.66, "today_change": -7.76, "pnl_from_rec": -7.76, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 6.93, "touched_stop": true, "reason": "量价配合; 温和放量; 上行空间大", "d3_change": null, "d5_change": null}, {"rank": 2, "name": "惠科股份", "code": "001399", "rec_price": 25.34, "rec_zone": "24.58~25.59", "in_zone": true, "today_price": 25.2, "today_change": -0.55, "pnl_from_rec": -0.55, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 24.33, "touched_stop": false, "reason": "涨幅过大扣分; 52周低位; 上行空间大; 接近底部", "d3_change": null, "d5_change": null}, {"rank": 3, "name": "盛龙股份", "code": "001257", "rec_price": 24.95, "rec_zone": "24.20~25.20", "in_zone": true, "today_price": 24.15, "today_change": -3.21, "pnl_from_rec": -3.21, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 23.95, "touched_stop": false, "reason": "量价配合; 高PE; 缩量整理; 上行空间大", "d3_change": null, "d5_change": null}]}, {"date": "2026-07-16", "market_change": -0.96, "total": 5, "up": 3, "flat": 0, "down": 2, "win_rate": 60.0, "picks": [{"rank": 1, "name": "中国神华", "code": "601088", "rec_price": 42.9, "rec_zone": "42.00~43.50", "in_zone": true, "today_price": 43.95, "today_change": 1.78, "score": 7.5, "risk": "🟢 低风险", "sector": "煤炭/高股息", "verdict": "✅ 涨", "reason": "高股息防御，大盘暴跌+1.78%", "d3_change": 5.13, "d5_change": null}, {"rank": 2, "name": "美的集团", "code": "000333", "rec_price": 81.63, "rec_zone": "80.00~83.00", "in_zone": true, "today_price": 82.71, "today_change": 0.49, "score": 7.3, "risk": "🟢 低风险", "sector": "家电", "verdict": "✅ 涨", "reason": "大盘暴跌+0.49%，非常抗跌", "d3_change": 3.23, "d5_change": null}, {"rank": 3, "name": "中信证券", "code": "600030", "rec_price": 28.1, "rec_zone": "27.50~28.50", "in_zone": true, "today_price": 27.6, "today_change": -1.43, "score": 7.0, "risk": "🟢 低风险", "sector": "券商", "verdict": "✅ 抗跌", "reason": "大盘-3.05%，跑赢大盘", "d3_change": 0.85, "d5_change": null}, {"rank": 4, "name": "恒瑞医药", "code": "600276", "rec_price": 56.0, "rec_zone": "54.50~56.50", "in_zone": true, "today_price": 53.19, "today_change": -5.02, "score": 6.8, "risk": "🟡 中等", "sector": "创新药", "verdict": "❌ 跌", "reason": "医药板块承压", "d3_change": -1.91, "d5_change": null}, {"rank": 5, "name": "中国石油", "code": "601857", "rec_price": 9.95, "rec_zone": "9.80~10.10", "in_zone": true, "today_price": 10.29, "today_change": 2.9, "score": 7.2, "risk": "🟢 低风险", "sector": "能源", "verdict": "✅ 涨", "reason": "能源防御+2.90%，逆势大涨", "d3_change": 7.24, "d5_change": null}]}, {"date": "2026-07-15", "market_change": -0.82, "total": 5, "up": 3, "flat": 1, "down": 1, "win_rate": 75.0, "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%", "d3_change": -2.94, "d5_change": -7.87}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE", "d3_change": -6.76, "d5_change": -4.0}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨", "d3_change": 5.99, "d5_change": 10.19}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%", "d3_change": 1.97, "d5_change": 0.79}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥", "d3_change": -7.69, "d5_change": -6.79}]}], "stats": {"total_days": 3, "total_picks": 13, "up": 6, "flat": 1, "down": 6, "win_rate": 50.0, "risk_stats": {"🟡 中等": {"total": 3, "up": 2, "down": 1, "win_rate": 66.7}, "🟢 低风险": {"total": 6, "up": 4, "down": 1, "win_rate": 80.0}, "🔴 高风险": {"total": 1, "up": 0, "down": 0, "win_rate": 0}, "": {"total": 3, "up": 0, "down": 3, "win_rate": 0.0}}}}, "backtest": {"total_days": 3, "total_picks": 13, "win_rate": 50.0, "avg_pnl_per_pick": 0.17, "total_return": -1.1, "max_drawdown": 4.1, "sharpe_ratio": -2.08, "sharpe_label": "-2.08", "d1_avg": 0.02, "d1_win_rate": 44.4, "volatility": 2.79, "volatility_label": "2.79%", "daily_records": [{"date": "2026-07-15", "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%", "d3_change": -2.94, "d5_change": -7.87}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE", "d3_change": -6.76, "d5_change": -4.0}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨", "d3_change": 5.99, "d5_change": 10.19}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%", "d3_change": 1.97, "d5_change": 0.79}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥", "d3_change": -7.69, "d5_change": -6.79}], "day_pnl": 0, "up": 3, "down": 1}, {"date": "2026-07-16", "picks": [{"rank": 1, "name": "中国神华", "code": "601088", "rec_price": 42.9, "rec_zone": "42.00~43.50", "in_zone": true, "today_price": 43.95, "today_change": 1.78, "score": 7.5, "risk": "🟢 低风险", "sector": "煤炭/高股息", "verdict": "✅ 涨", "reason": "高股息防御，大盘暴跌+1.78%", "d3_change": 5.13, "d5_change": null}, {"rank": 2, "name": "美的集团", "code": "000333", "rec_price": 81.63, "rec_zone": "80.00~83.00", "in_zone": true, "today_price": 82.71, "today_change": 0.49, "score": 7.3, "risk": "🟢 低风险", "sector": "家电", "verdict": "✅ 涨", "reason": "大盘暴跌+0.49%，非常抗跌", "d3_change": 3.23, "d5_change": null}, {"rank": 3, "name": "中信证券", "code": "600030", "rec_price": 28.1, "rec_zone": "27.50~28.50", "in_zone": true, "today_price": 27.6, "today_change": -1.43, "score": 7.0, "risk": "🟢 低风险", "sector": "券商", "verdict": "✅ 抗跌", "reason": "大盘-3.05%，跑赢大盘", "d3_change": 0.85, "d5_change": null}, {"rank": 4, "name": "恒瑞医药", "code": "600276", "rec_price": 56.0, "rec_zone": "54.50~56.50", "in_zone": true, "today_price": 53.19, "today_change": -5.02, "score": 6.8, "risk": "🟡 中等", "sector": "创新药", "verdict": "❌ 跌", "reason": "医药板块承压", "d3_change": -1.91, "d5_change": null}, {"rank": 5, "name": "中国石油", "code": "601857", "rec_price": 9.95, "rec_zone": "9.80~10.10", "in_zone": true, "today_price": 10.29, "today_change": 2.9, "score": 7.2, "risk": "🟢 低风险", "sector": "能源", "verdict": "✅ 涨", "reason": "能源防御+2.90%，逆势大涨", "d3_change": 7.24, "d5_change": null}], "day_pnl": 0, "up": 3, "down": 2}, {"date": "2026-07-20", "picks": [{"rank": 1, "name": "中百集团", "code": "000759", "rec_price": 7.22, "rec_zone": "7.00~7.29", "in_zone": true, "today_price": 6.66, "today_change": -7.76, "pnl_from_rec": -7.76, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 6.93, "touched_stop": true, "reason": "量价配合; 温和放量; 上行空间大", "d3_change": null, "d5_change": null}, {"rank": 2, "name": "惠科股份", "code": "001399", "rec_price": 25.34, "rec_zone": "24.58~25.59", "in_zone": true, "today_price": 25.2, "today_change": -0.55, "pnl_from_rec": -0.55, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 24.33, "touched_stop": false, "reason": "涨幅过大扣分; 52周低位; 上行空间大; 接近底部", "d3_change": null, "d5_change": null}, {"rank": 3, "name": "盛龙股份", "code": "001257", "rec_price": 24.95, "rec_zone": "24.20~25.20", "in_zone": true, "today_price": 24.15, "today_change": -3.21, "pnl_from_rec": -3.21, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 23.95, "touched_stop": false, "reason": "量价配合; 高PE; 缩量整理; 上行空间大", "d3_change": null, "d5_change": null}], "day_pnl": -3.84, "up": 0, "down": 3}], "win_loss_ratio": 1.29, "down_volatility": 2.41, "down_volatility_label": "2.41%", "extreme_losses": 2, "sortino_ratio": 1.1, "sortino_label": "1.10", "total_wins": 6, "total_losses": 7, "avg_win": 3.85, "avg_loss": 2.99, "nav_series": [{"date": "2026-07-15", "nav": 1.03, "daily_return": 3.0, "market_change": -0.82, "excess": 3.82}, {"date": "2026-07-16", "nav": 1.0273, "daily_return": -0.26, "market_change": -0.96, "excess": 0.7}, {"date": "2026-07-20", "nav": 0.9879, "daily_return": -3.84, "market_change": 0.62, "excess": -4.46}], "annualized_label": "数据不足(仅3天)", "annualized_return": 0, "info_ratio": 0.09, "info_label": "0.09", "beat_market_rate": 66.7, "total_trades": 13, "concentration": 4.3, "d3_avg": 0.51, "d3_win_rate": 60.0, "d3_count": 10, "d5_avg": -1.54, "d5_win_rate": 40.0, "d5_count": 5}, "review": {"yesterday": "2026-07-22", "stats": "盘中数据 · 实时更新", "note": "盘中追踪，收盘后宝宝会做完整复盘", "stocks": [{"name": "贤丰控股", "change": 5.51, "code": "002141"}, {"name": "哈药股份", "change": 2.4, "code": "600664"}, {"name": "美诺华", "change": 4.54, "code": "603538"}]}};
+const DAILY_REPORT = {"date": "2026-07-22", "marketState": "混沌", "shPrice": 3883.58, "shChange": 0.5, "newsScore": 6, "honestResult": "✅ 盘中实时 · 窄幅震荡", "honestReflect": "每30分钟更新 | 上证+0.50% | 评分4.7", "updatedAt": "2026-07-22 20:18", "picks": [{"rank": 1, "name": "贤丰控股", "code": "002141", "sector": "综合", "price": 5.17, "change": 5.51, "zone": "5.01~5.22", "reason": "量价配合; 温和放量; 高PE", "score": 10, "risk": "", "stop_loss": 5.38, "take_profit": 5.53, "pick_date": "2026-07-22"}, {"rank": 2, "name": "哈药股份", "code": "600664", "sector": "医药", "price": 5.98, "change": 2.4, "zone": "5.80~6.04", "reason": "量价配合; 52周高位⚠️; 🔥游资净买1.9亿", "score": 10, "risk": "", "stop_loss": 5.74, "take_profit": 6.22, "pick_date": "2026-07-22"}, {"rank": 3, "name": "美诺华", "code": "603538", "sector": "综合", "price": 29.23, "change": 4.54, "zone": "28.35~29.52", "reason": "量价配合; 高PE; 上行空间大", "score": 10, "risk": "", "stop_loss": 31.58, "take_profit": 31.28, "pick_date": "2026-07-22"}], "strategy": "仓位2~3成。亏钱效应明显, 防守为主, 低吸不追涨。控制仓位等待企稳信号", "dimAnalysis": {"volume": 4.8, "volumeDetail": "上证+0.50%，成交额估算偏大，相对平静", "tech": 5.6, "techDetail": "上证+0.50%，结构评分3.6", "industry": 4.3, "industryDetail": "科创-2.26% vs 上证50+0.58%", "sectorCoherence": 7.1, "sectorCoherenceDetail": "个股涨跌分化度中等", "cross": 4.8, "crossDetail": "跨市场联动监控中", "mood": 5, "moodDetail": "📊 正常，情绪中性，结构性机会", "historyMatch": {"event": "雪球爆仓底", "date": "2024-02-05", "score": 10.0, "reason": "雪球集中敲入+量化DMA爆仓", "after_1w": 13.8, "after_1m": 17.6}}, "moodCycle": {"score": 4.7, "label": "🌧️ 低迷", "phase": "低迷", "advice": "亏钱效应明显, 防守为主, 低吸不追涨", "position": "2~3成", "pick_threshold": 7.5, "is_ice_point": false, "factors": {"涨跌家数": 2.5, "涨跌停比": 6.5, "强势弱势": 6.5, "大盘趋势": 5.5, "结构分化": 2.0, "均线趋势": 6.0, "量能健康": 6.5, "跨市场": 3.0}, "updated_at": "2026-07-22 15:39"}, "isIcePoint": false, "market": {"sh": {"price": 3883.58, "change": 0.5}, "sz": {"price": 14061.436, "change": -1.42}, "cyb": {"price": 3566.732, "change": -3.23}, "kc": {"price": 1860.0848, "change": -2.26}, "hs300": {"price": 4717.2442, "change": -0.46}, "sh50": {"price": 2991.0474, "change": 0.58}}, "feeling": {"score": 4.7, "label": "🌧️ 低迷", "detail": "亏钱效应明显, 防守为主, 低吸不追涨"}, "board": {"score": 5, "label": "📊 正常", "note": "情绪中性，结构性机会", "limitUp": 0, "limitDown": 0, "up5": 1, "down5": 0}, "north": {"flow": 12.5, "dir": "流出", "label": "今日估算"}, "sectors": [{"sector": "🏭 科创/科技", "view": "谨慎", "reason": "科创50-2.26%承压", "level": "回避"}, {"sector": "🏭 医药/医疗", "view": "看好", "reason": "防御属性+超跌反弹", "level": "支线"}], "trend": {"score": 3.4, "structScore": 3.6, "totalScore": 4.7}, "position": "2~3成", "advice": "亏钱效应明显, 防守为主, 低吸不追涨", "focus": "上证综合, 医药", "risk": "控制仓位等待企稳信号", "signals": ["📊 实时行情来自腾讯财经，每30分钟自动刷新", "🎯 追踪3只个股", "💰 评分4.7，建议仓位2~3成", "⚠️ 以上数据不构成投资建议"], "closingPicks": {"generated_at": "2026-07-22 15:40", "total_scanned": 26, "top3": [{"code": "002141", "name": "贤丰控股", "price": 5.17, "change": 5.51, "pe": 467.1, "mkt_cap": 53.4, "turnover": 33.38, "score": 10, "reason": "量价配合; 温和放量; 高PE", "buy_low": 5.01, "buy_high": 5.22, "stop_loss": 5.38, "take_profit": 5.53, "kline": {"ma5": 5.492, "ma20": 5.3265, "ma60": 4.220833333333332, "gap_ma5_20": 3.1071059795362763, "gap_ma20_60": 26.19545903257654, "vol_ratio_recent": 0.9231130702462464, "vol_shrink": false, "ma_stick": false, "warm_up": true, "breakout": false, "recent_chgs": [5.5102040816326445, -9.926470588235293, -9.933774834437079, 2.1996615905245327, 5.347593582887697], "small_up_days": 1}, "channel": "放量", "sector": "综合"}, {"code": "600664", "name": "哈药股份", "price": 5.98, "change": 2.4, "pe": 48.6, "mkt_cap": 150.6, "turnover": 25.36, "score": 10, "reason": "量价配合; 52周高位⚠️; 🔥游资净买1.9亿", "buy_low": 5.8, "buy_high": 6.04, "stop_loss": 5.74, "take_profit": 6.22, "kline": {"ma5": 5.4799999999999995, "ma20": 3.84, "ma60": 3.548666666666668, "gap_ma5_20": 42.70833333333333, "gap_ma20_60": 8.20965620890471, "vol_ratio_recent": 8.072364966793463, "vol_shrink": false, "ma_stick": false, "warm_up": false, "breakout": false, "recent_chgs": [2.3972602739726128, 9.981167608286258, -0.3752345215759937, 7.894736842105256, 10.022271714922052], "small_up_days": 1}, "channel": "放量", "sector": "医药"}, {"code": "603538", "name": "美诺华", "price": 29.23, "change": 4.54, "pe": 88.6, "mkt_cap": 98.5, "turnover": 24.63, "score": 10, "reason": "量价配合; 高PE; 上行空间大", "buy_low": 28.35, "buy_high": 29.52, "stop_loss": 31.58, "take_profit": 31.28, "kline": {"ma5": 32.226, "ma20": 29.597250000000003, "ma60": 32.65585000000001, "gap_ma5_20": 8.8817373235689, "gap_ma20_60": 9.36616257117792, "vol_ratio_recent": 2.1517612485302453, "vol_shrink": false, "ma_stick": false, "warm_up": false, "breakout": false, "recent_chgs": [4.54220314735336, -10.009655616350175, -9.994206257242185, -9.986962190352017, -1.6666666666666632], "small_up_days": 1}, "channel": "放量", "sector": "综合"}]}, "history": [{"date": "2026-07-10", "shPrice": 3878.12, "shChange": -0.34, "direction": "震荡整理", "result": "➖ 待验证", "kcChange": -1.12, "cybChange": -0.28}, {"date": "2026-07-13", "shPrice": 3913.8, "shChange": 0.92, "direction": "震荡反弹", "result": "✅ 对", "kcChange": 1.85, "cybChange": 1.62}, {"date": "2026-07-14", "shPrice": 3967.13, "shChange": 1.36, "direction": "稳健上行", "result": "✅ 对", "kcChange": 0.77, "cybChange": 3.43}, {"date": "2026-07-15", "shPrice": 3955.58, "shChange": -0.82, "direction": "窄幅震荡", "result": "➖ 待验证", "kcChange": -4.25, "cybChange": -1.56}, {"date": "2026-07-16", "shPrice": 3917.53, "shChange": -0.96, "direction": "承压调整", "result": "✅ 对", "kcChange": -2.36, "cybChange": -1.95}, {"date": "2026-07-17", "shPrice": 3865.32, "shChange": -0.44, "direction": "承压调整", "result": "✅ 对", "kcChange": -0.91, "cybChange": -1.36}, {"date": "2026-07-18", "shPrice": 3764.15, "shChange": -3.05, "direction": "承压调整", "result": "✅ 对", "kcChange": -7.12, "cybChange": -7.15}, {"date": "2026-07-19", "shPrice": 3764.15, "shChange": -3.05, "direction": "承压调整", "result": "✅ 对", "kcChange": -7.12, "cybChange": -7.15}, {"date": "2026-07-20", "shPrice": 3796.28, "shChange": 0.85, "direction": "温和上行", "result": "✅ 对", "kcChange": 0.19, "cybChange": 0.42}, {"date": "2026-07-21", "shPrice": 3819.66, "shChange": 0.62, "direction": "温和上行", "result": "✅ 对", "kcChange": 6.94, "cybChange": 5.2}, {"date": "2026-07-22", "shPrice": 3883.58, "shChange": 0.5, "direction": "窄幅震荡", "result": "✅ 对", "kcChange": 1.54, "cybChange": -0.13}], "pickReview": {"records": [{"date": "2026-07-20", "review_date": "2026-07-21", "market_change": 0.62, "total": 3, "up": 0, "flat": 0, "down": 3, "win_rate": 0.0, "avg_pnl": -3.84, "avg_score": 10.0, "picks": [{"rank": 1, "name": "中百集团", "code": "000759", "rec_price": 7.22, "rec_zone": "7.00~7.29", "in_zone": true, "today_price": 6.66, "today_change": -7.76, "pnl_from_rec": -7.76, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 6.93, "touched_stop": true, "reason": "量价配合; 温和放量; 上行空间大", "d3_change": null, "d5_change": null}, {"rank": 2, "name": "惠科股份", "code": "001399", "rec_price": 25.34, "rec_zone": "24.58~25.59", "in_zone": true, "today_price": 25.2, "today_change": -0.55, "pnl_from_rec": -0.55, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 24.33, "touched_stop": false, "reason": "涨幅过大扣分; 52周低位; 上行空间大; 接近底部", "d3_change": null, "d5_change": null}, {"rank": 3, "name": "盛龙股份", "code": "001257", "rec_price": 24.95, "rec_zone": "24.20~25.20", "in_zone": true, "today_price": 24.15, "today_change": -3.21, "pnl_from_rec": -3.21, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 23.95, "touched_stop": false, "reason": "量价配合; 高PE; 缩量整理; 上行空间大", "d3_change": null, "d5_change": null}]}, {"date": "2026-07-16", "market_change": -0.96, "total": 5, "up": 3, "flat": 0, "down": 2, "win_rate": 60.0, "picks": [{"rank": 1, "name": "中国神华", "code": "601088", "rec_price": 42.9, "rec_zone": "42.00~43.50", "in_zone": true, "today_price": 43.95, "today_change": 1.78, "score": 7.5, "risk": "🟢 低风险", "sector": "煤炭/高股息", "verdict": "✅ 涨", "reason": "高股息防御，大盘暴跌+1.78%", "d3_change": 5.13, "d5_change": null}, {"rank": 2, "name": "美的集团", "code": "000333", "rec_price": 81.63, "rec_zone": "80.00~83.00", "in_zone": true, "today_price": 82.71, "today_change": 0.49, "score": 7.3, "risk": "🟢 低风险", "sector": "家电", "verdict": "✅ 涨", "reason": "大盘暴跌+0.49%，非常抗跌", "d3_change": 3.23, "d5_change": null}, {"rank": 3, "name": "中信证券", "code": "600030", "rec_price": 28.1, "rec_zone": "27.50~28.50", "in_zone": true, "today_price": 27.6, "today_change": -1.43, "score": 7.0, "risk": "🟢 低风险", "sector": "券商", "verdict": "✅ 抗跌", "reason": "大盘-3.05%，跑赢大盘", "d3_change": 0.85, "d5_change": null}, {"rank": 4, "name": "恒瑞医药", "code": "600276", "rec_price": 56.0, "rec_zone": "54.50~56.50", "in_zone": true, "today_price": 53.19, "today_change": -5.02, "score": 6.8, "risk": "🟡 中等", "sector": "创新药", "verdict": "❌ 跌", "reason": "医药板块承压", "d3_change": -1.91, "d5_change": null}, {"rank": 5, "name": "中国石油", "code": "601857", "rec_price": 9.95, "rec_zone": "9.80~10.10", "in_zone": true, "today_price": 10.29, "today_change": 2.9, "score": 7.2, "risk": "🟢 低风险", "sector": "能源", "verdict": "✅ 涨", "reason": "能源防御+2.90%，逆势大涨", "d3_change": 7.24, "d5_change": null}]}, {"date": "2026-07-15", "market_change": -0.82, "total": 5, "up": 3, "flat": 1, "down": 1, "win_rate": 75.0, "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%", "d3_change": -2.94, "d5_change": -7.87}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE", "d3_change": -6.76, "d5_change": -4.0}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨", "d3_change": 5.99, "d5_change": 10.19}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%", "d3_change": 1.97, "d5_change": 0.79}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥", "d3_change": -7.69, "d5_change": -6.79}]}], "stats": {"total_days": 3, "total_picks": 13, "up": 6, "flat": 1, "down": 6, "win_rate": 50.0, "risk_stats": {"🟡 中等": {"total": 3, "up": 2, "down": 1, "win_rate": 66.7}, "🟢 低风险": {"total": 6, "up": 4, "down": 1, "win_rate": 80.0}, "🔴 高风险": {"total": 1, "up": 0, "down": 0, "win_rate": 0}, "": {"total": 3, "up": 0, "down": 3, "win_rate": 0.0}}}}, "backtest": {"total_days": 3, "total_picks": 13, "win_rate": 50.0, "avg_pnl_per_pick": 0.17, "total_return": -1.1, "max_drawdown": 4.1, "sharpe_ratio": -2.08, "sharpe_label": "-2.08", "d1_avg": 0.02, "d1_win_rate": 44.4, "volatility": 2.79, "volatility_label": "2.79%", "daily_records": [{"date": "2026-07-15", "picks": [{"rank": 1, "name": "南华生物", "code": "000504", "rec_price": 8.51, "rec_zone": "8.25~8.60", "in_zone": true, "today_price": 9.36, "today_change": 9.99, "score": 8.4, "risk": "🟡 中等", "sector": "生物制品", "verdict": "✅ 涨", "reason": "量比1.9x放量涨停+9.9%", "d3_change": -2.94, "d5_change": -7.87}, {"rank": 2, "name": "好想你", "code": "002582", "rec_price": 9.76, "rec_zone": "9.47~9.86", "in_zone": true, "today_price": 9.56, "today_change": -2.05, "score": 8.1, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "❌ 跌", "reason": "量比3.2x放量上涨+6.3% 低PE", "d3_change": -6.76, "d5_change": -4.0}, {"rank": 3, "name": "古井贡酒", "code": "000596", "rec_price": 88.53, "rec_zone": "86.32~89.42", "in_zone": true, "today_price": 91.16, "today_change": 2.88, "score": 7.9, "risk": "🟡 中等", "sector": "白酒", "verdict": "✅ 涨", "reason": "接近涨停+10.0% 白酒板块大涨", "d3_change": 5.99, "d5_change": 10.19}, {"rank": 4, "name": "盐津铺子", "code": "002847", "rec_price": 47.8, "rec_zone": "46.37~48.28", "in_zone": true, "today_price": 50.18, "today_change": 5.06, "score": 7.8, "risk": "🟢 低风险", "sector": "食品饮料", "verdict": "✅ 涨", "reason": "量比2.5x放量上涨+8.4%", "d3_change": 1.97, "d5_change": 0.79}, {"rank": 5, "name": "银龙股份", "code": "603969", "rec_price": 7.8, "rec_zone": "7.57~7.88", "in_zone": true, "today_price": 7.74, "today_change": -0.9, "score": 7.8, "risk": "🔴 高风险", "sector": "建筑材料", "verdict": "➖ 平", "reason": "涨停+10.0% 板块大涨🔥", "d3_change": -7.69, "d5_change": -6.79}], "day_pnl": 0, "up": 3, "down": 1}, {"date": "2026-07-16", "picks": [{"rank": 1, "name": "中国神华", "code": "601088", "rec_price": 42.9, "rec_zone": "42.00~43.50", "in_zone": true, "today_price": 43.95, "today_change": 1.78, "score": 7.5, "risk": "🟢 低风险", "sector": "煤炭/高股息", "verdict": "✅ 涨", "reason": "高股息防御，大盘暴跌+1.78%", "d3_change": 5.13, "d5_change": null}, {"rank": 2, "name": "美的集团", "code": "000333", "rec_price": 81.63, "rec_zone": "80.00~83.00", "in_zone": true, "today_price": 82.71, "today_change": 0.49, "score": 7.3, "risk": "🟢 低风险", "sector": "家电", "verdict": "✅ 涨", "reason": "大盘暴跌+0.49%，非常抗跌", "d3_change": 3.23, "d5_change": null}, {"rank": 3, "name": "中信证券", "code": "600030", "rec_price": 28.1, "rec_zone": "27.50~28.50", "in_zone": true, "today_price": 27.6, "today_change": -1.43, "score": 7.0, "risk": "🟢 低风险", "sector": "券商", "verdict": "✅ 抗跌", "reason": "大盘-3.05%，跑赢大盘", "d3_change": 0.85, "d5_change": null}, {"rank": 4, "name": "恒瑞医药", "code": "600276", "rec_price": 56.0, "rec_zone": "54.50~56.50", "in_zone": true, "today_price": 53.19, "today_change": -5.02, "score": 6.8, "risk": "🟡 中等", "sector": "创新药", "verdict": "❌ 跌", "reason": "医药板块承压", "d3_change": -1.91, "d5_change": null}, {"rank": 5, "name": "中国石油", "code": "601857", "rec_price": 9.95, "rec_zone": "9.80~10.10", "in_zone": true, "today_price": 10.29, "today_change": 2.9, "score": 7.2, "risk": "🟢 低风险", "sector": "能源", "verdict": "✅ 涨", "reason": "能源防御+2.90%，逆势大涨", "d3_change": 7.24, "d5_change": null}], "day_pnl": 0, "up": 3, "down": 2}, {"date": "2026-07-20", "picks": [{"rank": 1, "name": "中百集团", "code": "000759", "rec_price": 7.22, "rec_zone": "7.00~7.29", "in_zone": true, "today_price": 6.66, "today_change": -7.76, "pnl_from_rec": -7.76, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 6.93, "touched_stop": true, "reason": "量价配合; 温和放量; 上行空间大", "d3_change": null, "d5_change": null}, {"rank": 2, "name": "惠科股份", "code": "001399", "rec_price": 25.34, "rec_zone": "24.58~25.59", "in_zone": true, "today_price": 25.2, "today_change": -0.55, "pnl_from_rec": -0.55, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 24.33, "touched_stop": false, "reason": "涨幅过大扣分; 52周低位; 上行空间大; 接近底部", "d3_change": null, "d5_change": null}, {"rank": 3, "name": "盛龙股份", "code": "001257", "rec_price": 24.95, "rec_zone": "24.20~25.20", "in_zone": true, "today_price": 24.15, "today_change": -3.21, "pnl_from_rec": -3.21, "score": 10, "risk": "", "sector": "综合", "verdict": "❌ 跌", "stop_loss": 23.95, "touched_stop": false, "reason": "量价配合; 高PE; 缩量整理; 上行空间大", "d3_change": null, "d5_change": null}], "day_pnl": -3.84, "up": 0, "down": 3}], "win_loss_ratio": 1.29, "down_volatility": 2.41, "down_volatility_label": "2.41%", "extreme_losses": 2, "sortino_ratio": 1.1, "sortino_label": "1.10", "total_wins": 6, "total_losses": 7, "avg_win": 3.85, "avg_loss": 2.99, "nav_series": [{"date": "2026-07-15", "nav": 1.03, "daily_return": 3.0, "market_change": -0.82, "excess": 3.82}, {"date": "2026-07-16", "nav": 1.0273, "daily_return": -0.26, "market_change": -0.96, "excess": 0.7}, {"date": "2026-07-20", "nav": 0.9879, "daily_return": -3.84, "market_change": 0.62, "excess": -4.46}], "annualized_label": "数据不足(仅3天)", "annualized_return": 0, "info_ratio": 0.09, "info_label": "0.09", "beat_market_rate": 66.7, "total_trades": 13, "concentration": 4.3, "d3_avg": 0.51, "d3_win_rate": 60.0, "d3_count": 10, "d5_avg": -1.54, "d5_win_rate": 40.0, "d5_count": 5}, "review": {"yesterday": "2026-07-22", "stats": "盘中数据 · 实时更新", "note": "盘中追踪，收盘后宝宝会做完整复盘", "stocks": [{"name": "贤丰控股", "change": 5.51, "code": "002141"}, {"name": "哈药股份", "change": 2.4, "code": "600664"}, {"name": "美诺华", "change": 4.54, "code": "603538"}]}};
+const INTRA_DAY_SIGNALS = {"timestamp":"","signals":[],"count":0,"mood_estimate":5,"defense_mode":false};
 </script>
 <script>
 // ═══════════════════════════════════════════
@@ -554,6 +563,7 @@ async function loadData() {
   try { renderDailyReport(); } catch(e) {}
   try { renderHistory(); } catch(e) {}
   try { renderBacktest(); } catch(e) {}
+  try { renderIntraDay(); } catch(e) {}
 
   // 详细数据折叠切换
   const dsToggle = document.getElementById('dataSectionToggle');
@@ -831,36 +841,40 @@ function renderPortfolio(data) {
     document.getElementById('portfolioContent').innerHTML = '<div class="error-msg">⚠️ 数据获取失败</div>';
     return;
   }
-  let h = '';
+  let h = '<div class="picks-grid">';
   for (const st of PICK_CODES.slice(0, 4)) {
     const key = (st.code.startsWith('6') ? 'sh' : 'sz') + st.code;
     const live = data ? data[key] : null;
     const price = live ? live.price : (st.price || 0);
     const change = live ? live.change : (st.change || 0);
-    const c = cls(change);
     const perf = sign(change) + change.toFixed(2) + '%';
-    const dotColor = change>0?'var(--red)':change<0?'var(--green)':'var(--text-dim)';
-    let sub = '<div class="stock-code">'+st.code+' · '+st.sector+' · 实时</div>';
+    // 买入区间状态
+    let zoneHint = '';
     if (st.buyZone) {
       const [low, high] = st.buyZone.split('~').map(Number);
-      let hint = '';
-      if (price >= low && price <= high) hint = '<span style="color:var(--red);font-weight:600">🎯 在买入区间内</span>';
-      else if (price >= low*0.97 && price <= high*1.03) hint = '<span style="color:var(--gold)">👀 接近买入区间 ('+st.buyZone+')</span>';
-      else if (price < low) hint = '<span style="color:var(--cyan);font-size:10px">📉 低于区间下限</span>';
-      else hint = '<span style="font-size:10px;color:var(--text-dim)">📌 '+st.buyZone+'</span>';
-      sub += '<div style="font-size:11px;margin-top:2px">'+hint+'</div>';
+      if (price >= low && price <= high) zoneHint = '<span style="color:var(--red);font-weight:600">🎯 在区间</span>';
+      else if (price >= low*0.97 && price <= high*1.03) zoneHint = '<span style="color:var(--gold)">👀 接近</span>';
+      else if (price < low) zoneHint = '<span style="color:var(--cyan)">📉 偏低</span>';
+      else zoneHint = '<span style="font-size:10px;color:var(--text-dim)">📌 '+st.buyZone+'</span>';
     }
-    h += '<div class="stock-row"><div class="stock-info"><span class="stock-tag" style="background:'+dotColor+'"></span>'
-      +'<div><div class="stock-name">'+st.name+'</div>'+sub+'</div></div>'
-      +'<div class="stock-price"><div class="price '+c+'">'+fmt(price)+'</div><div class="change '+c+'">'+perf
-      // 板块角色小标签
-      + (function(c2) {
-          if (c2 > 5) return ' <span style="font-size:8px;color:#dc2626">🔥</span>';
-          if (c2 > 0) return ' <span style="font-size:8px;color:#0891b2">📊</span>';
-          return ' <span style="font-size:8px;color:#6b7280">📉</span>';
-        })(change)
-      +'</div></div></div>';
+    // 角色标签
+    let role = '';
+    if (change > 5) role = '<span style="font-size:9px;color:#dc2626;font-weight:600;padding:1px 5px;border-radius:3px;background:#dc262611">🔥 领涨</span>';
+    else if (change > 2) role = '<span style="font-size:9px;color:#b8860b;font-weight:600;padding:1px 5px;border-radius:3px;background:#b8860b11">📈 活跃</span>';
+    else if (change > 0) role = '<span style="font-size:9px;color:#0891b2;font-weight:600;padding:1px 5px;border-radius:3px;background:#0891b211">📊 跟涨</span>';
+    else role = '<span style="font-size:9px;color:#6b7280;font-weight:600;padding:1px 5px;border-radius:3px;background:#6b728011">📉 偏弱</span>';
+    h += '<div class="pick-item">'
+      + '<div class="rank">'+(st.sector||'追踪')+' · 实时</div>'
+      + '<div class="pname">'+st.name+'</div>'
+      + '<div class="pcode">'+st.code+'</div>'
+      + '<div style="display:flex;align-items:center;gap:6px;margin:4px 0">'
+      + '<div class="pperf '+cls(change)+'">'+perf+'</div>'
+      + role
+      + '</div>'
+      + '<div class="buy-in">'+zoneHint+'</div>'
+      + '<div class="reason">'+(st.reason||'')+'</div></div>';
   }
+  h += '</div>';
   document.getElementById('portfolioContent').innerHTML = h;
 }
 
@@ -883,39 +897,18 @@ function renderPicks(data) {
   let h = '<div class="picks-grid">';
   for (let i = 0; i < maxShow; i++) {
     const p = PICK_CODES[i];
-    // 量价标签
-    let volTag = '', volColor = 'var(--text-dim)';
-    if (p.volRatio > 0) {
-      if (p.change > 0 && p.volRatio >= 1.5) {
-        volTag = '📊量比' + p.volRatio.toFixed(1) + 'x放量上涨';
-        volColor = 'var(--red)';
-      } else if (p.change > 0 && p.volRatio < 0.8) {
-        volTag = '⚠️量比' + p.volRatio.toFixed(1) + 'x缩量上涨';
-        volColor = 'var(--gold)';
-      } else if (p.change < 0 && p.volRatio >= 1.5) {
-        volTag = '⚠️量比' + p.volRatio.toFixed(1) + 'x放量下跌';
-        volColor = 'var(--green)';
-      } else if (p.change < 0 && p.volRatio < 0.8) {
-        volTag = '📊量比' + p.volRatio.toFixed(1) + 'x缩量洗盘';
-        volColor = 'var(--cyan)';
-      } else {
-        volTag = '量比' + p.volRatio.toFixed(1) + 'x';
-      }
-    }
     h += '<div class="pick-item"><div class="rank">'+labels[i]+' · '+p.sector+'</div>'
       +'<div class="pname">'+p.name+'</div><div class="pcode">'+p.code+'</div>'
+      +'<div style="display:flex;align-items:center;gap:6px;margin:4px 0">'
       +'<div class="pperf '+cls(p.change||0)+'">'+sign(p.change||0)+(p.change||0).toFixed(2)+'%</div>'
-      // 板块定位标签
       + (function(c) {
           if (c > 5) return '<span style="font-size:9px;color:#dc2626;font-weight:600;padding:1px 5px;border-radius:3px;background:#dc262611">🔥 领涨</span>';
           if (c > 2) return '<span style="font-size:9px;color:#b8860b;font-weight:600;padding:1px 5px;border-radius:3px;background:#b8860b11">📈 活跃</span>';
           if (c > 0) return '<span style="font-size:9px;color:#0891b2;font-weight:600;padding:1px 5px;border-radius:3px;background:#0891b211">📊 跟涨</span>';
           if (c > -2) return '<span style="font-size:9px;color:#6b7280;font-weight:600;padding:1px 5px;border-radius:3px;background:#6b728011">📉 偏弱</span>';
           return '<span style="font-size:9px;color:#16a34a;font-weight:600;padding:1px 5px;border-radius:3px;background:#16a34a11">🔻 弱势</span>';
-        })(p.change)+'</div>'
-      +'<div style="font-size:11px;color:var(--text-dim)">💰 '+fmt(p.price)+'</div>'
-      +'<div style="font-size:10px;color:'+volColor+';font-weight:600;margin:2px 0">'+volTag+'</div>'
-      +'<div style="font-size:10px;color:var(--gold);font-weight:600;margin:1px 0">⭐ '+p.score.toFixed(1)+'分</div>'
+        })(p.change)
+      +'</div>'
       +'<div class="buy-in">📌 '+p.buyZone+'</div>'
       +'<div class="reason">'+p.reason+'</div></div>';
   }
@@ -971,28 +964,26 @@ function renderClosingPicks() {
   let h = '<div class="picks-grid">';
   for (const p of picks) {
     const perf = p.change_pct || 0;
-    const riskColor = ((p.risk||'🟢')[0] === '🔴') ? 'var(--green)' : ((p.risk||'🟢')[0] === '🟡') ? 'var(--gold)' : 'var(--text-dim)';
-    // 板块定位标签：根据涨幅判断角色
     let roleTag = '', roleColor = '';
     if (perf > 7) { roleTag = '🔥 龙头'; roleColor = '#dc2626'; }
     else if (perf > 3) { roleTag = '📈 活跃'; roleColor = '#b8860b'; }
     else if (perf > 0) { roleTag = '📊 跟涨'; roleColor = '#0891b2'; }
     else if (perf > -2) { roleTag = '📉 偏弱'; roleColor = '#6b7280'; }
     else { roleTag = '🔻 弱势'; roleColor = '#16a34a'; }
-    h += '<div class="pick-item"><div class="rank">'+(labels[p.rank-1]||'#'+p.rank)+' · '+(p.sector||'')+'</div>'
-      +'<div class="pname">'+p.name+'</div><div class="pcode">'+p.code+'</div>'
-      +'<div style="display:flex;align-items:center;gap:4px;margin:2px 0">'
-      +'<div class="pperf '+cls(perf)+'">'+sign(perf)+perf.toFixed(2)+'%</div>'
-      +'<span style="font-size:9px;color:'+roleColor+';font-weight:600;padding:1px 5px;border-radius:3px;background:'+roleColor+'11">'+roleTag+'</span></div>'
-      +'<div style="font-size:11px;color:var(--text-dim)">💰 '+fmt(p.price||0)+'</div>'
-      +'<div style="display:flex;justify-content:space-between;align-items:center;margin:2px 0">'
-      +'<span style="font-size:10px;color:var(--gold);font-weight:600">⭐ '+(p.score||0).toFixed(1)+'分</span>'
-      +'<span style="font-size:10px;color:var(--text-muted)">PE '+(p.pe||'--')+'</span></div>'
-      +'<div class="buy-in">📌 '+(p.buyZone||'--')+'</div>'
-      +'<div style="display:flex;gap:6px;margin-top:2px;font-size:10px">'
-      +'<span style="color:var(--green)">🛑 损 '+fmt(p.stop_loss||0)+'</span>'
-      +'<span style="color:var(--red)">🎯 盈 '+fmt(p.take_profit||0)+'</span></div>'
-      +'<div class="reason">'+(p.reason||'')+'</div></div>';
+    h += '<div class="pick-item">'
+      + '<div class="rank">'+(labels[p.rank-1]||'#'+p.rank)+' · '+(p.sector||'')+'</div>'
+      + '<div class="pname">'+p.name+'</div>'
+      + '<div class="pcode">'+p.code+'</div>'
+      + '<div style="display:flex;align-items:center;gap:6px;margin:4px 0">'
+      + '<div class="pperf '+cls(perf)+'">'+sign(perf)+perf.toFixed(2)+'%</div>'
+      + '<span style="font-size:9px;color:'+roleColor+';font-weight:600;padding:1px 5px;border-radius:3px;background:'+roleColor+'11">'+roleTag+'</span>'
+      + '</div>'
+      + '<div class="buy-in">📌 '+(p.buyZone||'--')+'</div>'
+      + '<div style="display:flex;gap:8px;margin-top:3px;justify-content:center;font-size:10px">'
+      + '<span style="color:var(--green)">🛑 '+fmt(p.stop_loss||0)+'</span>'
+      + '<span style="color:var(--red)">🎯 '+fmt(p.take_profit||0)+'</span>'
+      + '</div>'
+      + '<div class="reason">'+(p.reason||'')+'</div></div>';
   }
   h += '</div>'
     +'<div style="font-size:10px;color:var(--text-muted);margin-top:8px;text-align:right">更新: '+(cp.generated_at||'')+' · 评分基于次日上涨概率</div>';
@@ -1190,6 +1181,96 @@ function renderBoard() {
     +'实时评分 · 基于追踪股涨跌+大盘状态</div>'
     +'</div>';
   document.getElementById('boardContent').innerHTML = h;
+}
+
+function renderIntraDay() {
+  const d = INTRA_DAY_SIGNALS || {timestamp:"",signals:[],count:0};
+  const el = document.getElementById('intraDayContent');
+  const timeEl = document.getElementById('intraDayTime');
+  if (!el) return;
+  if (timeEl) timeEl.textContent = d.timestamp ? '🕐 '+d.timestamp : '';
+
+  // 无数据或扫描结果为0
+  if (!d.signals || d.signals.length === 0 || d.count === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:24px 16px;color:var(--text-dim)">'
+      +'<div style="font-size:28px;margin-bottom:8px">🔍</div>'
+      +'<div style="font-size:13px;font-weight:500">当前无符合条件的盘中异动</div>'
+      +'<div style="font-size:11px;color:var(--text-muted);margin-top:4px">涨幅3~8% + 换手率≥1.5% + 板块共振</div>'
+      +'<div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">每20分钟自动扫描</div>'
+      +'</div>';
+    return;
+  }
+
+  const mode = d.defense_mode;
+  const mood = d.mood_estimate || 5;
+  let h = '';
+
+  // 环境信息条
+  const moodLabel = mood >= 7 ? '🔥 亢奋' : mood >= 5 ? '📊 中性' : mood >= 3.5 ? '🌧️ 低迷' : '❄️ 冰点';
+  h += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;padding:6px 10px;background:var(--bg-alt);border-radius:6px;border:1px solid var(--border);font-size:11px">'
+    + '<span style="font-weight:600">🧠 '+moodLabel+'</span>'
+    + '<span style="color:var(--text-muted)">|</span>'
+    + '<span style="font-weight:600;color:'+(mode?'var(--red)':'var(--text-dim)')+'">'+(mode?'🛡️ 防御':'📈 正常')+'</span>'
+    + '<span style="color:var(--text-muted)">|</span>'
+    + '<span style="color:var(--text-dim)">'+d.count+'只候选</span>'
+    + '<span style="flex:1"></span>'
+    + (d.timestamp ? '<span style="font-size:10px;color:var(--text-muted)">'+d.timestamp.slice(5).replace(' ',' ')+'</span>' : '')
+    + '</div>';
+
+  // 高价值信号使用.picks-grid网格风格（和盘前精选统一）
+  const hqSig = (d.high_value || []).concat(d.top_signals.filter(s => s.score >= 60) || []);
+  const uniqHq = [];
+  const seen = new Set();
+  for (const s of hqSig) {
+    if (!seen.has(s.code)) { seen.add(s.code); uniqHq.push(s); }
+  }
+
+  if (uniqHq.length > 0) {
+    h += '<div class="picks-grid">';
+    for (const s of uniqHq.slice(0, 4)) {
+      const buyLow = s.buy_low || (s.price ? (s.price * 0.975).toFixed(2) : '--');
+      const buyHigh = s.buy_high || (s.price ? (s.price * 1.01).toFixed(2) : '--');
+      const isUp = s.change > 0;
+      const c = isUp ? 'red' : 'green';
+      h += '<div class="pick-item" style="border-color:rgba(220,38,38,0.15)">'
+        + '<div class="rank">'+(s.industry||'盘中异动')+' · 评分'+s.score+'</div>'
+        + '<div class="pname">'+s.name+'</div>'
+        + '<div class="pcode">'+s.code+'</div>'
+        + '<div class="pperf '+c+'">'+(isUp?'+':'')+s.change.toFixed(2)+'%</div>'
+        + (s.industry_chg > 0 ? '<div style="font-size:10px;color:var(--red);margin:2px 0">板块 +'+s.industry_chg.toFixed(1)+'%</div>' : '')
+        + '<div style="font-size:10px;color:var(--text-dim);margin:2px 0">量比 '+s.ratio.toFixed(1)+'x</div>'
+        + '<div class="buy-in">📌 '+buyLow+'~'+buyHigh+'</div>'
+        + '<div class="reason">'+s.signals+'</div>'
+        + '</div>';
+    }
+    h += '</div>';
+  }
+
+  // 全量列表 — 简洁表格
+  const allSig = d.top_signals || [];
+  if (allSig.length > 0) {
+    const showAll = allSig.slice(0, 10);
+    h += '<div style="margin-top:10px;font-size:11px;font-weight:600;color:var(--text-dim)">📋 全部异动 <span style="font-weight:400;color:var(--text-muted);font-size:10px">按评分排序 · 共'+allSig.length+'只</span></div>';
+    h += '<div style="margin-top:6px;display:flex;flex-direction:column;gap:3px">';
+    for (const s of showAll) {
+      const isUp = s.change > 0;
+      const bg = uniqHq.some(h => h.code === s.code) ? 'style="background:var(--red-bg);border-radius:4px"' : '';
+      h += '<div '+bg+' style="display:flex;align-items:center;gap:4px;padding:4px 6px;font-size:11px">'
+        + '<span style="width:60px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+s.name+'</span>'
+        + '<span style="width:54px;font-weight:600;color:'+(isUp?'var(--red)':'var(--green)')+'">'+(isUp?'+':'')+s.change.toFixed(2)+'%</span>'
+        + '<span style="width:36px;color:var(--text-dim)">'+s.ratio.toFixed(1)+'x</span>'
+        + '<span style="width:50px;color:var(--text-dim);font-size:10px">'+(s.industry||'-')+'</span>'
+        + '<span style="flex:1;font-size:10px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+s.signals+'</span>'
+        + '<span style="width:44px;text-align:right;font-weight:700;color:'+(s.score>=60?'var(--red)':s.score>=50?'var(--gold)':'var(--text-dim)')+'">'+s.score+'分</span>'
+        + '</div>';
+    }
+    h += '</div>';
+    h += '<div style="display:flex;justify-content:space-between;margin-top:5px;font-size:9px;color:var(--text-muted);padding-top:4px;border-top:1px solid var(--border)">'
+      + '<span>每20分钟自动扫描 · 盘中实时更新</span>'
+      + '<span>评分≥60为高价值</span>'
+      + '</div>';
+  }
+  el.innerHTML = h;
 }
 
 function renderBacktest() {
