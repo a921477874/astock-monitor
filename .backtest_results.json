@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-31 18:43",
+  "generated_at": "2026-07-31 18:44",
   "total_days": 1,
   "total_picks": 2,
   "win_rate": 0.0,
-  "avg_pnl_per_pick": -7.15,
-  "total_return": -14.3,
-  "max_drawdown": 14.3,
+  "avg_pnl_per_pick": -8.79,
+  "total_return": -17.58,
+  "max_drawdown": 17.58,
   "sharpe_ratio": 0,
   "daily_records": [
     {
@@ -24,19 +24,19 @@
           "risk": "🟡 中等"
         },
         {
-          "name": "古井贡酒",
-          "code": "000596",
-          "rec_price": 88.53,
-          "d1": -1.14,
-          "d3": 10.19,
-          "d5": 5.99,
-          "max_gain": 10.19,
-          "max_loss": -1.14,
+          "name": "盐津铺子",
+          "code": "002847",
+          "rec_price": 47.8,
+          "d1": -4.41,
+          "d3": 0.79,
+          "d5": 1.97,
+          "max_gain": 1.97,
+          "max_loss": -4.41,
           "verdict": "❌ 跌",
-          "risk": "🟡 中等"
+          "risk": "🟢 低风险"
         }
       ],
-      "day_pnl": -14.3,
+      "day_pnl": -17.58,
       "up": 0,
       "down": 2
     }
