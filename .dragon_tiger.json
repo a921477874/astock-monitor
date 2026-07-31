@@ -1,68 +1,68 @@
 {
-  "updated_at": "2026-07-22 15:40",
-  "stock_count": 104,
-  "limit_up_count": 44,
-  "limit_down_count": 37,
+  "updated_at": "2026-07-31 18:43",
+  "stock_count": 78,
+  "limit_up_count": 45,
+  "limit_down_count": 0,
   "top_net_buy": [
     {
-      "name": "正帆转债",
-      "code": "118053",
+      "name": "昆仑万维",
+      "code": "300418",
       "change": "20.00%",
-      "net_buy": "7.96亿"
+      "net_buy": "9.44亿"
     },
     {
-      "name": "华虹宏力",
-      "code": "688347",
-      "change": "20.00%",
-      "net_buy": "2.79亿"
+      "name": "蓝色光标",
+      "code": "300058",
+      "change": "19.98%",
+      "net_buy": "8.04亿"
     },
     {
-      "name": "哈药股份",
-      "code": "600664",
-      "change": "9.98%",
+      "name": "中国宝安",
+      "code": "000009",
+      "change": "10.07%",
+      "net_buy": "3.63亿"
+    },
+    {
+      "name": "麦格米特",
+      "code": "002851",
+      "change": "10.00%",
+      "net_buy": "3.57亿"
+    },
+    {
+      "name": "中文在线",
+      "code": "300364",
+      "change": "20.01%",
+      "net_buy": "2.86亿"
+    },
+    {
+      "name": "易点天下",
+      "code": "301171",
+      "change": "19.99%",
+      "net_buy": "2.72亿"
+    },
+    {
+      "name": "用友网络",
+      "code": "600588",
+      "change": "10.03%",
       "net_buy": "1.85亿"
     },
     {
-      "name": "格科微",
-      "code": "688728",
-      "change": "20.03%",
-      "net_buy": "1.73亿"
+      "name": "协鑫能科",
+      "code": "002015",
+      "change": "9.99%",
+      "net_buy": "1.84亿"
     },
     {
-      "name": "托伦斯",
-      "code": "301583",
-      "change": "20.00%",
-      "net_buy": "1.41亿"
+      "name": "招金黄金",
+      "code": "000506",
+      "change": "10.00%",
+      "net_buy": "1.54亿"
     },
     {
-      "name": "惠科股份",
-      "code": "001399",
-      "change": "9.98%",
-      "net_buy": "1.39亿"
-    },
-    {
-      "name": "圣泉转债",
-      "code": "111025",
-      "change": "42.47%",
-      "net_buy": "1.31亿"
-    },
-    {
-      "name": "光迅科技",
-      "code": "002281",
-      "change": "9.67%",
-      "net_buy": "1.24亿"
-    },
-    {
-      "name": "共进股份",
-      "code": "603118",
-      "change": "10.02%",
-      "net_buy": "1.06亿"
-    },
-    {
-      "name": "晋拓股份",
-      "code": "603211",
-      "change": "-7.79%",
-      "net_buy": "9417.35万"
+      "name": "利欧股份",
+      "code": "002131",
+      "change": "9.91%",
+      "net_buy": "1.16亿"
     }
   ]
 }

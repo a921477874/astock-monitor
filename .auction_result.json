@@ -1,142 +1,133 @@
 {
-  "date": "2026-07-15",
-  "generated_at": "2026-07-15 21:18",
-  "watchlist_count": 17,
+  "date": "2026-07-31",
+  "generated_at": "2026-07-31 18:41",
+  "watchlist_count": 10,
   "results": [
     {
       "rank": 1,
-      "name": "南华生物",
-      "code": "000504",
-      "sector": "动态",
-      "open_price": 8.51,
-      "open_pct": 9.95,
+      "name": "古井贡酒",
+      "code": "000596",
+      "sector": "白酒",
+      "open_price": 94.95,
+      "open_pct": 2.55,
       "score": 10,
-      "verdict": "放量高开，竞价积极 巨量竞价 🔥[生物制品] +9.9%",
-      "buy_zone": "8.38~8.55"
+      "verdict": "放量高开，竞价积极 巨量竞价",
+      "buy_zone": "93.53~95.42"
     },
     {
       "rank": 2,
-      "name": "好想你",
-      "code": "002582",
-      "sector": "动态",
-      "open_price": 9.76,
-      "open_pct": 6.32,
-      "score": 10,
-      "verdict": "放量高开，竞价积极 巨量竞价",
-      "buy_zone": "9.61~9.81"
+      "name": "紫金矿业",
+      "code": "601899",
+      "sector": "有色",
+      "open_price": 32.95,
+      "open_pct": 0.76,
+      "score": 8,
+      "verdict": "小幅高开，竞价正常 巨量竞价",
+      "buy_zone": "32.46~33.11"
     },
     {
       "rank": 3,
-      "name": "巨人网络",
-      "code": "002558",
-      "sector": "动态",
-      "open_price": 29.56,
-      "open_pct": 10.01,
-      "score": 10,
-      "verdict": "放量高开，竞价积极 巨量竞价 🔥[游戏] +10.0%",
-      "buy_zone": "29.12~29.71"
+      "name": "万科A",
+      "code": "000002",
+      "sector": "地产",
+      "open_price": 3.34,
+      "open_pct": 0.3,
+      "score": 7,
+      "verdict": "微高开 巨量竞价",
+      "buy_zone": "3.29~3.36"
     },
     {
       "rank": 4,
-      "name": "恺英网络",
-      "code": "002517",
-      "sector": "动态",
-      "open_price": 17.18,
-      "open_pct": 9.99,
-      "score": 10,
-      "verdict": "放量高开，竞价积极 巨量竞价 🔥[游戏] +10.0%",
-      "buy_zone": "16.92~17.27"
+      "name": "中信证券",
+      "code": "600030",
+      "sector": "券商",
+      "open_price": 28.43,
+      "open_pct": -0.21,
+      "score": 6,
+      "verdict": "平开 巨量竞价",
+      "buy_zone": "28.0~28.57"
     },
     {
       "rank": 5,
-      "name": "盐津铺子",
-      "code": "002847",
-      "sector": "动态",
-      "open_price": 47.8,
-      "open_pct": 8.41,
-      "score": 10,
-      "verdict": "放量高开，竞价积极 巨量竞价",
-      "buy_zone": "47.08~48.04"
+      "name": "贵州茅台",
+      "code": "600519",
+      "sector": "消费",
+      "open_price": 1350.6,
+      "open_pct": -0.82,
+      "score": 5,
+      "verdict": "小幅低开 巨量竞价",
+      "buy_zone": "1330.34~1357.35"
     },
     {
       "rank": 6,
-      "name": "银龙股份",
-      "code": "603969",
-      "sector": "动态",
-      "open_price": 7.8,
-      "open_pct": 10.01,
-      "score": 10,
-      "verdict": "放量高开，竞价积极 巨量竞价 🔥[建筑材料] +10.0%",
-      "buy_zone": "7.68~7.84"
+      "name": "恒瑞医药",
+      "code": "600276",
+      "sector": "创新药",
+      "open_price": 54.08,
+      "open_pct": -1.04,
+      "score": 5,
+      "verdict": "小幅低开 巨量竞价",
+      "buy_zone": "53.27~54.35"
     },
     {
       "rank": 7,
-      "name": "古井贡酒",
-      "code": "000596",
-      "sector": "动态",
-      "open_price": 88.53,
-      "open_pct": 10.0,
-      "score": 10,
-      "verdict": "放量高开，竞价积极 巨量竞价 🔥[白酒] +10.0%",
-      "buy_zone": "87.2~88.97"
+      "name": "长江电力",
+      "code": "600900",
+      "sector": "水电",
+      "open_price": 29.09,
+      "open_pct": -1.36,
+      "score": 5,
+      "verdict": "小幅低开 巨量竞价",
+      "buy_zone": "28.65~29.24"
     },
     {
       "rank": 8,
-      "name": "百隆东方",
-      "code": "601339",
-      "sector": "动态",
-      "open_price": 8.29,
-      "open_pct": 6.42,
-      "score": 10,
-      "verdict": "放量高开，竞价积极 巨量竞价",
-      "buy_zone": "8.17~8.33"
+      "name": "中国平安",
+      "code": "601318",
+      "sector": "保险",
+      "open_price": 54.9,
+      "open_pct": -1.61,
+      "score": 4,
+      "verdict": "明显低开 巨量竞价",
+      "buy_zone": "54.08~55.17"
     }
   ],
   "top_picks": [
     {
       "rank": 1,
-      "name": "南华生物",
-      "code": "000504",
-      "open_price": 8.51,
-      "open_pct": 9.95,
-      "buy_zone": "8.38~8.55",
-      "verdict": "放量高开，竞价积极 巨量竞价 🔥[生物制品] +9.9%"
+      "name": "古井贡酒",
+      "code": "000596",
+      "open_price": 94.95,
+      "open_pct": 2.55,
+      "buy_zone": "93.53~95.42",
+      "verdict": "放量高开，竞价积极 巨量竞价"
     },
     {
       "rank": 2,
-      "name": "好想你",
-      "code": "002582",
-      "open_price": 9.76,
-      "open_pct": 6.32,
-      "buy_zone": "9.61~9.81",
-      "verdict": "放量高开，竞价积极 巨量竞价"
+      "name": "紫金矿业",
+      "code": "601899",
+      "open_price": 32.95,
+      "open_pct": 0.76,
+      "buy_zone": "32.46~33.11",
+      "verdict": "小幅高开，竞价正常 巨量竞价"
     },
     {
       "rank": 3,
-      "name": "巨人网络",
-      "code": "002558",
-      "open_price": 29.56,
-      "open_pct": 10.01,
-      "buy_zone": "29.12~29.71",
-      "verdict": "放量高开，竞价积极 巨量竞价 🔥[游戏] +10.0%"
+      "name": "万科A",
+      "code": "000002",
+      "open_price": 3.34,
+      "open_pct": 0.3,
+      "buy_zone": "3.29~3.36",
+      "verdict": "微高开 巨量竞价"
     },
     {
       "rank": 4,
-      "name": "恺英网络",
-      "code": "002517",
-      "open_price": 17.18,
-      "open_pct": 9.99,
-      "buy_zone": "16.92~17.27",
-      "verdict": "放量高开，竞价积极 巨量竞价 🔥[游戏] +10.0%"
-    },
-    {
-      "rank": 5,
-      "name": "盐津铺子",
-      "code": "002847",
-      "open_price": 47.8,
-      "open_pct": 8.41,
-      "buy_zone": "47.08~48.04",
-      "verdict": "放量高开，竞价积极 巨量竞价"
+      "name": "中信证券",
+      "code": "600030",
+      "open_price": 28.43,
+      "open_pct": -0.21,
+      "buy_zone": "28.0~28.57",
+      "verdict": "平开 巨量竞价"
     }
   ]
 }
